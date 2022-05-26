@@ -1,22 +1,20 @@
 import logging
 
 from clouds.aws import get_aws_console_link
+from clouds.azure import get_azure_console_link
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def main(cloud: str, id: str) -> str:
-    clouds = {
-        "aws": get_aws_console_link,
+def run_for_aws(arn: str) -> str:
+    return get_aws_console_link(arn).replace(" ", "")
+
+
+def run_for_azure(id: str, active_directory_name: str = None, iam_entity_type: str = None):
+    entity_data = {
+        "id": id,
+        "active_directory_name": active_directory_name,
+        "iam_entity_type": iam_entity_type,
     }
-    if cloud in clouds:
-        return clouds[cloud](id)
-    else:
-        raise ValueError(f"Cloud '{cloud}' does not exist. Did you misspell it?")
-
-
-if __name__ == '__main__':
-    arn: str = "arn:aws:ec2:us-east-2:58134515:instance/i-78ddb476422"
-    response = main('aws', arn)
-    logger.info("%s", response)
+    return get_azure_console_link(**entity_data).replace(" ", "")
