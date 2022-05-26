@@ -1,49 +1,46 @@
-from typing import Dict
 import logging
+from typing import Dict
 
 from .links import get_links
 
 logger = logging.getLogger(__name__)
 
 
-def get_console(data: Dict):
-    if data.get('partition', None) == "aws":
-        data['console'] = 'console.aws.amazon.com'
-        return data
-
-    elif data.get('partition', None) == "aws-us-gov":
-        data['console'] = 'console.amazonaws-us-gov.com'
-        return data
-
-    elif data.get('partition', None) == "aws-cn":
-        data['console'] = 'console.amazonaws.cn'
-        return data
-
-    else:
-        return False
+def get_console(partition: str) -> str:
+    consoles = {
+        "aws": 'console.aws.amazon.com',
+        "aws-us-gov": 'console.amazonaws-us-gov.com',
+        "aws-cn": 'console.amazonaws.cn',
+    }
+    return consoles.get(partition, None)
 
 
-def get_string(data: Dict):
+def get_arn_string(data: Dict) -> str:
     if not data.get('resourceType', None):
-        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:{data.get('region', '')}:{data.get('account', '')}:{data.get('resource', '')}"
+        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:\
+            {data.get('region', '')}:{data.get('account', '')}:{data.get('resource', '')}"
 
     elif data.get('hasPath', None):
-        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:{data.get('region', '')}:{data.get('account', '')}:{data.get('resource_type', '')}/{data.get('resource', '')}"
+        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:\
+            {data.get('region', '')}:{data.get('account', '')}:{data.get('resource_type', '')}\
+                /{data.get('resource', '')}"
 
     else:
-        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:{data.get('region', '')}:{data.get('account', '')}:{data.get('resource_type', '')}:{data.get('resource', '')}"
+        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:\
+            {data.get('region', '')}:{data.get('account', '')}:{data.get('resource_type', '')}:\
+                {data.get('resource', '')}"
 
 
-def get_qualifiers(resource: str):
+def get_qualifiers(resource: str) -> str:
     return resource.split(":")
 
 
-def get_pathLast(resource: str):
+def get_resource_path(resource: str) -> str:
     return resource.split("/")[-1]
 
 
-def process_arn(arn: str):
-    logger.info(f"Start Process for AWS ARN `{arn}`")
+def get_aws_console_link(arn: str) -> str:
+    logger.info(f"Start Process for AWS ARN: {arn}")
     arn = arn.strip()
     firstTokens = arn.split(":")
     tokens = firstTokens[:7]
@@ -58,8 +55,8 @@ def process_arn(arn: str):
         }
 
     except IndexError:
-        logger.warning(f"AWS ARN `{arn}` is to short")
-        return {}
+        logger.error(f"AWS ARN {arn} is to short")
+        raise ValueError(f"AWS ARN {arn} is to short")
 
     if len(tokens) > 6:
         data["resourceType"] = tokens[5]
@@ -77,27 +74,28 @@ def process_arn(arn: str):
         data["hasPath"] = False
 
     else:
-        logger.warning(f"Invalid AWS ARN `{arn}`")
-        return
+        logger.error(f"Invalid AWS ARN {arn}")
+        raise ValueError(f"Invalid AWS ARN {arn}")
 
-    data = get_console(data)
-    if not data:
-        logger.warning(f"AWS ARN `{arn}` has invalid partition (Valid Partitions: aws, aws-us-gov, aws-cn)")
-        return
+    console = get_console(data.get('partition', ''))
+    if not console:
+        logger.error(f"AWS ARN {arn} has invalid partition (Valid Partitions: aws, aws-us-gov, aws-cn)")
+        raise ValueError(f"AWS ARN {arn} has invalid partition (Valid Partitions: aws, aws-us-gov, aws-cn)")
+    data['console'] = console
 
     links = get_links()
 
     if data['prefix'] != "arn":
-        logger.warning(f"Invalid AWS ARN `{arn}`")
-        return
+        logger.error(f"Invalid AWS ARN {arn}")
+        raise ValueError(f"Invalid AWS ARN {arn}")
 
     elif not links.get(data["service"], None):
-        logger.warning(f"AWS service `{data['service']}` unknown")
-        return
+        logger.error(f"AWS service {data['service']} unknown")
+        raise ValueError(f"AWS service {data['service']} unknown")
 
     elif not links.get(data["service"], {}).get(data["resourceType"], None):
-        logger.warning(f"AWS service `{data['service']}` resource type `{data['resourceType']}` not supported")
-        return
+        logger.error(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
+        raise ValueError(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
 
     else:
         return eval(f"f'{links[data['service']][data['resourceType']]}'")

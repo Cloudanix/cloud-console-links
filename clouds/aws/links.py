@@ -1,4 +1,7 @@
-def get_links():
+from typing import Dict
+
+
+def get_links() -> Dict:
     links = {
         "a4b": {  # Alexa for Business
             "address-book": None,
@@ -13,10 +16,12 @@ def get_links():
             "user": None,
         },
         "access-analyzer": {  # IAM Access Analyzer
-            "analyzer": 'https://{data.get("region", "")}.{data.get("console", "")}/access-analyzer/home?region={data.get("region", "")}#/analyzer/{data.get("resource", "")}',
+            "analyzer": 'https://{data.get("region", "")}.{data.get("console", "")}/access-analyzer/home?region=\
+                {data.get("region", "")}#/analyzer/{data.get("resource", "")}',
         },
         "acm": {  # AWS Certificate Manager
-            "certificate": 'https://{data.get("console", "")}/acm/home?region={data.get("region", "")}#/?id={data.get("resource", "")}',
+            "certificate": 'https://{data.get("console", "")}/acm/home?region={data.get("region", "")}#/?id=\
+            {data.get("resource", "")}',
         },
         "acm-pca": {  # AWS Certificate Manager Private Certificate Authority
             "certificate-authority": None,
@@ -262,7 +267,8 @@ def get_links():
         },
         "dynamodb": {  # Amazon DynamoDB
             "global-table": None,
-            "table": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region={data.get("region", "")}#table?name={data.get("resource", "")}',
+            "table": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region=\
+                {data.get("region", "")}#table?name={data.get("resource", "")}',
         },
         "ec2": {  # AWS Systems Manager
             "capacity-reservation": None,
@@ -273,7 +279,8 @@ def get_links():
             "elastic-gpu": None,
             "fpga-image": None,
             "image": None,
-            "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get("region", "")}#InstanceDetails:instanceId={data.get("resource", "")}',
+            "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get\
+                ("region", "")}#InstanceDetails:instanceId={data.get("resource", "")}',
             "internet-gateway": None,
             "key-pair": None,
             "launch-template": None,
@@ -288,10 +295,12 @@ def get_links():
             "placement-group": None,
             "reserved-instances": None,
             "route-table": None,
-            "security-group": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#SecurityGroup:groupId={data.get("resource", "")}',
+            "security-group": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
+                {data.get("region", "")}#SecurityGroup:groupId={data.get("resource", "")}',
             "snapshot": None,
             "spot-instances-request": None,
-            "subnet": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#SubnetDetails:subnetId={data.get("resource", "")}',
+            "subnet": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
+                {data.get("region", "")}#SubnetDetails:subnetId={data.get("resource", "")}',
             "traffic-mirror-filter": None,
             "traffic-mirror-filter-rule": None,
             "traffic-mirror-session": None,
@@ -442,12 +451,13 @@ def get_links():
             "access-report": None,
             "assumed-role": None,
             "federated-user": None,
-            "group": 'https://{data.get("console", "")}/iamv2/home#/groups/details/{get_pathLast(data.get("resource", "))}',
+            "group": 'https://{data.get("console", "")}/iamv2/home#/groups/details/{get_resource_path\
+            (data.get("resource", "))}',
             "instance-profile": None,
             "mfa": None,
-            "oidc-provider": 'https://{data.get("console", "")}/iam/home?#/providers/{get_string(data)}',
-            "policy": 'https://{data.get("console", "")}/iam/home?#/policies/{get_string(data)}',
-            "role": 'https://{data.get("console", "")}/iam/home?#/roles/{get_pathLast(data.get("resource", "))}',
+            "oidc-provider": 'https://{data.get("console", "")}/iam/home?#/providers/{get_arn_string(data)}',
+            "policy": 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}',
+            "role": 'https://{data.get("console", "")}/iam/home?#/roles/{get_resource_path(data.get("resource", "))}',
             "saml-provider": None,
             "server-certificate": None,
             "sms-mfa": None,
@@ -536,7 +546,8 @@ def get_links():
         },
         "lambda": {  # AWS Lambda
             "event-source-mapping": None,
-            "function": 'https://{data.get("region", "")}.{data.get("console", "")}/lambda/home?region={data.get("region", "")}#/functions/{data.get("resource", "")}',
+            "function": 'https://{data.get("region", "")}.{data.get("console", "")}/lambda/home?region=\
+                {data.get("region", "")}#/functions/{data.get("resource", "")}',
         },
         "lex": {  # Amazon Lex
             "bot": None,
@@ -752,10 +763,13 @@ def get_links():
             "change": None,
             "delegationset": None,
             "healthcheck": 'https://{data.get("console", "")}/route53/healthchecks/home',
-            "hostedzone": 'https://{data.get("console", "")}/route53/home?#resource-record-sets:{data.get("resource", "")}',
+            "hostedzone": 'https://{data.get("console", "")}/route53/home?#resource-record-sets:\
+            {data.get("resource", "")}',
             "queryloggingconfig": None,
-            "trafficpolicy": 'https://{data.get("console", "")}/route53/trafficflow/home#/policy/{data.get("resource", "")}',
-            "trafficpolicyinstance": 'https://{data.get("console", "")}/route53/trafficflow/home#/modify-records/edit/{data.get("resource", "")}',
+            "trafficpolicy": 'https://{data.get("console", "")}/route53/trafficflow/home#/policy/\
+            {data.get("resource", "")}',
+            "trafficpolicyinstance": 'https://{data.get("console", "")}/route53/trafficflow/home#/\
+            modify-records/edit/{data.get("resource", "")}',
         },
         "route53resolver": {  # Amazon Route 53 Resolver
             "resolver-endpoint": None,
@@ -842,7 +856,9 @@ def get_links():
         "sns": {  # Amazon SNS
         },
         "sqs": {  # Amazon SQS
-            "": 'https://{data.get("region", "")}.{data.get("console", "")}/sqs/v2/home?region={data.get("region", "")}#/queues/https%3A%2F%2Fsqs.{data.get("region", "")}.amazonaws.com%2F{data.get("account", "")}%2F{data.get("resource", "")}'
+            "": 'https://{data.get("region", "")}.{data.get("console", "")}/sqs/v2/home?region=\
+                {data.get("region", "")}#/queues/https%3A%2F%2Fsqs.{data.get("region", "")}.\
+                amazonaws.com%2F{data.get("account", "")}%2F{data.get("resource", "")}',
         },
         "ssm": {  # AWS Systems Manager
             "association": None,
@@ -864,7 +880,8 @@ def get_links():
         "states": {  # AWS Step Functions
             "activity": None,
             "execution": None,
-            "stateMachine": 'https://{data.get("region", "")}.{data.get("console", "")}/states/home?region={data.get("region", "")}#/statemachines/view/{get_string(data)}',
+            "stateMachine": 'https://{data.get("region", "")}.{data.get("console", "")}/states/home?region=\
+                {data.get("region", "")}#/statemachines/view/{get_arn_string(data)}',
         },
         "storagegateway": {  # Amazon Storage Gateway
             "gateway": None,
