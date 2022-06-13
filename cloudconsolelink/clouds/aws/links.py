@@ -310,7 +310,8 @@ def get_links() -> Dict:
             "transit-gateway-multicast-domain": None,
             "transit-gateway-route-table": None,
             "volume": None,
-            "vpc": None,
+            "vpc": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
+                {data.get("region", "")}#VpcDetails:VpcId={data.get("resource", "")}',
             "vpc-endpoint": None,
             "vpc-endpoint-service": None,
             "vpc-flow-log": None,
@@ -457,7 +458,7 @@ def get_links() -> Dict:
             "mfa": None,
             "oidc-provider": 'https://{data.get("console", "")}/iam/home?#/providers/{get_arn_string(data)}',
             "policy": 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}',
-            "role": 'https://{data.get("console", "")}/iam/home?#/roles/{get_resource_path(data.get("resource", "))}',
+            "role": 'https://{data.get("console", "")}/iam/home?#/roles/{get_resource_path(data.get("resource", ""))}',
             "saml-provider": None,
             "server-certificate": None,
             "sms-mfa": None,

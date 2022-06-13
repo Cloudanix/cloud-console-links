@@ -18,7 +18,7 @@ class Azure:
         }
 
         if iam_entity_type and id and iam_entities.get(iam_entity_type, None):
-            return eval(f"f'{iam_entities[iam_entity_type]}'")
+            return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
 
         elif active_directory_name and id:
             return f"https://portal.azure.com/#@{active_directory_name}.onmicrosoft.com/resource{id}/overview"
