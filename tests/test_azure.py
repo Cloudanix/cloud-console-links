@@ -1,6 +1,6 @@
-from cloudconsolelink.clouds.azure import Azure
+from cloudconsolelink.clouds.azure import AzureLinker
 
-azure = Azure()
+azure = AzureLinker()
 
 
 def test_azure_iam():

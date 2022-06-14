@@ -1,6 +1,6 @@
-from cloudconsolelink.clouds.gcp import GCP
+from cloudconsolelink.clouds.gcp import GCPLinker
 
-gcp = GCP()
+gcp = GCPLinker()
 
 
 def test_storage_bucket():

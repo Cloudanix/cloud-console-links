@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Azure:
+class AzureLinker:
     def get_console_link(self, id: str, active_directory_name: str = None, iam_entity_type: str = None) -> str:
         if not active_directory_name and not iam_entity_type:
             logger.error("For IAM entity required `iam_entity_type` and for other entity required\
