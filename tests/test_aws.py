@@ -1,6 +1,6 @@
-from cloudconsolelink.clouds.aws import AWS
+from cloudconsolelink.clouds.aws import AWSLinker
 
-aws = AWS()
+aws = AWSLinker()
 
 
 def test_aws_instance():

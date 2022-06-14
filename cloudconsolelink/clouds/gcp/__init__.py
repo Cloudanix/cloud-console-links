@@ -72,7 +72,7 @@ def build_kwargs(
     }
 
 
-class GCP:
+class GCPLinker:
     def get_console_link(
         self,
         resource_name=None,

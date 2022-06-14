@@ -127,3 +127,17 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+*~
+*.pyc
+*.pyo
+*.pyt
+*.pytc
+.*.swp
+.DS_Store
+/venv*
+.cache/
+.idea/
+*.vscode
+.compose
+generated
