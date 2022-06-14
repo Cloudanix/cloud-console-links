@@ -70,7 +70,7 @@ class AWS:
             data["hasPath"] = True
 
         elif len(tokens) > 5 and tokens[5].count("/") == 0:
-            data["resourceType"] = None
+            data["resourceType"] = ""
             data["resource"] = tokens[5]
             data["hasPath"] = False
 
@@ -99,4 +99,4 @@ class AWS:
             raise ValueError(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
 
         else:
-            return eval(f"f'{links[data['service']][data['resourceType']]}'")
+            return eval(f"f'{links[data['service']][data['resourceType']]}'").replace(" ", "")
