@@ -6,24 +6,23 @@ Run ```pip install cloudconsolelink``` to install our code
 
 # Usage
 
-**Import Package:**
+### Import Package
 
-**For AWS**
+#### For AWS
 ```from cloudconsolelink.clouds.aws import AWSLinker```
 
-**For Azure**
+#### For Azure
 ```from cloudconsolelink.clouds.azure import AzureLinker```
 
-**For GCP**
+#### For GCP
 ```from cloudconsolelink.clouds.gcp import GCPLinker```
 
-**To get console link**<br />
+#### To get console link
 call method ```get_console_link()```
 
-<br />
 
-## The Followings Are The Some Example
-### AWS:
+### The Followings Are The Some Example
+#### AWS:
 ```python
 from cloudconsolelink.clouds.aws import AWSLinker
 
@@ -34,7 +33,7 @@ arn = "arn:aws:ec2:us-east1:1234567890:instance/instance1"
 console_link = aws.get_console_link(arn=arn)
 ```
 
-### Azure Management:
+#### Azure Management:
   ```python
 from cloudconsolelink.clouds.azure import AzureLinker
 
@@ -47,7 +46,7 @@ console_link = azure.get_console_link(id=id, active_directory_name=active_direct
   ```
 
 
-### Azure IAM:
+#### Azure IAM:
 ```python
 from cloudconsolelink.clouds.azure import AzureLinker
 
@@ -59,7 +58,7 @@ iam_entity_type = "user"
 console_link = azure.get_console_link(id=id, iam_entity_type=iam_entity_type)
 ```
 
-### GCP:
+#### GCP:
   ```python
 from cloudconsolelink.clouds.gcp import GCPLinker
 
@@ -71,8 +70,6 @@ resource_name = "storage_bucket"
 
 console_link = gcp.get_console_link(bucket_name=bucket_name, resource_name=resource_name)
   ```
-
-<br />
 
 ## get_console_link() parameters discription:
 
@@ -120,8 +117,6 @@ console_link = gcp.get_console_link(bucket_name=bucket_name, resource_name=resou
   31) firestore_collection_name
   32) cloud_run_service_name
 
-<br />
-<br />
 
 # Who uses cloudconsolelink?
 1. [Cloudanix](https://www.cloudanix.com/)
