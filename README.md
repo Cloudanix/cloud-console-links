@@ -122,4 +122,4 @@ console_link = gcp.get_console_link(bucket_name=bucket_name, resource_name=resou
 1. [Cloudanix](https://www.cloudanix.com/)
 1. {Your company here} :-)
 
-If your organization uses Cartography, please file a PR and update this list.
+If your organization uses Cloudconsolelink, please file a PR and update this list.
