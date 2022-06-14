@@ -18,7 +18,7 @@ setuptools.setup(
     maintainer="Cloudanix",
 
     # Maintainer Email address
-    maintainer_email="jagdaleganesh9545@gmail.com",
+    maintainer_email="ganesh@cloudanix.com",
 
     # Small Description about module
     description="Generate console links for cloud resources",
