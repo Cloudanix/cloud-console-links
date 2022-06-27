@@ -40,9 +40,9 @@ from cloudconsolelink.clouds.azure import AzureLinker
 azure = AzureLinker()
 
 id = "/subscriptions/5592e8dc/resourceGroups/testgroup"
-active_directory_name = "QA123"
+primary_ad_domain_name = "QA123"
 
-console_link = azure.get_console_link(id=id, active_directory_name=active_directory_name)
+console_link = azure.get_console_link(id=id, primary_ad_domain_name=primary_ad_domain_name)
   ```
 
 
@@ -83,7 +83,7 @@ console_link = gcp.get_console_link(bucket_name=bucket_name, resource_name=resou
 
 #### Management:
   1) id: id of entity
-  2) active_directory_name: name of active derectory
+  2) primary_ad_domain_name: name of active derectory
 
 ### GCP:
   1) resource_name: name of resource(storage_bucket, compute_instance, compute_instance_vpc_network, compute_instance_vpc_network_subnet, compute_instance_disk, compute_firewall_rule, compute_forwarding_rule, api, api_config, api_gateway, big_table_instance, big_table_cluster, big_table, big_table_backup, cloud_function, kms_key_ring, kms_key, dns_zone, dns_resource_record_set, gke_cluster, sql_instance, sql_user, service_account, service_account_key, iam_role, iam_group, iam_user, firestore_collection, cloud_run_revision, cloud_run_service)

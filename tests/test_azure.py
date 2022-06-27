@@ -18,10 +18,10 @@ def test_azure_iam():
 def test_azure_management():
 
     id = "/subscriptions/5592e8dc/resourceGroups/testgroup"
-    active_directory_name = "QA123"
+    primary_ad_domain_name = "QA123"
     expected_link = "https://portal.azure.com/#@QA123.onmicrosoft.com/resource/subscriptions/\
     5592e8dc/resourceGroups/testgroup/overview"
 
-    out_link = azure.get_console_link(id=id, active_directory_name=active_directory_name)
+    out_link = azure.get_console_link(id=id, primary_ad_domain_name=primary_ad_domain_name)
 
     assert out_link == expected_link.replace(" ", "")
