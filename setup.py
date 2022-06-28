@@ -4,7 +4,7 @@ with open("README.md") as fh:
     long_description = fh.read()
 
 # version of the module
-__version__ = '1.0.3'
+__version__ = '1.0.4'
 
 
 setuptools.setup(
