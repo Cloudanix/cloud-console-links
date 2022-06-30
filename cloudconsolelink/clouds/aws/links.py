@@ -453,7 +453,7 @@ def get_links() -> Dict:
             "assumed-role": None,
             "federated-user": None,
             "group": 'https://{data.get("console", "")}/iamv2/home#/groups/details/{get_resource_path\
-            (data.get("resource", "))}',
+            (data.get("resource", ""))}',
             "instance-profile": None,
             "mfa": None,
             "oidc-provider": 'https://{data.get("console", "")}/iam/home?#/providers/{get_arn_string(data)}',
