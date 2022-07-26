@@ -282,7 +282,8 @@ def get_links() -> Dict:
             "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get\
                 ("region", "")}#InstanceDetails:instanceId={data.get("resource", "")}',
             "internet-gateway": None,
-            "key-pair": None,
+            "key-pair": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get\
+                ("region", "")}#KeyPairs:',
             "launch-template": None,
             "local-gateway": None,
             "local-gateway-route-table": None,
@@ -320,7 +321,8 @@ def get_links() -> Dict:
             "vpn-gateway": None,
         },
         "ecr": {  # Amazon Elastic Container Registry
-            "repository": None,
+            "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
+                ("resource", "")}?region={data.get("region", "")}',
         },
         "ecs": {  # Amazon Elastic Container Service
             "cluster": None,
@@ -331,7 +333,8 @@ def get_links() -> Dict:
             "task-set": None,
         },
         "eks": {  # Amazon Elastic Container Service for Kubernetes
-            "cluster": None,
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get\
+                ("region", "")}#/clusters/{data.get("resource", "")}',
             "fargateprofile": None,
             "nodegroup": None,
         },
@@ -712,7 +715,8 @@ def get_links() -> Dict:
             "cluster-endpoint": None,
             "cluster-pg": None,
             "cluster-snapshot": None,
-            "db": None,
+            "db": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region=\
+                {data.get("region", "")}#database:id={data.get("resource", "")};is-cluster=false',
             "db-proxy": None,
             "es": None,
             "og": None,
@@ -728,7 +732,8 @@ def get_links() -> Dict:
             "dbuser": None,
         },
         "redshift": {  # Amazon Redshift
-            "cluster": None,
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2/home?region=\
+                {data.get("region", "")}#cluster-details?cluster={data.get("resource", "")}',
             "dbgroup": None,
             "dbname": None,
             "dbuser": None,
