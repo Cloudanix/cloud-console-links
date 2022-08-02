@@ -118,7 +118,8 @@ def get_links() -> Dict:
             "domain": None,
         },
         "cloudtrail": {  # AWS CloudTrail
-            "trail": None,
+            "trail": 'https://{data.get("console", "")}/cloudtrail/home?region={data.get("region", "")}#/trails/\
+            {data.get("resource", "")}',
         },
         "cloudwatch": {  # Amazon CloudWatch
             "alarm": None,
