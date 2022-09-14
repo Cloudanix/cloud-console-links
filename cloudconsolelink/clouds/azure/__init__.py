@@ -26,3 +26,4 @@ class AzureLinker:
         else:
             logger.error('entity id required')
             raise ValueError("Invalid parameters provided")
+

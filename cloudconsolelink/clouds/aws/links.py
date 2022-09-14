@@ -102,7 +102,8 @@ def get_links() -> Dict:
         },
         "cloudformation": {  # AWS CloudFormation
             "changeSet": None,
-            "stack": None,
+            "stack": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudformation/home?region={data.get("region", "")}\
+            #/stacks/stackinfo?stackId={arn}&# filteringStatus=active&filteringText=&viewNested=true&hideStacks=false',
             "stackset": None,
         },
         "cloudfront": {  # Amazon CloudFront
@@ -117,12 +118,14 @@ def get_links() -> Dict:
         "cloudsearch": {  # Amazon CloudSearch
             "domain": None,
         },
-        "cloudtrail": {  # AWS CloudTrail
+        "cloudtrail": {  # AWS CloudTrai
             "trail": 'https://{data.get("console", "")}/cloudtrail/home?region={data.get("region", "")}#/trails/\
             {data.get("resource", "")}',
+
         },
         "cloudwatch": {  # Amazon CloudWatch
-            "alarm": None,
+            "alarm": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#alarmsV2:alarm/{data.get("resource", "")}?',
+
             "dashboard": None,
             "insight-rule": None,
         },
@@ -279,7 +282,7 @@ def get_links() -> Dict:
             "dhcp-options": None,
             "elastic-gpu": None,
             "fpga-image": None,
-            "image": None,
+            "image": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get("region", "")}#ImageDetails:imageId={data.get("resource", "")}',
             "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get\
                 ("region", "")}#InstanceDetails:instanceId={data.get("resource", "")}',
             "internet-gateway": None,
@@ -316,7 +319,7 @@ def get_links() -> Dict:
                 {data.get("region", "")}#VpcDetails:VpcId={data.get("resource", "")}',
             "vpc-endpoint": None,
             "vpc-endpoint-service": None,
-            "vpc-flow-log": None,
+            "vpc-flow-log": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#subnets:',
             "vpc-peering-connection": None,
             "vpn-connection": None,
             "vpn-gateway": None,
@@ -373,7 +376,7 @@ def get_links() -> Dict:
             "domain": None,
         },
         "events": {  # Amazon EventBridge
-            "event-bus": None,
+            "event-bus": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/eventbus/{data.get("resource", "")}',
             "event-source": None,
             "rule": None,
         },
@@ -580,7 +583,7 @@ def get_links() -> Dict:
             "StaticIp": None,
         },
         "logs": {  # Amazon CloudWatch Logs
-            "log-group": None,
+            "log-group": 'https://https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups/log-group/{data.get("resource", "")}',
         },
         "machinelearning": {  # Amazon Machine Learning
             "batchprediction": None,
@@ -724,7 +727,7 @@ def get_links() -> Dict:
             "pg": None,
             "ri": None,
             "secgrp": None,
-            "snapshot": None,
+            "snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#db-snapshot:engine=sqlserver-ee;id={arn}',
             "subgrp": None,
             "target": None,
             "target-group": None,
@@ -848,7 +851,7 @@ def get_links() -> Dict:
             "custom-verification-email-template": None,
             "dedicated-ip-pool": None,
             "deliverability-test-report": None,
-            "identity": None,
+            "identity": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/verified-identities/{data.get("resource", "")}',
             "receipt-filter": None,
             "receipt-rule-set": None,
             "template": None,
@@ -861,6 +864,7 @@ def get_links() -> Dict:
             "": None,
         },
         "sns": {  # Amazon SNS
+            "": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/topic/{arn}'
         },
         "sqs": {  # Amazon SQS
             "": 'https://{data.get("region", "")}.{data.get("console", "")}/sqs/v2/home?region=\
