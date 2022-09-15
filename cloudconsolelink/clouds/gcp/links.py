@@ -221,3 +221,16 @@ class Resource:
                 general?project={project_id}"
         logger.error('project_id and cloud_run_service_name and region required')
         raise ValueError("Invalid parameters provided")
+
+    def cloud_pubsub_topic(self, project_id: str, topic_id: str, **keward):
+        if project_id and topic_id:
+            return f"https://console.cloud.google.com/cloudpubsub/topic/detail/{topic_id}?\
+                project={project_id}"
+        logger.error('project_id and topic_id')
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_logging_metric(self, project_id: str, str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/logs/metrics?project={project_id}"
+        logger.error('project_id ')
+        raise ValueError("Invalid parameters provided")

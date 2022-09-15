@@ -37,6 +37,7 @@ def build_kwargs(
     group_unique_id=None,
     firestore_collection_name=None,
     cloud_run_service_name=None,
+
 ) -> Dict:
     return {
         "resource_name": resource_name,
@@ -69,6 +70,7 @@ def build_kwargs(
         "group_unique_id": group_unique_id,
         "firestore_collection_name": firestore_collection_name,
         "cloud_run_service_name": cloud_run_service_name,
+
     }
 
 
@@ -99,6 +101,8 @@ class GCPLinker:
         dns_rrset_name=None,
         dns_type=None,
         gke_cluster_name=None,
+        disk_name=None,
+        topic_id=None,
         sql_instance_name=None,
         service_account_unique_id=None,
         role_id=None,
@@ -139,6 +143,8 @@ class GCPLinker:
             "firestore_collection": resource.firestore_collection,
             "cloud_run_revision": resource.cloud_run_revision,
             "cloud_run_service": resource.cloud_run_service,
+            "cloud_pubsub_topic": resource.cloud_pubsub_topic,
+            "cloud_logging_metric": resource.cloud_logging_metric
         }
 
         param = build_kwargs(
@@ -149,6 +155,8 @@ class GCPLinker:
             bucket_name=bucket_name,
             instance_name=instance_name,
             network_name=network_name,
+            disk_name=disk_name,
+            topic_id=topic_id,
             subnet_name=subnet_name,
             rule_name=rule_name,
             api_name=api_name,
