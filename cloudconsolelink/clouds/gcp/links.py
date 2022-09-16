@@ -226,11 +226,11 @@ class Resource:
         if project_id and topic_id:
             return f"https://console.cloud.google.com/cloudpubsub/topic/detail/{topic_id}?\
                 project={project_id}"
-        logger.error('project_id and topic_id')
+        logger.error('project_id and topic_id is  required')
         raise ValueError("Invalid parameters provided")
 
-    def cloud_logging_metric(self, project_id: str, str, **keward):
+    def cloud_logging_metric(self, project_id: str, **keward):
         if project_id:
             return f"https://console.cloud.google.com/logs/metrics?project={project_id}"
-        logger.error('project_id ')
+        logger.error('project_id  is  required ')
         raise ValueError("Invalid parameters provided")
