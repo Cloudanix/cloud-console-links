@@ -324,7 +324,7 @@ def get_links() -> Dict:
             "vpc-peering-connection": None,
             "vpn-connection": None,
             "vpn-gateway": None,
-            "efs": 'https://https://{data.get("region", "")}.{data.get("console", "")}/efs/home?region={data.get("region", "")}#/file-systems/{data.get("resource", "")}'
+            "efs": None
         },
         "ecr": {  # Amazon Elastic Container Registry
             "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
@@ -357,7 +357,7 @@ def get_links() -> Dict:
         },
         "elasticfilesystem": {  # Amazon Elastic File System
             "access-point": None,
-            "file-system": None,
+            "file-system": 'https://https://{data.get("region", "")}.{data.get("console", "")}/efs/home?region={data.get("region", "")}#/file-systems/{data.get("resource", "")}',
         },
         "elasticloadbalancing": {  # AWS WAF V2
             "listener": None,

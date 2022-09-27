@@ -19,10 +19,10 @@ class AzureLinker:
         }
 
         if iam_entity_type and id and iam_entities.get(iam_entity_type, None):
-            return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
-
-        elif iam_entity_type == 'role' and id and primary_ad_domain_name and iam_entities.get(iam_entity_type, None):
-            return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
+            if iam_entity_type == 'role' and id and primary_ad_domain_name and iam_entities.get(iam_entity_type, None):
+                return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
+            else:
+                return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
 
         elif primary_ad_domain_name and id:
             return f"https://portal.azure.com/#@{primary_ad_domain_name}/resource{id}/overview"
