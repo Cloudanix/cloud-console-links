@@ -15,9 +15,13 @@ class AzureLinker:
             "group": 'https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupDetailsMenuBlade/Overview/groupId/{id}',
             "application": 'https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade\
             /Overview/appId/{id}',
+            "role": 'https://portal.azure.com/#@{primary_ad_domain_name}/resource/{id}/users',
         }
 
         if iam_entity_type and id and iam_entities.get(iam_entity_type, None):
+            return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
+
+        elif iam_entity_type == 'role' and id and primary_ad_domain_name and iam_entities.get(iam_entity_type, None):
             return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
 
         elif primary_ad_domain_name and id:
@@ -26,4 +30,3 @@ class AzureLinker:
         else:
             logger.error('entity id required')
             raise ValueError("Invalid parameters provided")
-
