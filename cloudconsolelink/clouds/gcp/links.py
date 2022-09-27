@@ -234,3 +234,92 @@ class Resource:
             return f"https://console.cloud.google.com/logs/metrics?project={project_id}"
         logger.error('project_id  is  required ')
         raise ValueError("Invalid parameters provided")
+
+    def dataproc_cluster(self, project_id: str, dataproc_cluster_name: str, region: str, **keward):
+        if project_id and dataproc_cluster_name and region:
+            return f"https://console.cloud.google.com/dataproc/clusters/{dataproc_cluster_name}/\
+                monitoring?region={region}&project={project_id}"
+        logger.error('project_id and dataproc_cluster_name and region required')
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_logging_sink(self, project_id: str, **keward):
+        if project_id :
+            return f"https://console.cloud.google.com/logs/router?project={project_id}"
+        logger.error('project_id  required')
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_monitoring_notification_channels(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/monitoring/alerting/notifications?project={project_id}"
+        logger.error('project_id  required')
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_monitoring_uptimecheck_config(self, project_id: str, uptimecheck_config_name: str, **keward):
+        if project_id and uptimecheck_config_name:
+            config_id = uptimecheck_config_name.split('/')[-1]
+            return f"https://console.cloud.google.com/monitoring/uptime/{config_id}?project={project_id}"
+        logger.error('project_id and cloud_monitoring_uptimecheck_config_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_monitoring_alert_policy(self, project_id: str, alert_policy_name: str, **keward):
+        if project_id and alert_policy_name:
+            policy_id = alert_policy_name.split('/')[-1]
+            return f"https://console.cloud.google.com/monitoring/alerting/policies/{policy_id}?project={project_id}"
+        logger.error('project_id and cloud_monitoring_alert_policy_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def global_instance_group(self, project_id: str, instance_group_name: str, zone: str, **keward):
+        if project_id and instance_group_name and zone:
+            return f"https://console.cloud.google.com/compute/instanceGroups/\
+                    details/{zone}/{instance_group_name}?project={project_id}"
+        logger.error('project_id and zone and instance_group_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def regional_instance_group(self, project_id: str, instance_group_name: str, region: str, **keward):
+        if project_id and instance_group_name and region:
+            return f"https://console.cloud.google.com/compute/instanceGroups/\
+                    details/{region}/{instance_group_name}?project={project_id}"
+        logger.error('project_id and region and instance_group_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def regional_health_check(self, project_id: str, health_check_name: str, region: str, **keward):
+        if project_id and health_check_name and region:
+            return f"https://console.cloud.google.com/compute/healthChecks/details/\
+                    regions/{region}/{health_check_name}?project={project_id}"
+        logger.error('project_id and region and health_check_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def global_health_check(self, project_id: str, health_check_name: str, **keward):
+        if project_id and health_check_name:
+            return f"https://console.cloud.google.com/compute/healthChecks\
+                    /details/{health_check_name}?project={project_id}"
+        logger.error('project_id and health_check_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def regional_backend_service(self, project_id: str, backend_service_name: str, region: str, **keward):
+        if project_id and backend_service_name and region:
+            return f"https://console.cloud.google.com/net-services/loadbalancing/advanced/regionBackendServices\
+                    /details/{region}/{backend_service_name}?project={project_id}"
+        logger.error('project_id and region and backend_service_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def global_backend_service(self, project_id: str, backend_service_name: str, **keward):
+        if project_id and backend_service_name:
+            return f"https://console.cloud.google.com/net-services/loadbalancing\
+                    /advanced/backendServices/details/{backend_service_name}?project={project_id}"
+        logger.error('project_id and backend_service_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def ssl_policy(self, project_id: str, ssl_policy_name: str, **keward):
+        if project_id and ssl_policy_name:
+            return f"https://console.cloud.google.com/net-security/\
+                    sslpolicies/details/{ssl_policy_name}?project={project_id}"
+        logger.error('project_id and ssl_policy_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def backend_bucket(self, project_id: str, backend_bucket_name: str, **keward):
+        if project_id and backend_bucket_name:
+            return f"https://console.cloud.google.com/net-services/loadbalancing/advanced\
+                    /backendBuckets/details/{backend_bucket_name}?project={project_id}"
+        logger.error('project_id and backend_bucket_name required')
+        raise ValueError("Invalid parameters provided")
