@@ -37,6 +37,14 @@ def build_kwargs(
     group_unique_id=None,
     firestore_collection_name=None,
     cloud_run_service_name=None,
+    dataproc_cluster_name=None,
+    uptimecheck_config_name=None,
+    alert_policy_name=None,
+    instance_group_name=None,
+    health_check_name=None,
+    backend_service_name=None,
+    ssl_policy_name=None,
+    backend_bucket_name=None,
 
 ) -> Dict:
     return {
@@ -70,7 +78,14 @@ def build_kwargs(
         "group_unique_id": group_unique_id,
         "firestore_collection_name": firestore_collection_name,
         "cloud_run_service_name": cloud_run_service_name,
-
+        "dataproc_cluster_name": dataproc_cluster_name,
+        "uptimecheck_config_name": uptimecheck_config_name,
+        "alert_policy_name": alert_policy_name,
+        "instance_group_name": instance_group_name,
+        "health_check_name": health_check_name,
+        "backend_service_name": backend_service_name,
+        "ssl_policy_name": ssl_policy_name,
+        "backend_bucket_name": backend_bucket_name,
     }
 
 
@@ -109,6 +124,14 @@ class GCPLinker:
         group_unique_id=None,
         firestore_collection_name=None,
         cloud_run_service_name=None,
+        dataproc_cluster_name=None,
+        uptimecheck_config_name=None,
+        alert_policy_name=None,
+        instance_group_name=None,
+        health_check_name=None,
+        backend_service_name=None,
+        ssl_policy_name=None,
+        backend_bucket_name=None,
     ) -> str:
         resource = Resource()
 
@@ -144,7 +167,20 @@ class GCPLinker:
             "cloud_run_revision": resource.cloud_run_revision,
             "cloud_run_service": resource.cloud_run_service,
             "cloud_pubsub_topic": resource.cloud_pubsub_topic,
-            "cloud_logging_metric": resource.cloud_logging_metric
+            "cloud_logging_metric": resource.cloud_logging_metric,
+            "dataproc_cluster": resource.dataproc_cluster,
+            "cloud_logging_sink": resource.cloud_logging_sink,
+            "cloud_monitoring_notification_channels": resource.cloud_monitoring_notification_channels,
+            "cloud_monitoring_uptime_check_config": resource.cloud_monitoring_uptimecheck_config,
+            "cloud_monitoring_alert_policy": resource.cloud_monitoring_alert_policy,
+            "global_instance_group": resource.global_instance_group,
+            "regional_instance_group": resource.regional_instance_group,
+            "regional_health_check": resource.regional_health_check,
+            "global_health_check": resource.global_health_check,
+            "regional_backend_service": resource.regional_backend_service,
+            "global_backend_service": resource.global_backend_service,
+            "ssl_policy": resource.ssl_policy,
+            "backend_bucket": resource.backend_bucket,
         }
 
         param = build_kwargs(
@@ -180,6 +216,14 @@ class GCPLinker:
             group_unique_id=group_unique_id,
             firestore_collection_name=firestore_collection_name,
             cloud_run_service_name=cloud_run_service_name,
+            dataproc_cluster_name=dataproc_cluster_name,
+            uptimecheck_config_name=uptimecheck_config_name,
+            alert_policy_name=alert_policy_name,
+            instance_group_name=instance_group_name,
+            health_check_name=health_check_name,
+            backend_service_name=backend_service_name,
+            ssl_policy_name=ssl_policy_name,
+            backend_bucket_name=backend_bucket_name,
         )
 
         resources_list = list(resources.keys())
