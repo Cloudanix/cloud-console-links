@@ -677,7 +677,6 @@ def get_links() -> Dict:
             "account": None,
             "handshake": None,
             "organization": 'https://{data.get("region", "")}.{data.get("console", "")}/organizations/v2/home/accounts/{data.get("resource", "")}',
-            "config": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/dashboard',
             "ou": None,
             "policy": None,
             "root": None,
