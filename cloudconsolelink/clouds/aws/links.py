@@ -324,7 +324,7 @@ def get_links() -> Dict:
             "vpc-peering-connection": None,
             "vpn-connection": None,
             "vpn-gateway": None,
-            "efs": None
+
         },
         "ecr": {  # Amazon Elastic Container Registry
             "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
