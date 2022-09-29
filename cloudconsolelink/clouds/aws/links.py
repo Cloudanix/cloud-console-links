@@ -190,6 +190,7 @@ def get_links() -> Dict:
             "organization-config-rule": None,
             "organization-conformance-pack": None,
             "remediation-configuration": None,
+
         },
         "connect": {  # Amazon Connect
             "instance": None,
@@ -323,6 +324,7 @@ def get_links() -> Dict:
             "vpc-peering-connection": None,
             "vpn-connection": None,
             "vpn-gateway": None,
+
         },
         "ecr": {  # Amazon Elastic Container Registry
             "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
@@ -355,7 +357,7 @@ def get_links() -> Dict:
         },
         "elasticfilesystem": {  # Amazon Elastic File System
             "access-point": None,
-            "file-system": None,
+            "file-system": 'https://https://{data.get("region", "")}.{data.get("console", "")}/efs/home?region={data.get("region", "")}#/file-systems/{data.get("resource", "")}',
         },
         "elasticloadbalancing": {  # AWS WAF V2
             "listener": None,
@@ -382,8 +384,12 @@ def get_links() -> Dict:
         },
         "execute-api": {  # Amazon API Gateway
         },
+        "emr": {
+            #Amazon EMR
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticmapreduce/home?region={data.get("region", "")}#cluster-details:{data.get("resource", "")}'
+        },
         "firehose": {  # Amazon Kinesis Firehose
-            "deliverystream": None,
+            "deliverystream": 'https://{data.get("region", "")}.{data.get("console", "")}/firehose/home?region={data.get("region", "")}#/details/{data.get("resource", "")}/monitoring',
         },
         "fms": {  # AWS Firewall Manager
             "policy": None,
@@ -539,7 +545,7 @@ def get_links() -> Dict:
             "index": None,
         },
         "kinesis": {  # Amazon Kinesis
-            "stream": None,
+            "stream": 'https://{data.get("region", "")}.{data.get("console", "")}/kinesis/home?region={data.get("region", "")}#/streams/details/{data.get("resource", "")}/monitoring',
         },
         "kinesisanalytics": {  # Amazon Kinesis Analytics V2
             "application": None,
@@ -670,7 +676,7 @@ def get_links() -> Dict:
         "organizations": {  # AWS Organizations
             "account": None,
             "handshake": None,
-            "organization": None,
+            "organization": 'https://{data.get("region", "")}.{data.get("console", "")}/organizations/v2/home/accounts/{data.get("resource", "")}',
             "ou": None,
             "policy": None,
             "root": None,
@@ -810,7 +816,7 @@ def get_links() -> Dict:
             "model": None,
             "model-package": None,
             "monitoring-schedule": None,
-            "notebook-instance": None,
+            "notebook-instance": 'https://{data.get("region", "")}.{data.get("console", "")}/sagemaker/home?region={data.get("region", "")}#/notebook-instances/{data.get("resource", "")}',
             "notebook-instance-lifecycle-config": None,
             "processing-job": None,
             "training-job": None,
@@ -831,7 +837,7 @@ def get_links() -> Dict:
             "domain": None,
         },
         "secretsmanager": {  # AWS Secrets Manager
-            "secret": None,
+            "secret": 'https://{data.get("region", "")}.{data.get("console", "")}/secretsmanager/secret?name={data.get("resource", "")}&region ={data.get("region", "")}',
         },
         "securityhub": {  # AWS Security Hub
             "hub": None,
@@ -880,11 +886,11 @@ def get_links() -> Dict:
             "managed-instance": None,
             "managed-instance-inventory": None,
             "opsitem": None,
-            "parameter": None,
+            "parameter": 'https://{data.get("region", "")}.{data.get("console", "")}/systems-manager/parameters/{data.get("resource", "")}/description?region={data.get("region", "")}&tab=Table',
             "patchbaseline": None,
             "resource-data-sync": None,
             "servicesetting": None,
-            "session": None,
+            "session": 'https://{data.get("region", "")}.{data.get("console", "")}/systems-manager/session-manager?region={data.get("region", "")}',
             "windowtarget": None,
             "windowtask": None,
         },
