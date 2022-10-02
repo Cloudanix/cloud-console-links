@@ -15,7 +15,7 @@ class AzureLinker:
             "group": 'https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupDetailsMenuBlade/Overview/groupId/{id}',
             "application": 'https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade\
             /Overview/appId/{id}',
-            "role": 'https://portal.azure.com/#@{primary_ad_domain_name}/resource/{id}/roles',
+            "role": 'https://portal.azure.com/#@{primary_ad_domain_name}/resource{id}/roles',
         }
 
         if iam_entity_type and id and iam_entities.get(iam_entity_type, None):
