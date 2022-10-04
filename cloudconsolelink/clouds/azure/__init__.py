@@ -25,10 +25,15 @@ class AzureLinker:
                 return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
 
         elif primary_ad_domain_name and id:
-            if id.startswith('asset'):
-                return f"https://portal.azure.com/#@{primary_ad_domain_name}/{id}"
-            else:
-                return f"https://portal.azure.com/#@{primary_ad_domain_name}/resource{id}/overview"
+            if id.startswith('https'):
+                if '/keys/' in id:
+                    return f"https://portal.azure.com/#@{primary_ad_domain_name}/asset/Microsoft_Azure_KeyVault/Key/{id}"
+                elif '/secrets/' in id:
+                    return f"https://portal.azure.com/#@{primary_ad_domain_name}/asset/Microsoft_Azure_KeyVault/Secret/{id}"
+                elif '/certificates/' in id:
+                    return f"https://portal.azure.com/#@{primary_ad_domain_name}/asset/Microsoft_Azure_KeyVault/Certificate/{id}"
+                    
+            return f"https://portal.azure.com/#@{primary_ad_domain_name}/resource{id}/overview"
 
         else:
             logger.error('entity id required')
