@@ -26,7 +26,7 @@ class AzureLinker:
 
         elif primary_ad_domain_name and id:
             if id.startswith('asset'):
-                return f"https://portal.azure.com/#@{primary_ad_domain_name}/asset/{id}"
+                return f"https://portal.azure.com/#@{primary_ad_domain_name}/{id}"
             else:
                 return f"https://portal.azure.com/#@{primary_ad_domain_name}/resource{id}/overview"
 
