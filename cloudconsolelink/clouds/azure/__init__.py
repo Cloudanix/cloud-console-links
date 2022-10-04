@@ -25,7 +25,10 @@ class AzureLinker:
                 return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
 
         elif primary_ad_domain_name and id:
-            return f"https://portal.azure.com/#@{primary_ad_domain_name}/resource{id}/overview"
+            if id.startswith('asset'):
+                return f"https://portal.azure.com/#@{primary_ad_domain_name}/asset/{id}"
+            else:
+                return f"https://portal.azure.com/#@{primary_ad_domain_name}/resource{id}/overview"
 
         else:
             logger.error('entity id required')
