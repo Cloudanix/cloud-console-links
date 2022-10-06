@@ -224,7 +224,8 @@ class Resource:
 
     def cloud_pubsub_topic(self, project_id: str, topic_id: str, **keward):
         if project_id and topic_id:
-            return f"https://console.cloud.google.com/cloudpubsub/topic/detail/{topic_id}?\
+            topic = topic_id.split('/')[-1]
+            return f"https://console.cloud.google.com/cloudpubsub/topic/detail/{topic}?\
                 project={project_id}"
         logger.error('project_id and topic_id is  required')
         raise ValueError("Invalid parameters provided")
@@ -322,4 +323,33 @@ class Resource:
             return f"https://console.cloud.google.com/net-services/loadbalancing/advanced\
                     /backendBuckets/details/{backend_bucket_name}?project={project_id}"
         logger.error('project_id and backend_bucket_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def dns_policy(self, project_id: str, dns_policy_name: str, **keward):
+        if project_id and dns_policy_name:
+            return f"https://console.cloud.google.com/net-services/\
+                    dns/policies/{dns_policy_name}/view?project={project_id}"
+        logger.error('project_id and dns_policy_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def api_key(self, project_id: str, api_key_id: str, **keward):
+        if project_id and api_key_id:
+            return f"https://console.cloud.google.com/apis/credentials/\
+                    key/{api_key_id}?project={project_id}"
+        logger.error('project_id and api_key_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def firestore_index(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/firestore/indexes/\
+                    composite?project={project_id}"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_pubsub_subscription(self, project_id: str, subscription_name: str, **keward):
+        if project_id and subscription_name:
+            sub_id = subscription_name.split('/')[-1]
+            return f"https://console.cloud.google.com/cloudpubsub/subscription/\
+                    detail/{sub_id}?project={project_id}"
+        logger.error('project_id and subscription_name required')
         raise ValueError("Invalid parameters provided")

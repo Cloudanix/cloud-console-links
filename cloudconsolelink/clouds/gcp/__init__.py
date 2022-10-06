@@ -47,6 +47,9 @@ def build_kwargs(
     backend_service_name=None,
     ssl_policy_name=None,
     backend_bucket_name=None,
+    dns_policy_name=None,
+    api_key_id=None,
+    subscription_name=None,
 
 ) -> Dict:
     return {
@@ -90,6 +93,9 @@ def build_kwargs(
         "backend_service_name": backend_service_name,
         "ssl_policy_name": ssl_policy_name,
         "backend_bucket_name": backend_bucket_name,
+        "dns_policy_name": dns_policy_name,
+        "api_key_id": api_key_id,
+        "subscription_name": subscription_name,
     }
 
 
@@ -136,6 +142,9 @@ class GCPLinker:
         backend_service_name=None,
         ssl_policy_name=None,
         backend_bucket_name=None,
+        dns_policy_name=None,
+        api_key_id=None,
+        subscription_name=None,
     ) -> str:
         resource = Resource()
 
@@ -185,6 +194,10 @@ class GCPLinker:
             "global_backend_service": resource.global_backend_service,
             "ssl_policy": resource.ssl_policy,
             "backend_bucket": resource.backend_bucket,
+            "dns_policy": resource.dns_policy,
+            "api_key": resource.api_key,
+            "firestore_index": resource.firestore_index,
+            "cloud_pubsub_subscription": resource.cloud_pubsub_subscription,
         }
 
         param = build_kwargs(
@@ -228,6 +241,9 @@ class GCPLinker:
             backend_service_name=backend_service_name,
             ssl_policy_name=ssl_policy_name,
             backend_bucket_name=backend_bucket_name,
+            dns_policy_name=dns_policy_name,
+            api_key_id=api_key_id,
+            subscription_name=subscription_name,
         )
 
         resources_list = list(resources.keys())
