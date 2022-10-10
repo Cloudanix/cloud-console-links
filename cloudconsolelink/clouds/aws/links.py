@@ -366,7 +366,7 @@ def get_links() -> Dict:
             "targetgroup": None,
         },
         "elasticmapreduce": {  # Amazon Elastic MapReduce
-            "cluster": None,
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticmapreduce/home?region={data.get("region", "")}#cluster-details:{data.get("resource", "")}',
             "editor": None,
         },
         "elastictranscoder": {  # Amazon Elastic Transcoder
@@ -383,10 +383,6 @@ def get_links() -> Dict:
             "rule": None,
         },
         "execute-api": {  # Amazon API Gateway
-        },
-        "emr": {
-            #Amazon EMR
-            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticmapreduce/home?region={data.get("region", "")}#cluster-details:{data.get("resource", "")}'
         },
         "firehose": {  # Amazon Kinesis Firehose
             "deliverystream": 'https://{data.get("region", "")}.{data.get("console", "")}/firehose/home?region={data.get("region", "")}#/details/{data.get("resource", "")}/monitoring',
