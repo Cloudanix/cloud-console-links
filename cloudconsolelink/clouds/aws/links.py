@@ -30,7 +30,10 @@ def get_links() -> Dict:
             "apps": None,
         },
         "apigateway": {  # Manage Amazon API Gateway
-            "": None,
+            "api": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
+                    #/{data.get("resource", "")}/resources/',
+            "stage": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
+                        home?region={data.get("region", "")}#/{data.get("resource", "")}'
         },
         "appconfig": {  # AWS AppConfig
             "application": None,
@@ -107,7 +110,8 @@ def get_links() -> Dict:
             "stackset": None,
         },
         "cloudfront": {  # Amazon CloudFront
-            "distribution": None,
+            "distribution": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudfront/v3/\
+                    home?region={data.get("region", "")}#/{data.get("resource", "")}',
             "origin-access-identity": None,
             "streaming-distribution": None,
         },
@@ -125,7 +129,11 @@ def get_links() -> Dict:
         },
         "cloudwatch": {  # Amazon CloudWatch
             "alarm": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#alarmsV2:alarm/{data.get("resource", "")}?',
-
+            "metric": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region=data.get("region", "")}#metricsV2:graph=~()',
+            "loggroup": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?\
+                    region={data.get("region", "")}#logsV2:log-groups/{data.get("resource", "")}',
+            "flowlog": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?\
+                    region={data.get("region", "")}#logsV2:log-groups/{data.get("resource", "")}',
             "dashboard": None,
             "insight-rule": None,
         },
@@ -297,13 +305,16 @@ def get_links() -> Dict:
             "local-gateway-virtual-interface": None,
             "local-gateway-virtual-interface-group": None,
             "network-acl": None,
-            "network-interface": None,
+            "network-interface": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/\
+                    home?region={data.get("region", "")}#NetworkInterface:networkInterfaceId={data.get("resource", "")}',
             "placement-group": None,
-            "reserved-instances": None,
+            "reserved-instances": 'https://{data.get("region", "")}.{data.get("console", "")}/\
+                    ec2/home?region={data.get("region", "")}#ReservedInstances:',
             "route-table": None,
             "security-group": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
                 {data.get("region", "")}#SecurityGroup:groupId={data.get("resource", "")}',
-            "snapshot": None,
+            "snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?\
+                    region={data.get("region", "")}#SnapshotDetails:snapshotId={data.get("resource", "")}',
             "spot-instances-request": None,
             "subnet": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
                 {data.get("region", "")}#SubnetDetails:subnetId={data.get("resource", "")}',
@@ -315,7 +326,8 @@ def get_links() -> Dict:
             "transit-gateway-attachment": None,
             "transit-gateway-multicast-domain": None,
             "transit-gateway-route-table": None,
-            "volume": None,
+            "volume": 'https://u{data.get("region", "")}.{data.get("console", "")}/ec2\
+                    /home?region={data.get("region", "")}#VolumeDetails:volumeId=data.get("resource", "")}',
             "vpc": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
                 {data.get("region", "")}#VpcDetails:VpcId={data.get("resource", "")}',
             "vpc-endpoint": None,
@@ -324,6 +336,10 @@ def get_links() -> Dict:
             "vpc-peering-connection": None,
             "vpn-connection": None,
             "vpn-gateway": None,
+            "elastic-ip": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/\
+                    home?region={data.get("region", "")}#ElasticIpDetails:AllocationId={data.get("resource", "")}',
+            "beanstalk_environment": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/\
+                    home?region={data.get("region", "")}#/environment/dashboard?environmentId={data.get("resource", "")}'
 
         },
         "ecr": {  # Amazon Elastic Container Registry
@@ -335,7 +351,8 @@ def get_links() -> Dict:
             "container-instance": None,
             "service": None,
             "task": None,
-            "task-definition": None,
+            "task-definition": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs\
+                    /home?region={data.get("region", "")}#/taskDefinitions/{data.get("resource", "")}',
             "task-set": None,
         },
         "eks": {  # Amazon Elastic Container Service for Kubernetes
@@ -362,7 +379,8 @@ def get_links() -> Dict:
         "elasticloadbalancing": {  # AWS WAF V2
             "listener": None,
             "listener-rule": None,
-            "loadbalancer": None,
+            "loadbalancer": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/\
+                        home?region={data.get("region", "")}#LoadBalancers:sort=loadBalancerName',
             "targetgroup": None,
         },
         "elasticmapreduce": {  # Amazon Elastic MapReduce
@@ -375,7 +393,10 @@ def get_links() -> Dict:
             "preset": None,
         },
         "es": {  # Amazon Elasticsearch Service
-            "domain": None,
+            "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/esv3/\
+                        home?region={data.get("region", "")}#opensearch/domains/{data.get("resource", "")}',
+            "reserved_instance": 'https://{data.get("region", "")}.{data.get("console", "")}/esv3/\
+                        home?region={data.get("region", "")}#opensearch/reserved-instances'
         },
         "events": {  # Amazon EventBridge
             "event-bus": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/eventbus/{data.get("resource", "")}',
@@ -556,7 +577,8 @@ def get_links() -> Dict:
         },
         "kms": {  # AWS Key Management Service
             "alias": None,
-            "key": None,
+            "key": 'https://{data.get("region", "")}.{data.get("console", "")}/kms/\
+                    home?region={data.get("region", "")}#/kms/keys/{data.get("resource", "")}',
         },
         "lambda": {  # AWS Lambda
             "event-source-mapping": None,
@@ -721,7 +743,8 @@ def get_links() -> Dict:
             "resource-share-invitation": None,
         },
         "rds": {  # Amazon RDS
-            "cluster": None,
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/\
+                    home?region={data.get("region", "")}#database:id={data.get("resource", "")};is-cluster=true',
             "cluster-endpoint": None,
             "cluster-pg": None,
             "cluster-snapshot": None,
@@ -731,8 +754,9 @@ def get_links() -> Dict:
             "es": None,
             "og": None,
             "pg": None,
-            "ri": None,
-            "secgrp": None,
+            "ri": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#reserved-instances:',
+            "secgrp": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
+                {data.get("region", "")}#SecurityGroup:groupId={data.get("resource", "")}',
             "snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#db-snapshot:engine=sqlserver-ee;id={arn}',
             "subgrp": None,
             "target": None,
@@ -757,6 +781,8 @@ def get_links() -> Dict:
             "snapshotcopygrant": None,
             "snapshotschedule": None,
             "subnetgroup": None,
+            "reserved-node": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2\
+                        /home?region={data.get("region", "")}#reserved-nodes'
         },
         "rekognition": {  # Amazon Rekognition
             "collection": None,
