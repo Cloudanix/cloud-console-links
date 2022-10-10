@@ -49,7 +49,7 @@ def build_kwargs(
     backend_bucket_name=None,
     dns_policy_name=None,
     api_key_id=None,
-    subscription_name=None,
+    subscription_id=None,
 
 ) -> Dict:
     return {
@@ -95,7 +95,7 @@ def build_kwargs(
         "backend_bucket_name": backend_bucket_name,
         "dns_policy_name": dns_policy_name,
         "api_key_id": api_key_id,
-        "subscription_name": subscription_name,
+        "subscription_id": subscription_id,
     }
 
 
@@ -144,7 +144,7 @@ class GCPLinker:
         backend_bucket_name=None,
         dns_policy_name=None,
         api_key_id=None,
-        subscription_name=None,
+        subscription_id=None,
     ) -> str:
         resource = Resource()
 
@@ -243,7 +243,7 @@ class GCPLinker:
             backend_bucket_name=backend_bucket_name,
             dns_policy_name=dns_policy_name,
             api_key_id=api_key_id,
-            subscription_name=subscription_name,
+            subscription_id=subscription_id,
         )
 
         resources_list = list(resources.keys())
