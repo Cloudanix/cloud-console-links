@@ -323,3 +323,31 @@ class Resource:
                     /backendBuckets/details/{backend_bucket_name}?project={project_id}"
         logger.error('project_id and backend_bucket_name required')
         raise ValueError("Invalid parameters provided")
+
+    def dns_policy(self, project_id: str, dns_policy_name: str, **keward):
+        if project_id and dns_policy_name:
+            return f"https://console.cloud.google.com/net-services/\
+                    dns/policies/{dns_policy_name}/view?project={project_id}"
+        logger.error('project_id and dns_policy_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def api_key(self, project_id: str, api_key_id: str, **keward):
+        if project_id and api_key_id:
+            return f"https://console.cloud.google.com/apis/credentials/\
+                    key/{api_key_id}?project={project_id}"
+        logger.error('project_id and api_key_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def firestore_index(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/firestore/indexes/\
+                    composite?project={project_id}"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_pubsub_subscription(self, project_id: str, subscription_id: str, **keward):
+        if project_id and subscription_id:
+            return f"https://console.cloud.google.com/cloudpubsub/subscription/\
+                    detail/{subscription_id}?project={project_id}"
+        logger.error('project_id and subscription_name required')
+        raise ValueError("Invalid parameters provided")
