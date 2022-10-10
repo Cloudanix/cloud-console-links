@@ -224,8 +224,7 @@ class Resource:
 
     def cloud_pubsub_topic(self, project_id: str, topic_id: str, **keward):
         if project_id and topic_id:
-            topic = topic_id.split('/')[-1]
-            return f"https://console.cloud.google.com/cloudpubsub/topic/detail/{topic}?\
+            return f"https://console.cloud.google.com/cloudpubsub/topic/detail/{topic_id}?\
                 project={project_id}"
         logger.error('project_id and topic_id is  required')
         raise ValueError("Invalid parameters provided")
@@ -346,10 +345,9 @@ class Resource:
         logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
 
-    def cloud_pubsub_subscription(self, project_id: str, subscription_name: str, **keward):
-        if project_id and subscription_name:
-            sub_id = subscription_name.split('/')[-1]
+    def cloud_pubsub_subscription(self, project_id: str, subscription_id: str, **keward):
+        if project_id and subscription_id:
             return f"https://console.cloud.google.com/cloudpubsub/subscription/\
-                    detail/{sub_id}?project={project_id}"
+                    detail/{subscription_id}?project={project_id}"
         logger.error('project_id and subscription_name required')
         raise ValueError("Invalid parameters provided")
