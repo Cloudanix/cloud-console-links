@@ -30,9 +30,11 @@ def get_links() -> Dict:
             "apps": None,
         },
         "apigateway": {  # Manage Amazon API Gateway
-            "api": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
+            "apis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
                     #/{data.get("resource", "")}/resources/',
-            "stage": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
+            "restapis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
+                    #/{data.get("resource", "")}/resources/',
+            "stages": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
                         home?region={data.get("region", "")}#/{data.get("resource", "")}'
         },
         "appconfig": {  # AWS AppConfig
