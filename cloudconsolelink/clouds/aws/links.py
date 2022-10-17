@@ -129,7 +129,7 @@ def get_links() -> Dict:
         },
         "cloudwatch": {  # Amazon CloudWatch
             "alarm": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#alarmsV2:alarm/{data.get("resource", "")}?',
-            "metric": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region=data.get("region", "")}#metricsV2:graph=~()',
+            "metric": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#metricsV2:graph=~()',
             "loggroup": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?\
                     region={data.get("region", "")}#logsV2:log-groups/{data.get("resource", "")}',
             "flowlog": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?\
