@@ -200,13 +200,13 @@ class GCPLinker:
             "cloud_pubsub_subscription": resource.cloud_pubsub_subscription,
             "cloudrun_domain": resource.cloudrun_domain,
             "iam_domain": resource.iam_domain,
-            "bigquery": resource.bigquery,
-            "cdn": resource.cdn,
-            "dns": resource.dns,
-            "load_balancer": resource.load_balancer,
-            "vpc": resource.vpc,
+            "bigquery": resource.bigquery_console,
+            "cdn": resource.cdn_console,
+            "dns": resource.dns_console,
+            "load_balancer": resource.load_balancer_console,
+            "vpc": resource.vpc_console,
             "apigateway_console": resource.apigateway_console,
-            "cloudrun": resource.cloudrun,
+            "cloudrun": resource.cloudrun_console,
         }
 
         param = build_kwargs(
