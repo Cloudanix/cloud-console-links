@@ -198,6 +198,15 @@ class GCPLinker:
             "api_key": resource.api_key,
             "firestore_index": resource.firestore_index,
             "cloud_pubsub_subscription": resource.cloud_pubsub_subscription,
+            "cloudrun_domain": resource.cloudrun_domain,
+            "iam_domain": resource.iam_domain,
+            "bigquery": resource.bigquery,
+            "cdn": resource.cdn,
+            "dns": resource.dns,
+            "load_balancer": resource.load_balancer,
+            "vpc": resource.vpc,
+            "apigateway": resource.apigateway,
+            "cloudrun": resource.cloudrun,
         }
 
         param = build_kwargs(
