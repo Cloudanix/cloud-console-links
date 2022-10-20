@@ -205,7 +205,7 @@ class GCPLinker:
             "dns": resource.dns,
             "load_balancer": resource.load_balancer,
             "vpc": resource.vpc,
-            "apigateway": resource.apigateway,
+            "apigateway_console": resource.apigateway_console,
             "cloudrun": resource.cloudrun,
         }
 

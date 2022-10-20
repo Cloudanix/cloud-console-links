@@ -365,43 +365,43 @@ class Resource:
         logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
 
-    def bigquery(self, project_id: str, **keward):
+    def bigquery_console(self, project_id: str, **keward):
         if project_id:
             return f"https://console.cloud.google.com/bigquery?referrer=search&project={project_id}"
         logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
 
-    def cdn(self, project_id: str, **keward):
+    def cdn_console(self, project_id: str, **keward):
         if project_id:
             return f"https://console.cloud.google.com/net-services/cdn/list?project={project_id}"
         logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
 
-    def dns(self, project_id: str, **keward):
+    def dns_console(self, project_id: str, **keward):
         if project_id:
             return f"https://console.cloud.google.com/net-services/dns/zones?project={project_id}"
         logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
 
-    def load_balancer(self, project_id: str, **keward):
+    def load_balancer_console(self, project_id: str, **keward):
         if project_id:
             return f"https://console.cloud.google.com/net-services/loadbalancing/list/loadBalancers?project={project_id}"
         logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
 
-    def vpc(self, project_id: str, **keward):
+    def vpc_console(self, project_id: str, **keward):
         if project_id:
             return f"https://console.cloud.google.com/networking/networks/list?project={project_id}"
         logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
 
-    def apigateway(self, project_id: str, **keward):
+    def apigateway_console(self, project_id: str, **keward):
         if project_id:
             return f"https://console.cloud.google.com/api-gateway/api?referrer=search&project={project_id}"
         logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
 
-    def cloudrun(self, project_id: str, **keward):
+    def cloudrun_console(self, project_id: str, **keward):
         if project_id:
             return f"https://console.cloud.google.com/run?referrer=search&project={project_id}"
         logger.error('project_id required')
