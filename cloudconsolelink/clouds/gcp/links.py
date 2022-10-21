@@ -361,7 +361,7 @@ class Resource:
     def iam_domain(self, project_id: str, **keward):
         if project_id:
             return f"https://console.cloud.google.com/iam-admin/\
-                    iam?orgonly=true&project={project_id}0&supportedpurview=organizationId"
+                    iam?orgonly=true&project={project_id}&supportedpurview=organizationId"
         logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
 
