@@ -188,10 +188,10 @@ class Resource:
         logger.error('project_id and role_id required')
         raise ValueError("Invalid parameters provided")
 
-    def iam_group(self, group_unique_id: str, organization_id: str, **keward):
-        if group_unique_id and organization_id:
-            return f"https://console.cloud.google.com/iam-admin/groups/{group_unique_id}?orgonly=\
-                true&organizationId={organization_id}&supportedpurview=organizationId"
+    def iam_group(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/projectselector2/\
+                    iam-admin/groups?orgonly=true&project={project_id}&supportedpurview=organizationId"
         logger.error('group_unique_id and organization_id required')
         raise ValueError("Invalid parameters provided")
 
@@ -350,4 +350,59 @@ class Resource:
             return f"https://console.cloud.google.com/cloudpubsub/subscription/\
                     detail/{subscription_id}?project={project_id}"
         logger.error('project_id and subscription_name required')
+        raise ValueError("Invalid parameters provided")
+
+    def cloudrun_domain(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/run/domains?project={project_id}"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def iam_domain(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/iam-admin/\
+                    iam?orgonly=true&project={project_id}&supportedpurview=organizationId"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def bigquery_console(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/bigquery?referrer=search&project={project_id}"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def cdn_console(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/net-services/cdn/list?project={project_id}"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def dns_console(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/net-services/dns/zones?project={project_id}"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def load_balancer_console(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/net-services/loadbalancing/list/loadBalancers?project={project_id}"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def vpc_console(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/networking/networks/list?project={project_id}"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def apigateway_console(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/api-gateway/api?referrer=search&project={project_id}"
+        logger.error('project_id required')
+        raise ValueError("Invalid parameters provided")
+
+    def cloudrun_console(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/run?referrer=search&project={project_id}"
+        logger.error('project_id required')
         raise ValueError("Invalid parameters provided")
