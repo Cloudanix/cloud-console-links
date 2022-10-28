@@ -33,7 +33,11 @@ def get_links() -> Dict:
             "api": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
                     #/{data.get("resource", "")}/resources/',
             "stage": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
-                        home?region={data.get("region", "")}#/{data.get("resource", "")}'
+                        home?region={data.get("region", "")}#/{data.get("resource", "")}',
+            "certificate": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
+                    #/{data.get("resource", "")}/resources/',
+            "resource": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
+                    #/{data.get("resource", "")}/resources/'
         },
         "appconfig": {  # AWS AppConfig
             "application": None,
@@ -136,6 +140,8 @@ def get_links() -> Dict:
                     region={data.get("region", "")}#logsV2:log-groups/{data.get("resource", "")}',
             "dashboard": None,
             "insight-rule": None,
+            "event-bus": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#eventbuses:',
+            "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region=u{data.get("region", "")}#rules:'
         },
         "codeartifact": {  # AWS CodeArtifact
             "domain": None,
@@ -282,6 +288,8 @@ def get_links() -> Dict:
             "global-table": None,
             "table": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region=\
                 {data.get("region", "")}#table?name={data.get("resource", "")}',
+            "secondary_indexes": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/\
+                                home?region=us-east-1#table?initialTagKey=&name={data.get("resource", "")}&tab=indexes'
         },
         "ec2": {  # AWS Systems Manager
             "capacity-reservation": None,
@@ -339,12 +347,16 @@ def get_links() -> Dict:
             "elastic-ip": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/\
                     home?region={data.get("region", "")}#ElasticIpDetails:AllocationId={data.get("resource", "")}',
             "beanstalk_environment": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/\
-                    home?region={data.get("region", "")}#/environment/dashboard?environmentId={data.get("resource", "")}'
+                    home?region={data.get("region", "")}#/environment/dashboard?environmentId={data.get("resource", "")}',
+            "loadbalancer": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/\
+                            home?region=u{data.get("region", "")}#LoadBalancers:search={data.get("resource", "")};sort=loadBalancerName'
 
         },
         "ecr": {  # Amazon Elastic Container Registry
             "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
                 ("resource", "")}?region={data.get("region", "")}',
+            "image" : 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
+                ("resource", "")}?region={data.get("region", "")}'
         },
         "ecs": {  # Amazon Elastic Container Service
             "cluster": None,
@@ -497,6 +509,8 @@ def get_links() -> Dict:
             "server-certificate": None,
             "sms-mfa": None,
             "user": 'https://{data.get("console", "")}/iam/home?#/users/{data.get("resource", "")}',
+            "access_keys": 'https://{data.get("console", "")}/iam/home#/users/{data.get("resource", "")}?section=security_credentials',
+            "policy_statement" : 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}'
         },
         "imagebuilder": {  # Amazon EC2 Image Builder
             "component": None,
@@ -581,9 +595,14 @@ def get_links() -> Dict:
                     home?region={data.get("region", "")}#/kms/keys/{data.get("resource", "")}',
         },
         "lambda": {  # AWS Lambda
-            "event-source-mapping": None,
+            "event-source-mapping": 'https://{data.get("region", "")}.{data.get("console", "")}/lambda/home?region=\
+                {data.get("region", "")}#/functions/{data.get("resource", "")}',
             "function": 'https://{data.get("region", "")}.{data.get("console", "")}/lambda/home?region=\
                 {data.get("region", "")}#/functions/{data.get("resource", "")}',
+            "alias": 'https://{data.get("region", "")}.{data.get("console", "")}/lambda/\
+                        home?region={data.get("region", "")}#/functions/{data.get("resource", "")}?tab=aliases',
+            "layer": 'https://{data.get("region", "")}.{data.get("console", "")}/lambda/home?region=\
+                {data.get("region", "")}#/functions/{data.get("resource", "")}'
         },
         "lex": {  # Amazon Lex
             "bot": None,
@@ -775,7 +794,8 @@ def get_links() -> Dict:
             "hsmclientcertificate": None,
             "hsmconfiguration": None,
             "parametergroup": None,
-            "securitygroup": None,
+            "securitygroup": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
+                {data.get("region", "")}#SecurityGroup:groupId={data.get("resource", "")}',
             "securitygroupingress": None,
             "snapshot": None,
             "snapshotcopygrant": None,
@@ -812,6 +832,7 @@ def get_links() -> Dict:
             {data.get("resource", "")}',
             "trafficpolicyinstance": 'https://{data.get("console", "")}/route53/trafficflow/home#/\
             modify-records/edit/{data.get("resource", "")}',
+            "domains": 'https://{data.get("region", "")}.{data.get("console", "")}/route53/home#DomainListing:'
         },
         "route53resolver": {  # Amazon Route 53 Resolver
             "resolver-endpoint": None,
@@ -896,7 +917,8 @@ def get_links() -> Dict:
             "": None,
         },
         "sns": {  # Amazon SNS
-            "": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/topic/{arn}'
+            "topic": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/topic/{arn}',
+            "subscription": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/subscription/{arn}'
         },
         "sqs": {  # Amazon SQS
             "": 'https://{data.get("region", "")}.{data.get("console", "")}/sqs/v2/home?region=\
