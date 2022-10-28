@@ -30,7 +30,7 @@ def get_links() -> Dict:
             "apps": None,
         },
         "apigateway": {  # Manage Amazon API Gateway
-            "api": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
+            "apis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
                     #/{data.get("resource", "")}/resources/',
             "stage": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
                         home?region={data.get("region", "")}#/{data.get("resource", "")}',
@@ -126,14 +126,14 @@ def get_links() -> Dict:
         "cloudsearch": {  # Amazon CloudSearch
             "domain": None,
         },
-        "cloudtrail": {  # AWS CloudTrai
+        "cloudtrail": {  # AWS CloudTrail
             "trail": 'https://{data.get("console", "")}/cloudtrail/home?region={data.get("region", "")}#/trails/\
             {data.get("resource", "")}',
 
         },
         "cloudwatch": {  # Amazon CloudWatch
             "alarm": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#alarmsV2:alarm/{data.get("resource", "")}?',
-            "metric": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region=data.get("region", "")}#metricsV2:graph=~()',
+            "metrics": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#metricsV2:graph=~()',
             "loggroup": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?\
                     region={data.get("region", "")}#logsV2:log-groups/{data.get("resource", "")}',
             "flowlog": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?\
@@ -335,7 +335,7 @@ def get_links() -> Dict:
             "transit-gateway-multicast-domain": None,
             "transit-gateway-route-table": None,
             "volume": 'https://u{data.get("region", "")}.{data.get("console", "")}/ec2\
-                    /home?region={data.get("region", "")}#VolumeDetails:volumeId=data.get("resource", "")}',
+                    /home?region={data.get("region", "")}#VolumeDetails:volumeId={data.get("resource", "")}',
             "vpc": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
                 {data.get("region", "")}#VpcDetails:VpcId={data.get("resource", "")}',
             "vpc-endpoint": None,
@@ -396,7 +396,7 @@ def get_links() -> Dict:
             "targetgroup": None,
         },
         "elasticmapreduce": {  # Amazon Elastic MapReduce
-            "cluster": None,
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticmapreduce/home?region={data.get("region", "")}#cluster-details:{data.get("resource", "")}',
             "editor": None,
         },
         "elastictranscoder": {  # Amazon Elastic Transcoder
@@ -416,10 +416,6 @@ def get_links() -> Dict:
             "rule": None,
         },
         "execute-api": {  # Amazon API Gateway
-        },
-        "emr": {
-            #Amazon EMR
-            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticmapreduce/home?region={data.get("region", "")}#cluster-details:{data.get("resource", "")}'
         },
         "firehose": {  # Amazon Kinesis Firehose
             "deliverystream": 'https://{data.get("region", "")}.{data.get("console", "")}/firehose/home?region={data.get("region", "")}#/details/{data.get("resource", "")}/monitoring',
