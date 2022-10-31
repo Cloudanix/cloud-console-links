@@ -96,7 +96,11 @@ class AWSLinker:
 
         elif not links.get(data["service"], {}).get(data["resourceType"], None):
             logger.error(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
-            raise ValueError(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
+
+            # If resource type does not exist, take the user to service home page
+            return f"https://console.aws.amazon.com/{data['service']}"
+
+            # raise ValueError(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
 
         else:
             return eval(f"f'{links[data['service']][data['resourceType']]}'").replace(" ", "")
