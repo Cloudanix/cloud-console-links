@@ -30,6 +30,10 @@ def get_links() -> Dict:
             "apps": None,
         },
         "apigateway": {  # Manage Amazon API Gateway
+            "restapis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
+                #/{data.get("resource", "")}/resources/',
+            "stages": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
+                        home?region={data.get("region", "")}#/{data.get("resource", "")}',
             "apis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
                     #/{data.get("resource", "")}/resources/',
             "stage": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
@@ -355,7 +359,7 @@ def get_links() -> Dict:
         "ecr": {  # Amazon Elastic Container Registry
             "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
                 ("resource", "")}?region={data.get("region", "")}',
-            "image" : 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
+            "image": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
                 ("resource", "")}?region={data.get("region", "")}'
         },
         "ecs": {  # Amazon Elastic Container Service
@@ -506,7 +510,7 @@ def get_links() -> Dict:
             "sms-mfa": None,
             "user": 'https://{data.get("console", "")}/iam/home?#/users/{data.get("resource", "")}',
             "access_keys": 'https://{data.get("console", "")}/iam/home#/users/{data.get("resource", "")}?section=security_credentials',
-            "policy_statement" : 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}'
+            "policy_statement": 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}'
         },
         "imagebuilder": {  # Amazon EC2 Image Builder
             "component": None,
