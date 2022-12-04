@@ -206,7 +206,7 @@ class GCPLinker:
             "load_balancer": resource.load_balancer_console,
             "vpc": resource.vpc_console,
             "apigateway_console": resource.apigateway_console,
-            "cloudrun": resource.cloudrun_console,
+            "cloudrun_console": resource.cloudrun_console,
         }
 
         param = build_kwargs(
