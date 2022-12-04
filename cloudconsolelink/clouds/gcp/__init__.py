@@ -259,5 +259,5 @@ class GCPLinker:
         if resource_name in resources_list:
             return resources[resource_name](**param).replace(" ", "")
 
-        logger.error('resource_name invalid')
+        logger.error(f"Invalid resource_name - {resource_name}")
         raise ValueError("Invalid parameters provided")
