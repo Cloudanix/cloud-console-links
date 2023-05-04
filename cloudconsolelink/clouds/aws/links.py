@@ -338,7 +338,7 @@ def get_links() -> Dict:
             "transit-gateway-attachment": None,
             "transit-gateway-multicast-domain": None,
             "transit-gateway-route-table": None,
-            "volume": 'https://u{data.get("region", "")}.{data.get("console", "")}/ec2\
+            "volume": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2\
                     /home?region={data.get("region", "")}#VolumeDetails:volumeId={data.get("resource", "")}',
             "vpc": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
                 {data.get("region", "")}#VpcDetails:VpcId={data.get("resource", "")}',
@@ -390,7 +390,7 @@ def get_links() -> Dict:
         },
         "elasticfilesystem": {  # Amazon Elastic File System
             "access-point": None,
-            "file-system": 'https://https://{data.get("region", "")}.{data.get("console", "")}/efs/home?region={data.get("region", "")}#/file-systems/{data.get("resource", "")}',
+            "file-system": 'https://{data.get("region", "")}.{data.get("console", "")}/efs/home?region={data.get("region", "")}#/file-systems/{data.get("resource", "")}',
         },
         "elasticloadbalancing": {  # AWS WAF V2
             "listener": None,
