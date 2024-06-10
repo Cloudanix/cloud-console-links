@@ -2,6 +2,7 @@ import logging
 from typing import Dict
 
 from .links import get_links
+import urllib.parse
 
 logger = logging.getLogger(__name__)
 
@@ -103,4 +104,5 @@ class AWSLinker:
             # raise ValueError(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
 
         else:
+            data['resource'] = urllib.parse.quote(data['resource'])
             return eval(f"f'{links[data['service']][data['resourceType']]}'").replace(" ", "")

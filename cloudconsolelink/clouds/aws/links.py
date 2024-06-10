@@ -630,7 +630,7 @@ def get_links() -> Dict:
             "StaticIp": None,
         },
         "logs": {  # Amazon CloudWatch Logs
-            "log-group": 'https://https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups/log-group/{data.get("resource", "")}',
+            "log-group": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups/log-group/{data.get("resource", "")}',
         },
         "machinelearning": {  # Amazon Machine Learning
             "batchprediction": None,
