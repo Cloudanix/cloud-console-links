@@ -306,7 +306,7 @@ def get_links() -> Dict:
             "image": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get("region", "")}#ImageDetails:imageId={data.get("resource", "")}',
             "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get\
                 ("region", "")}#InstanceDetails:instanceId={data.get("resource", "")}',
-            "internet-gateway": None,
+            "internet-gateway": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#InternetGateway:internetGatewayId={data.get("resource", "")}',
             "key-pair": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get\
                 ("region", "")}#KeyPairs:',
             "launch-template": None,
