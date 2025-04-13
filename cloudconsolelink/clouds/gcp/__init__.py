@@ -50,7 +50,6 @@ def build_kwargs(
     dns_policy_name=None,
     api_key_id=None,
     subscription_id=None,
-
 ) -> Dict:
     return {
         "resource_name": resource_name,
@@ -257,7 +256,7 @@ class GCPLinker:
 
         resources_list = list(resources.keys())
         if resource_name in resources_list:
-            return resources[resource_name](**param).replace(" ", "")
+            return resources[resource_name](**param).replace(" ", "")  # type: ignore
 
         logger.error(f"Invalid resource_name - {resource_name}")
         raise ValueError("Invalid parameters provided")

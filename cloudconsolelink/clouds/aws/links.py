@@ -41,7 +41,7 @@ def get_links() -> Dict:
             "certificate": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
                     #/{data.get("resource", "")}/resources/',
             "resource": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
-                    #/{data.get("resource", "")}/resources/'
+                    #/{data.get("resource", "")}/resources/',
         },
         "appconfig": {  # AWS AppConfig
             "application": None,
@@ -132,7 +132,6 @@ def get_links() -> Dict:
         "cloudtrail": {  # AWS CloudTrail
             "trail": 'https://{data.get("console", "")}/cloudtrail/home?region={data.get("region", "")}#/trails/\
             {data.get("resource", "")}',
-
         },
         "cloudwatch": {  # Amazon CloudWatch
             "alarm": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#alarmsV2:alarm/{data.get("resource", "")}?',
@@ -144,7 +143,7 @@ def get_links() -> Dict:
             "dashboard": None,
             "insight-rule": None,
             "event-bus": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#eventbuses:',
-            "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region=u{data.get("region", "")}#rules:'
+            "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region=u{data.get("region", "")}#rules:',
         },
         "codeartifact": {  # AWS CodeArtifact
             "domain": None,
@@ -207,7 +206,6 @@ def get_links() -> Dict:
             "organization-config-rule": None,
             "organization-conformance-pack": None,
             "remediation-configuration": None,
-
         },
         "connect": {  # Amazon Connect
             "instance": None,
@@ -292,7 +290,7 @@ def get_links() -> Dict:
             "table": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region=\
                 {data.get("region", "")}#table?name={data.get("resource", "")}',
             "secondary_indexes": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/\
-                                home?region=us-east-1#table?initialTagKey=&name={data.get("resource", "")}&tab=indexes'
+                                home?region=us-east-1#table?initialTagKey=&name={data.get("resource", "")}&tab=indexes',
         },
         "ec2": {  # AWS Systems Manager
             "capacity-reservation": None,
@@ -352,14 +350,13 @@ def get_links() -> Dict:
             "beanstalk_environment": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/\
                     home?region={data.get("region", "")}#/environment/dashboard?environmentId={data.get("resource", "")}',
             "loadbalancer": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/\
-                            home?region=u{data.get("region", "")}#LoadBalancers:search={data.get("resource", "")};sort=loadBalancerName'
-
+                            home?region=u{data.get("region", "")}#LoadBalancers:search={data.get("resource", "")};sort=loadBalancerName',
         },
         "ecr": {  # Amazon Elastic Container Registry
             "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
                 ("resource", "")}?region={data.get("region", "")}',
             "image": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
-                ("resource", "")}?region={data.get("region", "")}'
+                ("resource", "")}?region={data.get("region", "")}',
         },
         "ecs": {  # Amazon Elastic Container Service
             "cluster": None,
@@ -411,7 +408,7 @@ def get_links() -> Dict:
             "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/esv3/\
                         home?region={data.get("region", "")}#opensearch/domains/{data.get("resource", "")}',
             "reserved_instance": 'https://{data.get("region", "")}.{data.get("console", "")}/esv3/\
-                        home?region={data.get("region", "")}#opensearch/reserved-instances'
+                        home?region={data.get("region", "")}#opensearch/reserved-instances',
         },
         "events": {  # Amazon EventBridge
             "event-bus": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/eventbus/{data.get("resource", "")}',
@@ -509,7 +506,7 @@ def get_links() -> Dict:
             "sms-mfa": None,
             "user": 'https://{data.get("console", "")}/iam/home?#/users/{data.get("resource", "")}',
             "access_keys": 'https://{data.get("console", "")}/iam/home#/users/{data.get("resource", "")}?section=security_credentials',
-            "policy_statement": 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}'
+            "policy_statement": 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}',
         },
         "imagebuilder": {  # Amazon EC2 Image Builder
             "component": None,
@@ -601,7 +598,7 @@ def get_links() -> Dict:
             "alias": 'https://{data.get("region", "")}.{data.get("console", "")}/lambda/\
                         home?region={data.get("region", "")}#/functions/{data.get("resource", "")}?tab=aliases',
             "layer": 'https://{data.get("region", "")}.{data.get("console", "")}/lambda/home?region=\
-                {data.get("region", "")}#/functions/{data.get("resource", "")}'
+                {data.get("region", "")}#/functions/{data.get("resource", "")}',
         },
         "lex": {  # Amazon Lex
             "bot": None,
@@ -801,7 +798,7 @@ def get_links() -> Dict:
             "snapshotschedule": None,
             "subnetgroup": None,
             "reserved-node": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2\
-                        /home?region={data.get("region", "")}#reserved-nodes'
+                        /home?region={data.get("region", "")}#reserved-nodes',
         },
         "rekognition": {  # Amazon Rekognition
             "collection": None,
@@ -831,7 +828,7 @@ def get_links() -> Dict:
             {data.get("resource", "")}',
             "trafficpolicyinstance": 'https://{data.get("console", "")}/route53/trafficflow/home#/\
             modify-records/edit/{data.get("resource", "")}',
-            "domains": 'https://{data.get("region", "")}.{data.get("console", "")}/route53/home#DomainListing:'
+            "domains": 'https://{data.get("region", "")}.{data.get("console", "")}/route53/home#DomainListing:',
         },
         "route53resolver": {  # Amazon Route 53 Resolver
             "resolver-endpoint": None,
@@ -839,8 +836,8 @@ def get_links() -> Dict:
         },
         "s3": {  # Amazon S3
             "": 'https://s3.{data.get("console", "")}/s3/buckets/{data.get("resource", "")}',
-                "accesspoint": None,
-                "job": None,
+            "accesspoint": None,
+            "job": None,
         },
         "sagemaker": {  # Amazon SageMaker
             "algorithm": None,
@@ -917,7 +914,7 @@ def get_links() -> Dict:
         },
         "sns": {  # Amazon SNS
             "topic": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/topic/{arn}',
-            "subscription": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/subscription/{arn}'
+            "subscription": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/subscription/{arn}',
         },
         "sqs": {  # Amazon SQS
             "": 'https://{data.get("region", "")}.{data.get("console", "")}/sqs/v2/home?region=\
