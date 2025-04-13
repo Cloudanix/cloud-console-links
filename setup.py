@@ -15,7 +15,7 @@ setuptools.setup(
     # Name of Maintainer
     maintainer="Cloudanix",
     # Maintainer Email address
-    maintainer_email="ganesh@cloudanix.com",
+    maintainer_email="support@cloudanix.com",
     # Small Description about module
     description="Generate console links for cloud resources",
     long_description=long_description,
@@ -34,4 +34,14 @@ setuptools.setup(
         "Natural Language :: English",
         "Operating System :: OS Independent",
     ],
+    extras_require={
+        "dev": [  # Development dependencies
+            "pytest~=8.3",
+            "pytest-mock~=3.14",
+            "pytest-cov==2.11",
+            "pre-commit~=4.2",
+            "types-PyYAML~=6.0",
+            "types-requests~=2.32",
+        ],
+    },
 )

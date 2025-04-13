@@ -1,9 +1,0 @@
-# dev dependencies
-# pre-commit
-# pytest>=6.2.4
-# pytest-mock
-# pytest-cov==2.10.0
-
-# additional dependencies
-types-PyYAML
-types-requests
