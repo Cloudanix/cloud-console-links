@@ -1,40 +1,59 @@
 default_language_version:
-    # force all unspecified python hooks to run python3
-    python: python3
+  # force all unspecified python hooks to run python3
+  python: python3
+exclude: ".github|.vscode|.serverless|.mypy_cache|__pycache__|.venv|node_modules|tests"
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
     hooks:
-    -   id: check-docstring-first
-    -   id: check-executables-have-shebangs
-    -   id: check-merge-conflict
-    -   id: check-vcs-permalinks
-    -   id: check-yaml
-    -   id: debug-statements
-    -   id: end-of-file-fixer
-    -   id: trailing-whitespace
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2
+      - id: check-added-large-files
+      - id: check-ast
+      - id: check-builtin-literals
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-vcs-permalinks
+      - id: check-yaml
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: name-tests-test
+      - id: pretty-format-json
+        args: [--autofix]
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.1
     hooks:
-    -   id: flake8
--   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.5.7
-    hooks:
-    -   id: autopep8
-        # disable a few rewrites which will cause autopep8 to reflow
-        args: [--in-place, '--ignore=E265,E501,W504']
--   repo: https://github.com/asottile/pyupgrade
-    rev: v2.24.0
-    hooks:
-    -   id: pyupgrade
+      - id: pyupgrade
         args: [--py36-plus]
--   repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.1.0
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v3.1.0
     hooks:
-    -   id: add-trailing-comma
+      - id: add-trailing-comma
         args: [--py36-plus]
--   repo: https://github.com/asottile/reorder_python_imports
-    rev: v2.6.0
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v3.14.0
     hooks:
-    -   id: reorder-python-imports
+      - id: reorder-python-imports
         args: [--py3-plus]
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.3.1
+    hooks:
+      - id: autoflake
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.15.0" # Use the sha / tag you want to point at
+    hooks:
+      - id: mypy
+        args: [--ignore-missing-imports]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.11.5
+    hooks:
+      - id: ruff
+        args:
+          [--fix, --exit-non-zero-on-fix, "--line-length=120", "--ignore=E501"]
+      - id: ruff-format
