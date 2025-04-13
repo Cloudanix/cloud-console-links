@@ -42,7 +42,7 @@ def get_resource_path(resource: str) -> str:
 
 class AWSLinker:
     def get_console_link(self, arn: str) -> str:
-        logger.info(f"Start Process for AWS ARN: {arn}")
+        logger.debug(f"Start Process for AWS ARN: {arn}")
         arn = arn.strip()
         firstTokens = arn.split(":")
         tokens = firstTokens[:7]
