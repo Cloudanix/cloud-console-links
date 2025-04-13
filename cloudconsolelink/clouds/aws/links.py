@@ -118,7 +118,7 @@ def get_links() -> Dict:
             "stackset": None,
         },
         "cloudfront": {  # Amazon CloudFront
-            "distribution": 'https://{data.get("console", "")}/cloudfront/v3/home#/{data.get("resource", "")}',
+            "distribution": 'https://{data.get("console", "")}/cloudfront/v4/home#/{data.get("resource", "")}',
             "origin-access-identity": None,
             "streaming-distribution": None,
         },
