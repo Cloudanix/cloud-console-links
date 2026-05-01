@@ -224,11 +224,11 @@ def get_links() -> Dict:
             "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/connect/home?region={data.get("region", "")}',
         },
         "cur": {  # AWS Cost and Usage Report
-            "definition": None,
+            "definition": 'https://{data.get("console", "")}/billing/home?#/reports',
         },
         "dataexchange": {  # AWS Data Exchange
-            "data-sets": None,
-            "jobs": None,
+            "data-sets": 'https://{data.get("region", "")}.{data.get("console", "")}/dataexchange/home?region={data.get("region", "")}#/datasets/{data.get("resource", "")}',
+            "jobs": 'https://{data.get("region", "")}.{data.get("console", "")}/dataexchange/home?region={data.get("region", "")}#/jobs',
         },
         "datasync": {  # DataSync
             "agent": 'https://{data.get("region", "")}.{data.get("console", "")}/datasync/home?region={data.get("region", "")}#/agents/{data.get("resource", "")}',
