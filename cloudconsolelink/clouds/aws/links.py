@@ -86,8 +86,8 @@ def get_links() -> Dict:
             "backup-vault": 'https://{data.get("region", "")}.{data.get("console", "")}/backup/home?region={data.get("region", "")}#/backupvault/details/{data.get("resource", "")}',
         },
         "batch": {  # AWS Batch
-            "job-definition": None,
-            "job-queue": None,
+            "job-definition": 'https://{data.get("region", "")}.{data.get("console", "")}/batch/home?region={data.get("region", "")}#job-definition/detail/{data.get("resource", "")}',
+            "job-queue": 'https://{data.get("region", "")}.{data.get("console", "")}/batch/home?region={data.get("region", "")}#queues/detail/{data.get("resource", "")}',
         },
         "bedrock": {  # Amazon Bedrock
             "agent": 'https://{data.get("region", "")}.{data.get("console", "")}/bedrock/home?region={data.get("region", "")}#/agents/{data.get("resource", "")}',
