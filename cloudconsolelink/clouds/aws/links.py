@@ -952,8 +952,8 @@ def get_links() -> Dict:
             "windowtask": 'https://{data.get("region", "")}.{data.get("console", "")}/systems-manager/maintenance-windows?region={data.get("region", "")}',
         },
         "states": {  # AWS Step Functions
-            "activity": None,
-            "execution": None,
+            "activity": 'https://{data.get("region", "")}.{data.get("console", "")}/states/home?region={data.get("region", "")}#/activities/{arn}',
+            "execution": 'https://{data.get("region", "")}.{data.get("console", "")}/states/home?region={data.get("region", "")}#/executions/details/{arn}',
             "stateMachine": 'https://{data.get("region", "")}.{data.get("console", "")}/states/home?region=\
                 {data.get("region", "")}#/statemachines/view/{get_arn_string(data)}',
         },
