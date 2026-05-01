@@ -759,11 +759,11 @@ def get_links() -> Dict:
             "stream": 'https://{data.get("region", "")}.{data.get("console", "")}/qldb/home?region={data.get("region", "")}#/ledger/{data.get("resource", "")}/streams',
         },
         "quicksight": {  # Amazon QuickSight
-            "assignment": None,
-            "dashboard": None,
-            "group": None,
-            "template": None,
-            "user": None,
+            "assignment": None,  # policy assignment, no direct deep-link
+            "dashboard": 'https://{data.get("region", "")}.{data.get("console", "")}/quicksight/home?region={data.get("region", "")}#/dashboards',
+            "group": 'https://{data.get("region", "")}.{data.get("console", "")}/quicksight/home?region={data.get("region", "")}#/admin/groups',
+            "template": None,  # templates not directly browsable in console
+            "user": 'https://{data.get("region", "")}.{data.get("console", "")}/quicksight/home?region={data.get("region", "")}#/admin/users',
         },
         "ram": {  # AWS Resource Access Manager
             "permission": None,
