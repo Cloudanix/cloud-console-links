@@ -372,13 +372,13 @@ def get_links() -> Dict:
                 ("resource", "")}?region={data.get("region", "")}',
         },
         "ecs": {  # Amazon Elastic Container Service
-            "cluster": None,
-            "container-instance": None,
-            "service": None,
-            "task": None,
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}',
+            "container-instance": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/containerInstances',
+            "service": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/services',
+            "task": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/tasks',
             "task-definition": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs\
                     /home?region={data.get("region", "")}#/taskDefinitions/{data.get("resource", "")}',
-            "task-set": None,
+            "task-set": None,  # task-set is a sub-resource of service, no direct deep-link
         },
         "eks": {  # Amazon Elastic Container Service for Kubernetes
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get\
