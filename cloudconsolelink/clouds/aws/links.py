@@ -285,7 +285,7 @@ def get_links() -> Dict:
             "dxvif": 'https://{data.get("region", "")}.{data.get("console", "")}/directconnect/v2/home?region={data.get("region", "")}#/virtual-interfaces/{data.get("resource", "")}',
         },
         "dlm": {  # Amazon Data Lifecycle Manager
-            "policy": None,
+            "policy": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#LifecyclePolicies:',
         },
         "dms": {  # AWS Database Migration Service
             "cert": None,
