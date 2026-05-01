@@ -257,7 +257,7 @@ def get_links() -> Dict:
             "training_job": None,
         },
         "detective": {  # Amazon Detective
-            "graph": None,
+            "graph": 'https://{data.get("region", "")}.{data.get("console", "")}/detective/home?region={data.get("region", "")}#summary',
         },
         "devicefarm": {  # AWS Device Farm
             "artifact": None,
