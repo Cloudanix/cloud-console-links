@@ -849,8 +849,8 @@ def get_links() -> Dict:
         },
         "s3": {  # Amazon S3
             "": 'https://s3.{data.get("console", "")}/s3/buckets/{data.get("resource", "")}',
-            "accesspoint": None,
-            "job": None,
+            "accesspoint": 'https://s3.{data.get("console", "")}/s3/accesspoints/{data.get("resource", "")}',
+            "job": 'https://s3.{data.get("console", "")}/s3/jobs/{data.get("resource", "")}',
         },
         "sagemaker": {  # Amazon SageMaker
             "algorithm": 'https://{data.get("region", "")}.{data.get("console", "")}/sagemaker/home?region={data.get("region", "")}#/algorithms/{data.get("resource", "")}',
