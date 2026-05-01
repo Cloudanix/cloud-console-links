@@ -1012,13 +1012,13 @@ def get_links() -> Dict:
             "workload": 'https://{data.get("region", "")}.{data.get("console", "")}/wellarchitected/home?region={data.get("region", "")}#/workload/{data.get("resource", "")}',
         },
         "worklink": {  # Amazon WorkLink
-            "fleet": None,
+            "fleet": 'https://{data.get("region", "")}.{data.get("console", "")}/worklink/home?region={data.get("region", "")}#/fleets/{data.get("resource", "")}',
         },
         "workmail": {  # Amazon WorkMail
-            "organization": None,
+            "organization": 'https://{data.get("region", "")}.{data.get("console", "")}/workmail/home?region={data.get("region", "")}#/organizations/{data.get("resource", "")}',
         },
         "workmailmessageflow": {  # Amazon WorkMail Message Flow
-            "message": None,
+            "message": None,  # transient message resource, no direct console page
         },
         "workspaces": {  # Amazon WorkSpaces
             "directory": 'https://{data.get("region", "")}.{data.get("console", "")}/workspaces/home?region={data.get("region", "")}#directories',
