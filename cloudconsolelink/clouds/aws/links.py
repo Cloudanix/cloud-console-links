@@ -143,8 +143,7 @@ def get_links() -> Dict:
             "domain": None,  # CloudSearch is legacy, no modern console deep-link
         },
         "cloudtrail": {  # AWS CloudTrail
-            "trail": 'https://{data.get("console", "")}/cloudtrail/home?region={data.get("region", "")}#/trails/\
-            {data.get("resource", "")}',
+            "trail": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudtrail/home?region={data.get("region", "")}#/trails/{arn}',
         },
         "cloudwatch": {  # Amazon CloudWatch
             "alarm": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#alarmsV2:alarm/{data.get("resource", "")}?',
@@ -926,6 +925,7 @@ def get_links() -> Dict:
             "": 'https://{data.get("region", "")}.{data.get("console", "")}/signer/home?region={data.get("region", "")}#/signing-profiles',
         },
         "sns": {  # Amazon SNS
+            "": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/topic/{arn}',
             "topic": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/topic/{arn}',
             "subscription": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/subscription/{arn}',
         },
