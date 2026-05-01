@@ -159,9 +159,9 @@ def get_links() -> Dict:
             "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region=u{data.get("region", "")}#rules:',
         },
         "codeartifact": {  # AWS CodeArtifact
-            "domain": None,
-            "package": None,
-            "repository": None,
+            "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codeartifact/domains/{data.get("resource", "")}?region={data.get("region", "")}',
+            "package": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codeartifact/packages?region={data.get("region", "")}',
+            "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codeartifact/repositories/{data.get("resource", "")}?region={data.get("region", "")}',
         },
         "codebuild": {  # AWS CodeBuild
             "build": None,
