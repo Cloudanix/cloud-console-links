@@ -896,8 +896,8 @@ def get_links() -> Dict:
             "secret": 'https://{data.get("region", "")}.{data.get("console", "")}/secretsmanager/secret?name={data.get("resource", "")}&region ={data.get("region", "")}',
         },
         "securityhub": {  # AWS Security Hub
-            "hub": None,
-            "product": None,
+            "hub": 'https://{data.get("region", "")}.{data.get("console", "")}/securityhub/home?region={data.get("region", "")}#/summary',
+            "product": 'https://{data.get("region", "")}.{data.get("console", "")}/securityhub/home?region={data.get("region", "")}#/integrations',
         },
         "serverlessrepo": {  # AWS Serverless Application Repository
             "applications": None,
