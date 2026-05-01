@@ -164,10 +164,10 @@ def get_links() -> Dict:
             "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codeartifact/repositories/{data.get("resource", "")}?region={data.get("region", "")}',
         },
         "codebuild": {  # AWS CodeBuild
-            "build": None,
-            "project": None,
-            "report": None,
-            "report-group": None,
+            "build": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codebuild/projects?region={data.get("region", "")}',
+            "project": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codebuild/{data.get("account", "")}/projects/{data.get("resource", "")}/history?region={data.get("region", "")}',
+            "report": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codebuild/testReports/reports?region={data.get("region", "")}',
+            "report-group": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codebuild/testReports/reportGroups/{data.get("resource", "")}?region={data.get("region", "")}',
         },
         "codecommit": {  # Amazon CodeGuru Reviewer
         },
