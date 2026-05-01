@@ -814,9 +814,9 @@ def get_links() -> Dict:
                         /home?region={data.get("region", "")}#reserved-nodes',
         },
         "rekognition": {  # Amazon Rekognition
-            "collection": None,
-            "project": None,
-            "streamprocessor": None,
+            "collection": 'https://{data.get("region", "")}.{data.get("console", "")}/rekognition/home?region={data.get("region", "")}#/',
+            "project": 'https://{data.get("region", "")}.{data.get("console", "")}/rekognition/home?region={data.get("region", "")}#/projects/{data.get("resource", "")}',
+            "streamprocessor": 'https://{data.get("region", "")}.{data.get("console", "")}/rekognition/home?region={data.get("region", "")}#/stream-processors',
         },
         "resource-groups": {  # AWS Resource Groups
             "group": None,
