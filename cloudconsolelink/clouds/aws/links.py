@@ -845,7 +845,7 @@ def get_links() -> Dict:
             "automl-job": None,
             "code-repository": None,
             "compilation-job": None,
-            "domain": None,
+            "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/sagemaker/home?region={data.get("region", "")}#/studio/{data.get("resource", "")}',
             "endpoint": None,
             "endpoint-config": None,
             "experiment": None,
