@@ -620,7 +620,7 @@ def get_links() -> Dict:
             "slottype": None,  # sub-resource of bot, no direct deep-link
         },
         "license-manager": {  # AWS License Manager
-            "license-configuration": None,
+            "license-configuration": 'https://{data.get("region", "")}.{data.get("console", "")}/license-manager/home?region={data.get("region", "")}#licenseConfigurationDetail/{data.get("resource", "")}',
         },
         "lightsail": {  # Amazon Lightsail
             "CloudFormationStackRecord": None,
