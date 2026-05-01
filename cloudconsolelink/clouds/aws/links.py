@@ -972,8 +972,8 @@ def get_links() -> Dict:
             "canary": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#synthetics:canary/detail/{data.get("resource", "")}',
         },
         "transfer": {  # AWS Transfer for SFTP
-            "server": None,
-            "user": None,
+            "server": 'https://{data.get("region", "")}.{data.get("console", "")}/transfer/home?region={data.get("region", "")}#/servers/{data.get("resource", "")}',
+            "user": 'https://{data.get("region", "")}.{data.get("console", "")}/transfer/home?region={data.get("region", "")}#/servers/{data.get("resource", "")}/users',
         },
         "trustedadvisor": {  # AWS Trusted Advisor
             "checks": None,
