@@ -766,9 +766,9 @@ def get_links() -> Dict:
             "user": 'https://{data.get("region", "")}.{data.get("console", "")}/quicksight/home?region={data.get("region", "")}#/admin/users',
         },
         "ram": {  # AWS Resource Access Manager
-            "permission": None,
-            "resource-share": None,
-            "resource-share-invitation": None,
+            "permission": 'https://{data.get("region", "")}.{data.get("console", "")}/ram/home?region={data.get("region", "")}#Permissions:',
+            "resource-share": 'https://{data.get("region", "")}.{data.get("console", "")}/ram/home?region={data.get("region", "")}#ResourceShare:{data.get("resource", "")}',
+            "resource-share-invitation": 'https://{data.get("region", "")}.{data.get("console", "")}/ram/home?region={data.get("region", "")}#ReceivedShares:',
         },
         "rds": {  # Amazon RDS
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/\
