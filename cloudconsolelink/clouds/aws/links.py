@@ -648,10 +648,10 @@ def get_links() -> Dict:
             "mlmodel": None,
         },
         "macie2": {  # Amazon Macie
-            "classification-job": None,
-            "custom-data-identifier": None,
-            "findings-filter": None,
-            "member": None,
+            "classification-job": 'https://{data.get("region", "")}.{data.get("console", "")}/macie/home?region={data.get("region", "")}#jobs/{data.get("resource", "")}',
+            "custom-data-identifier": 'https://{data.get("region", "")}.{data.get("console", "")}/macie/home?region={data.get("region", "")}#custom-data-identifiers/details/{data.get("resource", "")}',
+            "findings-filter": 'https://{data.get("region", "")}.{data.get("console", "")}/macie/home?region={data.get("region", "")}#findings/filters',
+            "member": 'https://{data.get("region", "")}.{data.get("console", "")}/macie/home?region={data.get("region", "")}#accounts',
         },
         "managedblockchain": {  # Amazon Managed Blockchain
             "invitations": None,
