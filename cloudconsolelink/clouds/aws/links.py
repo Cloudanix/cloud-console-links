@@ -115,14 +115,14 @@ def get_links() -> Dict:
         "chatbot": {  # AWS Chatbot
         },
         "chime": {  # Amazon Chime
-            "meeting": None,
+            "meeting": None,  # meetings are transient, no permanent console deep-link
         },
         "cloud9": {  # AWS Cloud9
             "environment": 'https://{data.get("region", "")}.{data.get("console", "")}/cloud9/home/environments/{data.get("resource", "")}?region={data.get("region", "")}',
         },
         "clouddirectory": {  # Amazon Cloud Directory
-            "directory": None,
-            "schema": None,
+            "directory": None,  # Cloud Directory is legacy, limited console support
+            "schema": None,  # Cloud Directory is legacy, limited console support
         },
         "cloudformation": {  # AWS CloudFormation
             "changeSet": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudformation/home?region={data.get("region", "")}#/stacks',
@@ -139,8 +139,8 @@ def get_links() -> Dict:
             "backup": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudhsm/home?region={data.get("region", "")}#/backups',
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudhsm/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}',
         },
-        "cloudsearch": {  # Amazon CloudSearch
-            "domain": None,
+        "cloudsearch": {  # Amazon CloudSearch (legacy)
+            "domain": None,  # CloudSearch is legacy, no modern console deep-link
         },
         "cloudtrail": {  # AWS CloudTrail
             "trail": 'https://{data.get("console", "")}/cloudtrail/home?region={data.get("region", "")}#/trails/\
