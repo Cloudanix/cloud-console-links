@@ -583,7 +583,7 @@ def get_links() -> Dict:
             "Workflow": None,
         },
         "kafka": {  # Amazon Managed Streaming for Kafka
-            "cluster": None,
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/msk/home?region={data.get("region", "")}#/cluster/{data.get("resource", "")}/view',
         },
         "kendra": {  # Amazon Kendra
             "index": None,
