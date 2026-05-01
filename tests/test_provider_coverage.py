@@ -205,7 +205,7 @@ def test_aws_helper_functions_cover_all_arn_shapes():
             "resource": "topic-name",
             "resourceType": "",
         }
-    ).replace(" ", "") == "arn:aws:sns:us-east-1:123456789012:topic-name"
+    ) == "arn:aws:sns:us-east-1:123456789012:topic-name"
     assert get_arn_string(
         {
             "prefix": "arn",
@@ -213,12 +213,11 @@ def test_aws_helper_functions_cover_all_arn_shapes():
             "service": "ec2",
             "region": "us-east-1",
             "account": "123456789012",
-            "resource_type": "instance",
+            "resourceType": "instance",
             "resource": "i-123",
             "hasPath": True,
-            "resourceType": "instance",
         }
-    ).replace(" ", "") == "arn:aws:ec2:us-east-1:123456789012:instance/i-123"
+    ) == "arn:aws:ec2:us-east-1:123456789012:instance/i-123"
     assert get_arn_string(
         {
             "prefix": "arn",
@@ -226,12 +225,11 @@ def test_aws_helper_functions_cover_all_arn_shapes():
             "service": "rds",
             "region": "us-east-1",
             "account": "123456789012",
-            "resource_type": "db",
+            "resourceType": "db",
             "resource": "db-123",
             "hasPath": False,
-            "resourceType": "db",
         }
-    ).replace(" ", "") == "arn:aws:rds:us-east-1:123456789012:db:db-123"
+    ) == "arn:aws:rds:us-east-1:123456789012:db:db-123"
 
     assert get_qualifiers("alpha:beta:gamma") == ["alpha", "beta", "gamma"]
     assert get_resource_path("service/path/resource") == "resource"
@@ -254,3 +252,20 @@ def test_aws_linker_validates_bad_arns_and_unknown_services():
 
     with pytest.raises(ValueError, match="unknown"):
         aws.get_console_link("arn:aws:not-a-service:us-east-1:123456789012:item/demo")
+
+
+def test_aws_linker_builds_links_for_helper_based_arn_templates():
+    aws = AWSLinker()
+
+    assert (
+        aws.get_console_link("arn:aws:iam::123456789012:oidc-provider/auth.example.com")
+        == "https://console.aws.amazon.com/iam/home?#/providers/arn:aws:iam::123456789012:oidc-provider/auth.example.com"
+    )
+    assert (
+        aws.get_console_link("arn:aws:iam::123456789012:policy/DemoPolicy")
+        == "https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::123456789012:policy/DemoPolicy"
+    )
+    assert (
+        aws.get_console_link("arn:aws:states:us-east-1:123456789012:stateMachine:demo-machine")
+        == "https://us-east-1.console.aws.amazon.com/states/home?region=us-east-1#/statemachines/view/arn:aws:states:us-east-1:123456789012:stateMachine:demo-machine"
+    )

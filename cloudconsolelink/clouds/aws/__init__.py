@@ -18,18 +18,24 @@ def get_console(partition: str) -> str:
 
 def get_arn_string(data: Dict) -> str:
     if not data.get("resourceType", ""):
-        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:\
-            {data.get('region', '')}:{data.get('account', '')}:{data.get('resource', '')}"
+        return (
+            f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:"
+            f"{data.get('region', '')}:{data.get('account', '')}:{data.get('resource', '')}"
+        )
 
     elif data.get("hasPath", ""):
-        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:\
-            {data.get('region', '')}:{data.get('account', '')}:{data.get('resource_type', '')}\
-                /{data.get('resource', '')}"
+        return (
+            f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:"
+            f"{data.get('region', '')}:{data.get('account', '')}:{data.get('resourceType', '')}"
+            f"/{data.get('resource', '')}"
+        )
 
     else:
-        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:\
-            {data.get('region', '')}:{data.get('account', '')}:{data.get('resource_type', '')}:\
-                {data.get('resource', '')}"
+        return (
+            f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:"
+            f"{data.get('region', '')}:{data.get('account', '')}:{data.get('resourceType', '')}:"
+            f"{data.get('resource', '')}"
+        )
 
 
 def get_qualifiers(resource: str) -> list[str]:
