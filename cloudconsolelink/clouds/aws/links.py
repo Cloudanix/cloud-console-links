@@ -221,7 +221,7 @@ def get_links() -> Dict:
             "remediation-configuration": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/rules',
         },
         "connect": {  # Amazon Connect
-            "instance": None,
+            "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/connect/home?region={data.get("region", "")}',
         },
         "cur": {  # AWS Cost and Usage Report
             "definition": None,
