@@ -755,8 +755,8 @@ def get_links() -> Dict:
             "lexicon": None,
         },
         "qldb": {  # Amazon QLDB
-            "ledger": None,
-            "stream": None,
+            "ledger": 'https://{data.get("region", "")}.{data.get("console", "")}/qldb/home?region={data.get("region", "")}#/ledger/{data.get("resource", "")}',
+            "stream": 'https://{data.get("region", "")}.{data.get("console", "")}/qldb/home?region={data.get("region", "")}#/ledger/{data.get("resource", "")}/streams',
         },
         "quicksight": {  # Amazon QuickSight
             "assignment": None,
