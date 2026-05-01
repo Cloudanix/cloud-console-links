@@ -654,11 +654,11 @@ def get_links() -> Dict:
             "member": 'https://{data.get("region", "")}.{data.get("console", "")}/macie/home?region={data.get("region", "")}#accounts',
         },
         "managedblockchain": {  # Amazon Managed Blockchain
-            "invitations": None,
-            "members": None,
-            "networks": None,
-            "nodes": None,
-            "proposals": None,
+            "invitations": 'https://{data.get("region", "")}.{data.get("console", "")}/managedblockchain/home?region={data.get("region", "")}#/invitations',
+            "members": 'https://{data.get("region", "")}.{data.get("console", "")}/managedblockchain/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/members',
+            "networks": 'https://{data.get("region", "")}.{data.get("console", "")}/managedblockchain/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}',
+            "nodes": 'https://{data.get("region", "")}.{data.get("console", "")}/managedblockchain/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/nodes',
+            "proposals": 'https://{data.get("region", "")}.{data.get("console", "")}/managedblockchain/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/proposals',
         },
         "mediaconnect": {  # AWS Elemental MediaConnect
             "entitlement": None,  # sub-resource of flow, no direct deep-link
