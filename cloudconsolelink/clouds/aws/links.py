@@ -978,33 +978,33 @@ def get_links() -> Dict:
         "trustedadvisor": {  # AWS Trusted Advisor
             "checks": None,
         },
-        "waf": {  # AWS WAF
-            "bytematchset": None,
-            "geomatchset": None,
-            "ipset": None,
-            "ratebasedrule": None,
-            "regexmatch": None,
-            "regexpatternset": None,
-            "rule": None,
-            "rulegroup": None,
-            "sizeconstraintset": None,
-            "sqlinjectionset": None,
-            "webacl": None,
-            "xssmatchset": None,
+        "waf": {  # AWS WAF (Classic, global)
+            "bytematchset": None,  # WAF Classic condition, no dedicated console deep-link
+            "geomatchset": None,  # WAF Classic condition, no dedicated console deep-link
+            "ipset": 'https://{data.get("console", "")}/wafv2/homev2?region=global#/waf-classic/ip-sets',
+            "ratebasedrule": 'https://{data.get("console", "")}/wafv2/homev2?region=global#/waf-classic/rules',
+            "regexmatch": None,  # WAF Classic condition, no dedicated console deep-link
+            "regexpatternset": None,  # WAF Classic condition, no dedicated console deep-link
+            "rule": 'https://{data.get("console", "")}/wafv2/homev2?region=global#/waf-classic/rules',
+            "rulegroup": 'https://{data.get("console", "")}/wafv2/homev2?region=global#/waf-classic/rule-groups',
+            "sizeconstraintset": None,  # WAF Classic condition, no dedicated console deep-link
+            "sqlinjectionset": None,  # WAF Classic condition, no dedicated console deep-link
+            "webacl": 'https://{data.get("console", "")}/wafv2/homev2?region=global#/waf-classic/web-acls',
+            "xssmatchset": None,  # WAF Classic condition, no dedicated console deep-link
         },
-        "waf-regional": {  # AWS WAF Regional
-            "bytematchset": None,
-            "geomatchset": None,
-            "ipset": None,
-            "ratebasedrule": None,
-            "regexmatch": None,
-            "regexpatternset": None,
-            "rule": None,
-            "rulegroup": None,
-            "sizeconstraintset": None,
-            "sqlinjectionset": None,
-            "webacl": None,
-            "xssmatchset": None,
+        "waf-regional": {  # AWS WAF Regional (Classic)
+            "bytematchset": None,  # WAF Classic condition, no dedicated console deep-link
+            "geomatchset": None,  # WAF Classic condition, no dedicated console deep-link
+            "ipset": 'https://{data.get("region", "")}.{data.get("console", "")}/wafv2/homev2?region={data.get("region", "")}#/waf-classic/ip-sets',
+            "ratebasedrule": 'https://{data.get("region", "")}.{data.get("console", "")}/wafv2/homev2?region={data.get("region", "")}#/waf-classic/rules',
+            "regexmatch": None,  # WAF Classic condition, no dedicated console deep-link
+            "regexpatternset": None,  # WAF Classic condition, no dedicated console deep-link
+            "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/wafv2/homev2?region={data.get("region", "")}#/waf-classic/rules',
+            "rulegroup": 'https://{data.get("region", "")}.{data.get("console", "")}/wafv2/homev2?region={data.get("region", "")}#/waf-classic/rule-groups',
+            "sizeconstraintset": None,  # WAF Classic condition, no dedicated console deep-link
+            "sqlinjectionset": None,  # WAF Classic condition, no dedicated console deep-link
+            "webacl": 'https://{data.get("region", "")}.{data.get("console", "")}/wafv2/homev2?region={data.get("region", "")}#/waf-classic/web-acls',
+            "xssmatchset": None,  # WAF Classic condition, no dedicated console deep-link
         },
         "wafv2": {  # AWS WAF V2
         },
