@@ -737,16 +737,16 @@ def get_links() -> Dict:
             "site": 'https://{data.get("region", "")}.{data.get("console", "")}/outposts/home?region={data.get("region", "")}#/sites/{data.get("resource", "")}',
         },
         "personalize": {  # Amazon Personalize
-            "algorithm": None,
-            "campaign": None,
-            "dataset": None,
-            "dataset-group": None,
-            "dataset-import-job": None,
-            "event-tracker": None,
-            "feature-transformation": None,
-            "recipe": None,
-            "schema": None,
-            "solution": None,
+            "algorithm": None,  # built-in algorithm, not directly navigable
+            "campaign": 'https://{data.get("region", "")}.{data.get("console", "")}/personalize/home?region={data.get("region", "")}#/datasetGroups/{data.get("resource", "")}/campaigns',
+            "dataset": 'https://{data.get("region", "")}.{data.get("console", "")}/personalize/home?region={data.get("region", "")}#/datasetGroups/{data.get("resource", "")}/datasets',
+            "dataset-group": 'https://{data.get("region", "")}.{data.get("console", "")}/personalize/home?region={data.get("region", "")}#/datasetGroups/{data.get("resource", "")}',
+            "dataset-import-job": None,  # sub-resource of dataset, no direct deep-link
+            "event-tracker": 'https://{data.get("region", "")}.{data.get("console", "")}/personalize/home?region={data.get("region", "")}#/datasetGroups/{data.get("resource", "")}/event-trackers',
+            "feature-transformation": None,  # internal resource, no direct console page
+            "recipe": None,  # built-in recipe, not directly navigable
+            "schema": 'https://{data.get("region", "")}.{data.get("console", "")}/personalize/home?region={data.get("region", "")}#/schemas',
+            "solution": 'https://{data.get("region", "")}.{data.get("console", "")}/personalize/home?region={data.get("region", "")}#/datasetGroups/{data.get("resource", "")}/solutions',
         },
         "pi": {  # AWS Performance Insights
             "metrics": None,
