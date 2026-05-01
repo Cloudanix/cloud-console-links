@@ -18,18 +18,24 @@ def get_console(partition: str) -> str:
 
 def get_arn_string(data: Dict) -> str:
     if not data.get("resourceType", ""):
-        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:\
-            {data.get('region', '')}:{data.get('account', '')}:{data.get('resource', '')}"
+        return (
+            f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:"
+            f"{data.get('region', '')}:{data.get('account', '')}:{data.get('resource', '')}"
+        )
 
     elif data.get("hasPath", ""):
-        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:\
-            {data.get('region', '')}:{data.get('account', '')}:{data.get('resource_type', '')}\
-                /{data.get('resource', '')}"
+        return (
+            f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:"
+            f"{data.get('region', '')}:{data.get('account', '')}:{data.get('resourceType', '')}"
+            f"/{data.get('resource', '')}"
+        )
 
     else:
-        return f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:\
-            {data.get('region', '')}:{data.get('account', '')}:{data.get('resource_type', '')}:\
-                {data.get('resource', '')}"
+        return (
+            f"{data.get('prefix', '')}:{data.get('partition', '')}:{data.get('service', '')}:"
+            f"{data.get('region', '')}:{data.get('account', '')}:{data.get('resourceType', '')}:"
+            f"{data.get('resource', '')}"
+        )
 
 
 def get_qualifiers(resource: str) -> list[str]:
@@ -60,8 +66,8 @@ class AWSLinker:
             }
 
         except IndexError:
-            logger.error(f"AWS ARN {arn} is to short")
-            raise ValueError(f"AWS ARN {arn} is to short")
+            logger.error(f"AWS ARN {arn} is too short")
+            raise ValueError(f"AWS ARN {arn} is too short")
 
         if len(tokens) > 6:
             data["resourceType"] = tokens[5]
@@ -113,8 +119,19 @@ class AWSLinker:
             # raise ValueError(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
 
         else:
+            template_context = {
+                "arn": arn,
+                "data": data,
+                "get_arn_string": get_arn_string,
+                "get_qualifiers": get_qualifiers,
+                "get_resource_path": get_resource_path,
+            }
             data["resource"] = urllib.parse.quote(str(data["resource"]))
-            return eval(f"f'{links[data['service']][data['resourceType']]}'").replace(
+            return eval(
+                f"f'{links[data['service']][data['resourceType']]}'",
+                {"__builtins__": {}},
+                template_context,
+            ).replace(
                 " ",
                 "",
             )

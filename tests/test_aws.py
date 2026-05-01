@@ -1,4 +1,5 @@
 from cloudconsolelink.clouds.aws import AWSLinker
+from cloudconsolelink.clouds.aws.links import get_links
 
 aws = AWSLinker()
 
@@ -31,6 +32,42 @@ def test_aws_eks_cluster():
     out_link = aws.get_console_link(arn=arn)
 
     assert out_link == expected_link.replace(" ", "")
+
+
+def test_aws_appflow_flow():
+    arn = "arn:aws:appflow:us-east-2:123456789012:flow/FlowName-123"
+    expected_link = (
+        "https://us-east-2.console.aws.amazon.com/appflow/home?"
+        "region=us-east-2#/flows/FlowName-123"
+    )
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
+def test_aws_appmesh_mesh():
+    arn = "arn:aws:appmesh:us-east-2:123456789012:mesh/MyMesh"
+    expected_link = (
+        "https://us-east-2.console.aws.amazon.com/appmesh/home?"
+        "region=us-east-2#/meshes/MyMesh"
+    )
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
+def test_aws_bedrock_agent():
+    arn = "arn:aws:bedrock:us-east-2:123456789012:agent/agent-123"
+    expected_link = (
+        "https://us-east-2.console.aws.amazon.com/bedrock/home?"
+        "region=us-east-2#/agents/agent-123"
+    )
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
 
 
 def test_aws_rds_db_instance():
@@ -100,9 +137,27 @@ def test_aws_event_eventbus():
     assert out_link == expected_link.replace(" ", "")
 
 
+def test_aws_event_rule():
+    arn = "arn:aws:events:us-east-2:123456789012:rule/RuleName-123"
+    expected_link = "https://us-east-2.console.aws.amazon.com/events/home?region=us-east-2#/rules/RuleName-123"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
+def test_aws_cloudwatch_rule():
+    arn = "arn:aws:cloudwatch:us-east-2:123456789012:rule/RuleName-123"
+    expected_link = "https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#rules:"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
 def test_aws_cloudwatch_loggroup():
     arn = "arn:aws:logs:us-east-2:123456789012:log-group/LogGroupName-123"
-    expected_link = 'https://https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/LogGroupName-123'
+    expected_link = 'https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/LogGroupName-123'
 
     out_link = aws.get_console_link(arn=arn)
     print(out_link)
@@ -126,3 +181,21 @@ def test_aws_sns_topic():
     out_link = aws.get_console_link(arn=arn)
     print(out_link)
     assert out_link == expected_link.replace(" ", "")
+
+
+def test_aws_deepracer_evaluation_job_falls_back_to_service_home():
+    arn = "arn:aws:deepracer:us-east-1:123456789012:evaluation_job/job123"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == "https://console.aws.amazon.com/deepracer"
+
+
+def test_aws_links_resource_keys_are_trimmed():
+    links = get_links()
+
+    for service, resource_types in links.items():
+        for resource_type in resource_types:
+            assert resource_type == resource_type.strip(), (
+                f"{service!r} contains malformed resource key {resource_type!r}"
+            )

@@ -1,0 +1,7 @@
+pre-commit~=4.2
+pytest~=8.3
+pytest-cov==2.11
+pytest-mock~=3.14
+
+types-PyYAML~=6.0
+types-requests~=2.32

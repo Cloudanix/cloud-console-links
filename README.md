@@ -4,6 +4,22 @@ This project for generate console links for AWS, GCP and Azure cloud resources
 # Install
 Run ```pip install cloudconsolelink``` to install our code
 
+For local development, install the package with dev extras:
+
+```bash
+pip install -e '.[dev]'
+```
+
+Verification shortcuts:
+
+```bash
+make test
+make coverage
+make test-arn
+make test-aws-links
+make check
+```
+
 # Usage
 
 ### Import Package
