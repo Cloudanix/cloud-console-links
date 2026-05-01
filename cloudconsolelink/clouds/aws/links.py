@@ -592,11 +592,11 @@ def get_links() -> Dict:
             "stream": 'https://{data.get("region", "")}.{data.get("console", "")}/kinesis/home?region={data.get("region", "")}#/streams/details/{data.get("resource", "")}/monitoring',
         },
         "kinesisanalytics": {  # Amazon Kinesis Analytics V2
-            "application": None,
+            "application": 'https://{data.get("region", "")}.{data.get("console", "")}/kinesisanalytics/home?region={data.get("region", "")}#/applications/{data.get("resource", "")}',
         },
         "kinesisvideo": {  # Amazon Kinesis Video Streams
-            "channel": None,
-            "stream": None,
+            "channel": 'https://{data.get("region", "")}.{data.get("console", "")}/kinesisvideo/home?region={data.get("region", "")}#/signalingChannels/{data.get("resource", "")}',
+            "stream": 'https://{data.get("region", "")}.{data.get("console", "")}/kinesisvideo/home?region={data.get("region", "")}#/streams/{data.get("resource", "")}',
         },
         "kms": {  # AWS Key Management Service
             "alias": 'https://{data.get("region", "")}.{data.get("console", "")}/kms/home?region={data.get("region", "")}#/kms/aliases',
