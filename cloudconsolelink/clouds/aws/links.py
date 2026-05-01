@@ -1021,10 +1021,10 @@ def get_links() -> Dict:
             "message": None,
         },
         "workspaces": {  # Amazon WorkSpaces
-            "directory": None,
-            "workspace": None,
-            "workspacebundle": None,
-            "workspaceipgroup": None,
+            "directory": 'https://{data.get("region", "")}.{data.get("console", "")}/workspaces/home?region={data.get("region", "")}#directories',
+            "workspace": 'https://{data.get("region", "")}.{data.get("console", "")}/workspaces/home?region={data.get("region", "")}#/workspaces/{data.get("resource", "")}',
+            "workspacebundle": 'https://{data.get("region", "")}.{data.get("console", "")}/workspaces/home?region={data.get("region", "")}#bundles',
+            "workspaceipgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/workspaces/home?region={data.get("region", "")}#ip-access-control-groups',
         },
         "xray": {  # AWS X-Ray
             "group": None,
