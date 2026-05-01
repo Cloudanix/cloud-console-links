@@ -260,23 +260,23 @@ def get_links() -> Dict:
             "graph": 'https://{data.get("region", "")}.{data.get("console", "")}/detective/home?region={data.get("region", "")}#summary',
         },
         "devicefarm": {  # AWS Device Farm
-            "artifact": None,
-            "device": None,
-            "deviceinstance": None,
-            "devicepool": None,
-            "instanceprofile": None,
-            "job": None,
-            "networkprofile": None,
-            "project": None,
-            "run": None,
-            "sample": None,
-            "session": None,
-            "suite": None,
-            "test": None,
-            "testgrid-project": None,
-            "testgrid-session": None,
-            "upload": None,
-            "vpceconfiguration": None,
+            "artifact": None,  # sub-resource of job, no direct deep-link
+            "device": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/devices',
+            "deviceinstance": None,  # private device instance, no direct deep-link
+            "devicepool": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/projects/{data.get("resource", "")}/device-pools',
+            "instanceprofile": None,  # sub-resource, no direct deep-link
+            "job": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/projects/{data.get("resource", "")}/runs',
+            "networkprofile": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/projects/{data.get("resource", "")}/network-profiles',
+            "project": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/projects/{data.get("resource", "")}',
+            "run": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/projects/{data.get("resource", "")}/runs',
+            "sample": None,  # sub-resource, no direct deep-link
+            "session": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/testgrid-projects/{data.get("resource", "")}/sessions',
+            "suite": None,  # sub-resource of run, no direct deep-link
+            "test": None,  # sub-resource of suite, no direct deep-link
+            "testgrid-project": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/testgrid-projects/{data.get("resource", "")}',
+            "testgrid-session": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/testgrid-projects/{data.get("resource", "")}/sessions',
+            "upload": None,  # sub-resource of project, no direct deep-link
+            "vpceconfiguration": None,  # internal config, no direct deep-link
         },
         "directconnect": {  # AWS Direct Connect
             "dx-gateway": 'https://{data.get("region", "")}.{data.get("console", "")}/directconnect/v2/home?region={data.get("region", "")}#/direct-connect-gateways/{data.get("resource", "")}',
