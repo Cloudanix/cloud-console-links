@@ -67,9 +67,9 @@ def get_links() -> Dict:
             "apis": 'https://{data.get("region", "")}.{data.get("console", "")}/appsync/home?region={data.get("region", "")}#/{data.get("resource", "")}',
         },
         "artifact": {  # AWS Artifact
-            "agreement": None,
-            "customer-agreement": None,
-            "report-package": None,
+            "agreement": 'https://{data.get("console", "")}/artifact/home#!/agreements',
+            "customer-agreement": 'https://{data.get("console", "")}/artifact/home#!/agreements',
+            "report-package": 'https://{data.get("console", "")}/artifact/home#!/reports',
         },
         "athena": {  # Amazon Athena
             "datacatalog": 'https://{data.get("region", "")}.{data.get("console", "")}/athena/home?region={data.get("region", "")}#/data-sources/catalog/{data.get("resource", "")}',
