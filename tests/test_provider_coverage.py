@@ -238,7 +238,7 @@ def test_aws_helper_functions_cover_all_arn_shapes():
 def test_aws_linker_validates_bad_arns_and_unknown_services():
     aws = AWSLinker()
 
-    with pytest.raises(ValueError, match="is to short"):
+    with pytest.raises(ValueError, match="is too short"):
         aws.get_console_link("arn:aws")
 
     with pytest.raises(ValueError, match="Invalid AWS ARN"):

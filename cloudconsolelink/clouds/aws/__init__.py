@@ -66,8 +66,8 @@ class AWSLinker:
             }
 
         except IndexError:
-            logger.error(f"AWS ARN {arn} is to short")
-            raise ValueError(f"AWS ARN {arn} is to short")
+            logger.error(f"AWS ARN {arn} is too short")
+            raise ValueError(f"AWS ARN {arn} is too short")
 
         if len(tokens) > 6:
             data["resourceType"] = tokens[5]
