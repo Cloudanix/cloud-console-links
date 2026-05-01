@@ -1027,8 +1027,8 @@ def get_links() -> Dict:
             "workspaceipgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/workspaces/home?region={data.get("region", "")}#ip-access-control-groups',
         },
         "xray": {  # AWS X-Ray
-            "group": None,
-            "sampling-rule": None,
+            "group": 'https://{data.get("region", "")}.{data.get("console", "")}/xray/home?region={data.get("region", "")}#/groups',
+            "sampling-rule": 'https://{data.get("region", "")}.{data.get("console", "")}/xray/home?region={data.get("region", "")}#/sampling-rules',
         },
     }
 
