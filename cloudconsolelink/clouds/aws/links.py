@@ -76,8 +76,8 @@ def get_links() -> Dict:
             "workgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/athena/home?region={data.get("region", "")}#/workgroups/details/{data.get("resource", "")}',
         },
         "autoscaling": {  # Amazon EC2 Auto Scaling
-            "autoScalingGroup": None,
-            "launchConfiguration": None,
+            "autoScalingGroup": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#AutoScalingGroupDetails:id={data.get("resource", "")}',
+            "launchConfiguration": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#LaunchConfigurations:',
         },
         "aws-marketplace": {  # AWS Marketplace Catalog
         },
