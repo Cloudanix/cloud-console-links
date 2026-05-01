@@ -236,7 +236,7 @@ def get_links() -> Dict:
             "task": 'https://{data.get("region", "")}.{data.get("console", "")}/datasync/home?region={data.get("region", "")}#/tasks/{data.get("resource", "")}',
         },
         "dax": {  # Amazon DynamoDB Accelerator (DAX)
-            "cache": None,
+            "cache": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region={data.get("region", "")}#dax:cluster-details:{data.get("resource", "")}',
         },
         "deepcomposer": {  # AWS DeepComposer
             "audio": None,
