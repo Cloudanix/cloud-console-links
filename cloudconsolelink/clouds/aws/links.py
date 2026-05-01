@@ -118,7 +118,7 @@ def get_links() -> Dict:
             "meeting": None,
         },
         "cloud9": {  # AWS Cloud9
-            "environment": None,
+            "environment": 'https://{data.get("region", "")}.{data.get("console", "")}/cloud9/home/environments/{data.get("resource", "")}?region={data.get("region", "")}',
         },
         "clouddirectory": {  # Amazon Cloud Directory
             "directory": None,
