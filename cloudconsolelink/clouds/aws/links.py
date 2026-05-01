@@ -715,10 +715,10 @@ def get_links() -> Dict:
         "neptune-db": {  # Amazon Neptune
         },
         "networkmanager": {  # Network Manager
-            "device": None,
-            "global-network": None,
-            "link": None,
-            "site": None,
+            "device": 'https://{data.get("console", "")}/networkmanager/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/devices',
+            "global-network": 'https://{data.get("console", "")}/networkmanager/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}',
+            "link": 'https://{data.get("console", "")}/networkmanager/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/links',
+            "site": 'https://{data.get("console", "")}/networkmanager/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/sites',
         },
         "opsworks": {  # AWS OpsWorks
             "stack": None,
