@@ -153,8 +153,8 @@ def get_links() -> Dict:
                     region={data.get("region", "")}#logsV2:log-groups/{data.get("resource", "")}',
             "flowlog": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?\
                     region={data.get("region", "")}#logsV2:log-groups/{data.get("resource", "")}',
-            "dashboard": None,
-            "insight-rule": None,
+            "dashboard": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#dashboards/dashboard/{data.get("resource", "")}',
+            "insight-rule": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#contributor-insights:',
             "event-bus": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#eventbuses:',
             "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region=u{data.get("region", "")}#rules:',
         },
