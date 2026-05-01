@@ -383,8 +383,8 @@ def get_links() -> Dict:
         "eks": {  # Amazon Elastic Container Service for Kubernetes
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get\
                 ("region", "")}#/clusters/{data.get("resource", "")}',
-            "fargateprofile": None,
-            "nodegroup": None,
+            "fargateprofile": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/fargate-profiles',
+            "nodegroup": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/nodegroups',
         },
         "elastic-inference": {  # Amazon Elastic Inference
             "elastic-inference-accelerator": None,
