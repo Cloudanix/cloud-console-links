@@ -172,9 +172,9 @@ def get_links() -> Dict:
         "codecommit": {  # Amazon CodeGuru Reviewer
         },
         "codedeploy": {  # AWS CodeDeploy
-            "application": None,
-            "deploymentconfig": None,
-            "deploymentgroup": None,
+            "application": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codedeploy/applications/{data.get("resource", "")}?region={data.get("region", "")}',
+            "deploymentconfig": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codedeploy/deployment-configurations?region={data.get("region", "")}',
+            "deploymentgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codedeploy/applications?region={data.get("region", "")}',
             "instance": None,
         },
         "codeguru-profiler": {  # Amazon CodeGuru Profiler
