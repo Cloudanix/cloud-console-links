@@ -398,7 +398,7 @@ def get_links() -> Dict:
             "solutionstack": None,  # internal resource, not directly navigable
         },
         "elasticfilesystem": {  # Amazon Elastic File System
-            "access-point": None,
+            "access-point": 'https://{data.get("region", "")}.{data.get("console", "")}/efs/home?region={data.get("region", "")}#/access-points/{data.get("resource", "")}',
             "file-system": 'https://{data.get("region", "")}.{data.get("console", "")}/efs/home?region={data.get("region", "")}#/file-systems/{data.get("resource", "")}',
         },
         "elasticloadbalancing": {  # AWS WAF V2
