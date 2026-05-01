@@ -48,8 +48,8 @@ def get_links() -> Dict:
             "deploymentstrategy": 'https://{data.get("region", "")}.{data.get("console", "")}/systems-manager/appconfig/home?region={data.get("region", "")}',
         },
         "appflow": {  # Amazon AppFlow
-            "connectorprofile": None,
-            "flow": None,
+            "connectorprofile": 'https://{data.get("region", "")}.{data.get("console", "")}/appflow/home?region={data.get("region", "")}',
+            "flow": 'https://{data.get("region", "")}.{data.get("console", "")}/appflow/home?region={data.get("region", "")}#/flows/{data.get("resource", "")}',
         },
         "appmesh": {  # AWS App Mesh
             "mesh": None,
