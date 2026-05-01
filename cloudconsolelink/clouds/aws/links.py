@@ -704,9 +704,9 @@ def get_links() -> Dict:
             "project": None,
         },
         "mobiletargeting": {  # Amazon Pinpoint
-            "apps": None,
-            "recommenders": None,
-            "templates": None,
+            "apps": 'https://{data.get("region", "")}.{data.get("console", "")}/pinpoint/home?region={data.get("region", "")}#/apps/{data.get("resource", "")}',
+            "recommenders": 'https://{data.get("region", "")}.{data.get("console", "")}/pinpoint/home?region={data.get("region", "")}#/recommenderModels',
+            "templates": 'https://{data.get("region", "")}.{data.get("console", "")}/pinpoint/home?region={data.get("region", "")}#/templates',
         },
         "mq": {  # Amazon MQ
             "broker": 'https://{data.get("region", "")}.{data.get("console", "")}/amazon-mq/home?region={data.get("region", "")}#/brokers/{data.get("resource", "")}',
