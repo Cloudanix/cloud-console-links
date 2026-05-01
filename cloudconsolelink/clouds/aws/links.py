@@ -1009,7 +1009,7 @@ def get_links() -> Dict:
         "wafv2": {  # AWS WAF V2
         },
         "wellarchitected": {  # AWS Well-Architected Tool
-            "workload": None,
+            "workload": 'https://{data.get("region", "")}.{data.get("console", "")}/wellarchitected/home?region={data.get("region", "")}#/workload/{data.get("resource", "")}',
         },
         "worklink": {  # Amazon WorkLink
             "fleet": None,
