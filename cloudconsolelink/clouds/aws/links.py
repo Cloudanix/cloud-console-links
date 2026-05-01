@@ -64,7 +64,7 @@ def get_links() -> Dict:
             "stack": 'https://{data.get("region", "")}.{data.get("console", "")}/appstream2/home?region={data.get("region", "")}#/stacks/{data.get("resource", "")}',
         },
         "appsync": {  # AWS AppSync
-            "apis": None,
+            "apis": 'https://{data.get("region", "")}.{data.get("console", "")}/appsync/home?region={data.get("region", "")}#/{data.get("resource", "")}',
         },
         "artifact": {  # AWS Artifact
             "agreement": None,
