@@ -52,10 +52,10 @@ def get_links() -> Dict:
             "flow": 'https://{data.get("region", "")}.{data.get("console", "")}/appflow/home?region={data.get("region", "")}#/flows/{data.get("resource", "")}',
         },
         "appmesh": {  # AWS App Mesh
-            "mesh": None,
+            "mesh": 'https://{data.get("region", "")}.{data.get("console", "")}/appmesh/home?region={data.get("region", "")}#/meshes/{data.get("resource", "")}',
         },
         "appmesh-preview": {  # AWS App Mesh Preview
-            "mesh": None,
+            "mesh": 'https://{data.get("region", "")}.{data.get("console", "")}/appmesh/home?region={data.get("region", "")}#/meshes/{data.get("resource", "")}',
         },
         "appstream": {  # Amazon AppStream 2.0
             "fleet": None,
