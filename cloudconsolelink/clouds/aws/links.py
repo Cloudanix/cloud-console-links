@@ -709,8 +709,8 @@ def get_links() -> Dict:
             "templates": None,
         },
         "mq": {  # Amazon MQ
-            "broker": None,
-            "configuration": None,
+            "broker": 'https://{data.get("region", "")}.{data.get("console", "")}/amazon-mq/home?region={data.get("region", "")}#/brokers/{data.get("resource", "")}',
+            "configuration": 'https://{data.get("region", "")}.{data.get("console", "")}/amazon-mq/home?region={data.get("region", "")}#/configurations/{data.get("resource", "")}',
         },
         "neptune-db": {  # Amazon Neptune
         },
