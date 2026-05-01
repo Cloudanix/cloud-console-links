@@ -279,10 +279,10 @@ def get_links() -> Dict:
             "vpceconfiguration": None,
         },
         "directconnect": {  # AWS Direct Connect
-            "dx-gateway": None,
-            "dxcon": None,
-            "dxlag": None,
-            "dxvif": None,
+            "dx-gateway": 'https://{data.get("region", "")}.{data.get("console", "")}/directconnect/v2/home?region={data.get("region", "")}#/direct-connect-gateways/{data.get("resource", "")}',
+            "dxcon": 'https://{data.get("region", "")}.{data.get("console", "")}/directconnect/v2/home?region={data.get("region", "")}#/connections/{data.get("resource", "")}',
+            "dxlag": 'https://{data.get("region", "")}.{data.get("console", "")}/directconnect/v2/home?region={data.get("region", "")}#/lags/{data.get("resource", "")}',
+            "dxvif": 'https://{data.get("region", "")}.{data.get("console", "")}/directconnect/v2/home?region={data.get("region", "")}#/virtual-interfaces/{data.get("resource", "")}',
         },
         "dlm": {  # Amazon Data Lifecycle Manager
             "policy": None,
