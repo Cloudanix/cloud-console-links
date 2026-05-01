@@ -819,7 +819,7 @@ def get_links() -> Dict:
             "streamprocessor": 'https://{data.get("region", "")}.{data.get("console", "")}/rekognition/home?region={data.get("region", "")}#/stream-processors',
         },
         "resource-groups": {  # AWS Resource Groups
-            "group": None,
+            "group": 'https://{data.get("region", "")}.{data.get("console", "")}/resource-groups/home?region={data.get("region", "")}#/groups/{data.get("resource", "")}',
         },
         "robomaker": {  # AWS RoboMaker
             "deployment-fleet": None,
