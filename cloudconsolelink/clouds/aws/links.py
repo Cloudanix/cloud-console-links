@@ -178,11 +178,11 @@ def get_links() -> Dict:
             "instance": None,
         },
         "codeguru-profiler": {  # Amazon CodeGuru Profiler
-            "profilingGroup": None,
+            "profilingGroup": 'https://{data.get("region", "")}.{data.get("console", "")}/codeguru/profiler/profilingGroups/{data.get("resource", "")}/summary?region={data.get("region", "")}',
         },
         "codeguru-reviewer": {  # Amazon CodeGuru Reviewer
-            ".+": None,
-            "association": None,
+            ".+": None,  # regex pattern, no direct deep-link
+            "association": 'https://{data.get("region", "")}.{data.get("console", "")}/codeguru/reviewer/codereviews?region={data.get("region", "")}',
         },
         "codepipeline": {  # AWS CodePipeline
             "actiontype": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codepipeline/action-types?region={data.get("region", "")}',
