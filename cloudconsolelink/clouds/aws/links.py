@@ -288,12 +288,12 @@ def get_links() -> Dict:
             "policy": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#LifecyclePolicies:',
         },
         "dms": {  # AWS Database Migration Service
-            "cert": None,
-            "endpoint": None,
-            "es": None,
-            "rep": None,
-            "subgrp": None,
-            "task": None,
+            "cert": 'https://{data.get("region", "")}.{data.get("console", "")}/dms/v2/home?region={data.get("region", "")}#certificates',
+            "endpoint": 'https://{data.get("region", "")}.{data.get("console", "")}/dms/v2/home?region={data.get("region", "")}#endpointDetails/{data.get("resource", "")}',
+            "es": 'https://{data.get("region", "")}.{data.get("console", "")}/dms/v2/home?region={data.get("region", "")}#eventSubscriptions',
+            "rep": 'https://{data.get("region", "")}.{data.get("console", "")}/dms/v2/home?region={data.get("region", "")}#replicationInstanceDetails/{data.get("resource", "")}',
+            "subgrp": 'https://{data.get("region", "")}.{data.get("console", "")}/dms/v2/home?region={data.get("region", "")}#subnetGroupDetails/{data.get("resource", "")}',
+            "task": 'https://{data.get("region", "")}.{data.get("console", "")}/dms/v2/home?region={data.get("region", "")}#taskDetails/{data.get("resource", "")}',
         },
         "ds": {  # AWS Directory Service
             "directory": None,
