@@ -1,6 +1,6 @@
 .PHONY: test coverage test-arn test-aws-links check
 
-PYTEST = rtk proxy pytest
+PYTEST = pytest
 
 test:
 	$(PYTEST) tests -q
