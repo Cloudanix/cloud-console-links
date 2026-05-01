@@ -958,9 +958,9 @@ def get_links() -> Dict:
                 {data.get("region", "")}#/statemachines/view/{get_arn_string(data)}',
         },
         "storagegateway": {  # Amazon Storage Gateway
-            "gateway": None,
-            "share": None,
-            "tape": None,
+            "gateway": 'https://{data.get("region", "")}.{data.get("console", "")}/storagegateway/home?region={data.get("region", "")}#/gateways/{data.get("resource", "")}',
+            "share": 'https://{data.get("region", "")}.{data.get("console", "")}/storagegateway/home?region={data.get("region", "")}#/shares',
+            "tape": 'https://{data.get("region", "")}.{data.get("console", "")}/storagegateway/home?region={data.get("region", "")}#/tape-gateways',
         },
         "sumerian": {  # Amazon Sumerian
             "project": None,
