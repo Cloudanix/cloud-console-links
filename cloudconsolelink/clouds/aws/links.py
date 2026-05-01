@@ -844,8 +844,8 @@ def get_links() -> Dict:
             "domains": 'https://{data.get("region", "")}.{data.get("console", "")}/route53/home#DomainListing:',
         },
         "route53resolver": {  # Amazon Route 53 Resolver
-            "resolver-endpoint": None,
-            "resolver-rule": None,
+            "resolver-endpoint": 'https://{data.get("region", "")}.{data.get("console", "")}/route53resolver/home?region={data.get("region", "")}#/endpoints/{data.get("resource", "")}',
+            "resolver-rule": 'https://{data.get("region", "")}.{data.get("console", "")}/route53resolver/home?region={data.get("region", "")}#/rules/{data.get("resource", "")}',
         },
         "s3": {  # Amazon S3
             "": 'https://s3.{data.get("console", "")}/s3/buckets/{data.get("resource", "")}',
