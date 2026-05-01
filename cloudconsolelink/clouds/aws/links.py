@@ -504,19 +504,19 @@ def get_links() -> Dict:
             "screen-automation": None,
         },
         "iam": {  # AWS Security Token Service
-            "access-report": None,
-            "assumed-role": None,
-            "federated-user": None,
+            "access-report": 'https://{data.get("console", "")}/iamv2/home#/last-access-details',
+            "assumed-role": None,  # no direct console page for assumed role
+            "federated-user": None,  # transient identity, no console page
             "group": 'https://{data.get("console", "")}/iamv2/home#/groups/details/{get_resource_path\
             (data.get("resource", ""))}',
-            "instance-profile": None,
-            "mfa": None,
+            "instance-profile": 'https://{data.get("console", "")}/iamv2/home#/roles/{data.get("resource", "")}',
+            "mfa": 'https://{data.get("console", "")}/iam/home?#/users/{data.get("resource", "")}?section=security_credentials',
             "oidc-provider": 'https://{data.get("console", "")}/iam/home?#/providers/{get_arn_string(data)}',
             "policy": 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}',
             "role": 'https://{data.get("console", "")}/iam/home?#/roles/{get_resource_path(data.get("resource", ""))}',
-            "saml-provider": None,
-            "server-certificate": None,
-            "sms-mfa": None,
+            "saml-provider": 'https://{data.get("console", "")}/iamv2/home#/identity-providers',
+            "server-certificate": 'https://{data.get("console", "")}/iam/home?#/server-certificates',
+            "sms-mfa": None,  # no direct console deep-link for SMS MFA device
             "user": 'https://{data.get("console", "")}/iam/home?#/users/{data.get("resource", "")}',
             "access_keys": 'https://{data.get("console", "")}/iam/home#/users/{data.get("resource", "")}?section=security_credentials',
             "policy_statement": 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}',
