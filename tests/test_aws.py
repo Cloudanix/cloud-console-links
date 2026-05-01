@@ -34,6 +34,42 @@ def test_aws_eks_cluster():
     assert out_link == expected_link.replace(" ", "")
 
 
+def test_aws_appflow_flow():
+    arn = "arn:aws:appflow:us-east-2:123456789012:flow/FlowName-123"
+    expected_link = (
+        "https://us-east-2.console.aws.amazon.com/appflow/home?"
+        "region=us-east-2#/flows/FlowName-123"
+    )
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
+def test_aws_appmesh_mesh():
+    arn = "arn:aws:appmesh:us-east-2:123456789012:mesh/MyMesh"
+    expected_link = (
+        "https://us-east-2.console.aws.amazon.com/appmesh/home?"
+        "region=us-east-2#/meshes/MyMesh"
+    )
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
+def test_aws_bedrock_agent():
+    arn = "arn:aws:bedrock:us-east-2:123456789012:agent/agent-123"
+    expected_link = (
+        "https://us-east-2.console.aws.amazon.com/bedrock/home?"
+        "region=us-east-2#/agents/agent-123"
+    )
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
 def test_aws_rds_db_instance():
     arn = "arn:aws:rds:us-east-2:123456789012:db:my-mysql-instance-1"
     expected_link = "https://us-east-2.console.aws.amazon.com/rds/home?region=\
@@ -104,6 +140,15 @@ def test_aws_event_eventbus():
 def test_aws_event_rule():
     arn = "arn:aws:events:us-east-2:123456789012:rule/RuleName-123"
     expected_link = "https://us-east-2.console.aws.amazon.com/events/home?region=us-east-2#/rules/RuleName-123"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
+def test_aws_cloudwatch_rule():
+    arn = "arn:aws:cloudwatch:us-east-2:123456789012:rule/RuleName-123"
+    expected_link = "https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#rules:"
 
     out_link = aws.get_console_link(arn=arn)
 

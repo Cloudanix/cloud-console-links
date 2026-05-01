@@ -156,7 +156,7 @@ def get_links() -> Dict:
             "dashboard": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#dashboards/dashboard/{data.get("resource", "")}',
             "insight-rule": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#contributor-insights:',
             "event-bus": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#eventbuses:',
-            "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region=u{data.get("region", "")}#rules:',
+            "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#rules:',
         },
         "codeartifact": {  # AWS CodeArtifact
             "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codeartifact/domains/{data.get("resource", "")}?region={data.get("region", "")}',
