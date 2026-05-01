@@ -3,17 +3,17 @@ from typing import Dict
 
 def get_links() -> Dict:
     links = {
-        "a4b": {  # Alexa for Business
-            "address-book": None,
-            "conference-provider": None,
-            "contact": None,
-            "device": None,
-            "network-profile": None,
-            "profile": None,
-            "room": None,
-            "schedule": None,
-            "skill-group": None,
-            "user": None,
+        "a4b": {  # Alexa for Business (retired May 2023)
+            "address-book": None,  # service retired
+            "conference-provider": None,  # service retired
+            "contact": None,  # service retired
+            "device": None,  # service retired
+            "network-profile": None,  # service retired
+            "profile": None,  # service retired
+            "room": None,  # service retired
+            "schedule": None,  # service retired
+            "skill-group": None,  # service retired
+            "user": None,  # service retired
         },
         "access-analyzer": {  # IAM Access Analyzer
             "analyzer": 'https://{data.get("region", "")}.{data.get("console", "")}/access-analyzer/home?region=\
@@ -133,7 +133,7 @@ def get_links() -> Dict:
         "cloudfront": {  # Amazon CloudFront
             "distribution": 'https://{data.get("console", "")}/cloudfront/v4/home#/{data.get("resource", "")}',
             "origin-access-identity": 'https://{data.get("console", "")}/cloudfront/v4/home#/origin-access',
-            "streaming-distribution": None,
+            "streaming-distribution": None,  # RTMP streaming distributions retired December 2020
         },
         "cloudhsm": {  # AWS CloudHSM
             "backup": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudhsm/home?region={data.get("region", "")}#/backups',
@@ -175,7 +175,7 @@ def get_links() -> Dict:
             "application": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codedeploy/applications/{data.get("resource", "")}?region={data.get("region", "")}',
             "deploymentconfig": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codedeploy/deployment-configurations?region={data.get("region", "")}',
             "deploymentgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codedeploy/applications?region={data.get("region", "")}',
-            "instance": None,
+            "instance": None,  # deprecated on-premises instance resource type
         },
         "codeguru-profiler": {  # Amazon CodeGuru Profiler
             "profilingGroup": 'https://{data.get("region", "")}.{data.get("console", "")}/codeguru/profiler/profilingGroups/{data.get("resource", "")}/summary?region={data.get("region", "")}',
@@ -311,7 +311,7 @@ def get_links() -> Dict:
             "customer-gateway": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#CustomerGateways:',
             "dedicated-host": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#Hosts:',
             "dhcp-options": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#DHCPOptions:dhcpOptionsId={data.get("resource", "")}',
-            "elastic-gpu": None,
+            "elastic-gpu": None,  # Elastic GPU retired September 2024
             "fpga-image": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#FpgaImages:',
             "image": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get("region", "")}#ImageDetails:imageId={data.get("resource", "")}',
             "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/v2/home?region={data.get\
@@ -322,10 +322,10 @@ def get_links() -> Dict:
             "launch-template": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#LaunchTemplateDetails:launchTemplateId={data.get("resource", "")}',
             "local-gateway": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#LocalGateways:',
             "local-gateway-route-table": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#LocalGatewayRouteTables:',
-            "local-gateway-route-table-virtual-interface-group-association": None,
-            "local-gateway-route-table-vpc-association": None,
-            "local-gateway-virtual-interface": None,
-            "local-gateway-virtual-interface-group": None,
+            "local-gateway-route-table-virtual-interface-group-association": None,  # internal resource, no direct console page
+            "local-gateway-route-table-vpc-association": None,  # internal resource, no direct console page
+            "local-gateway-virtual-interface": None,  # hardware resource, no direct console deep-link
+            "local-gateway-virtual-interface-group": None,  # hardware resource, no direct console deep-link
             "network-acl": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#NetworkAcls:networkAclId={data.get("resource", "")}',
             "network-interface": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/\
                     home?region={data.get("region", "")}#NetworkInterface:networkInterfaceId={data.get("resource", "")}',
@@ -341,7 +341,7 @@ def get_links() -> Dict:
             "subnet": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
                 {data.get("region", "")}#SubnetDetails:subnetId={data.get("resource", "")}',
             "traffic-mirror-filter": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TrafficMirrorFilters:',
-            "traffic-mirror-filter-rule": None,
+            "traffic-mirror-filter-rule": None,  # sub-resource of traffic-mirror-filter, no direct deep-link
             "traffic-mirror-session": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TrafficMirrorSessions:',
             "traffic-mirror-target": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TrafficMirrorTargets:',
             "transit-gateway": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TransitGateways:transitGatewayId={data.get("resource", "")}',
@@ -483,7 +483,7 @@ def get_links() -> Dict:
             "workflow": 'https://{data.get("region", "")}.{data.get("console", "")}/glue/home?region={data.get("region", "")}#/etl/workflows/{data.get("resource", "")}',
         },
         "greengrass": {  # AWS IoT Greengrass
-            "": None,
+            "": 'https://{data.get("region", "")}.{data.get("console", "")}/greengrass/v2/home?region={data.get("region", "")}',
         },
         "groundstation": {  # AWS Ground Station
             "config": 'https://{data.get("region", "")}.{data.get("console", "")}/groundstation/home?region={data.get("region", "")}#/config/{data.get("resource", "")}',
@@ -791,7 +791,7 @@ def get_links() -> Dict:
             "target-group": None,  # sub-resource of db-proxy, no direct deep-link
         },
         "rds-db": {  # Amazon RDS IAM Authentication
-            "dbuser": None,
+            "dbuser": None,  # IAM database user, not directly navigable in console
         },
         "redshift": {  # Amazon Redshift
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2/home?region=\
@@ -923,7 +923,7 @@ def get_links() -> Dict:
             "protection": 'https://{data.get("console", "")}/wafv2/shieldv2?region={data.get("region", "")}#/protections',
         },
         "signer": {  # AWS Code Signing for Amazon FreeRTOS
-            "": None,
+            "": 'https://{data.get("region", "")}.{data.get("console", "")}/signer/home?region={data.get("region", "")}#/signing-profiles',
         },
         "sns": {  # Amazon SNS
             "topic": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}#/topic/{arn}',
