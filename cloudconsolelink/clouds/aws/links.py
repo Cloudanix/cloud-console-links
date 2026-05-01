@@ -623,20 +623,20 @@ def get_links() -> Dict:
             "license-configuration": 'https://{data.get("region", "")}.{data.get("console", "")}/license-manager/home?region={data.get("region", "")}#licenseConfigurationDetail/{data.get("resource", "")}',
         },
         "lightsail": {  # Amazon Lightsail
-            "CloudFormationStackRecord": None,
-            "Disk": None,
-            "DiskSnapshot": None,
-            "Domain": None,
-            "ExportSnapshotRecord": None,
-            "Instance": None,
-            "InstanceSnapshot": None,
-            "KeyPair": None,
-            "LoadBalancer": None,
-            "LoadBalancerTlsCertificate": None,
-            "PeeredVpc": None,
-            "RelationalDatabase": None,
-            "RelationalDatabaseSnapshot": None,
-            "StaticIp": None,
+            "CloudFormationStackRecord": None,  # internal record, no direct console page
+            "Disk": 'https://lightsail.aws.amazon.com/ls/webapp/home/storage',
+            "DiskSnapshot": 'https://lightsail.aws.amazon.com/ls/webapp/home/snapshots',
+            "Domain": 'https://lightsail.aws.amazon.com/ls/webapp/home/domains',
+            "ExportSnapshotRecord": None,  # internal record, no direct console page
+            "Instance": 'https://lightsail.aws.amazon.com/ls/webapp/home/instances/{data.get("resource", "")}',
+            "InstanceSnapshot": 'https://lightsail.aws.amazon.com/ls/webapp/home/snapshots',
+            "KeyPair": 'https://lightsail.aws.amazon.com/ls/webapp/home/key-pairs',
+            "LoadBalancer": 'https://lightsail.aws.amazon.com/ls/webapp/home/load-balancers/{data.get("resource", "")}',
+            "LoadBalancerTlsCertificate": None,  # sub-resource of load balancer, no direct deep-link
+            "PeeredVpc": None,  # internal resource, no direct console page
+            "RelationalDatabase": 'https://lightsail.aws.amazon.com/ls/webapp/home/databases/{data.get("resource", "")}',
+            "RelationalDatabaseSnapshot": 'https://lightsail.aws.amazon.com/ls/webapp/home/snapshots',
+            "StaticIp": 'https://lightsail.aws.amazon.com/ls/webapp/home/static-ips',
         },
         "logs": {  # Amazon CloudWatch Logs
             "log-group": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups/log-group/{data.get("resource", "")}',
