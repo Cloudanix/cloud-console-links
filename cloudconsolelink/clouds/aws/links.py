@@ -721,7 +721,7 @@ def get_links() -> Dict:
             "site": 'https://{data.get("console", "")}/networkmanager/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/sites',
         },
         "opsworks": {  # AWS OpsWorks
-            "stack": None,
+            "stack": 'https://{data.get("region", "")}.{data.get("console", "")}/opsworks/home?region={data.get("region", "")}#/stack/{data.get("resource", "")}',
         },
         "organizations": {  # AWS Organizations
             "account": 'https://{data.get("console", "")}/organizations/v2/home/accounts/{data.get("resource", "")}',
@@ -732,9 +732,9 @@ def get_links() -> Dict:
             "root": 'https://{data.get("console", "")}/organizations/v2/home/roots',
         },
         "outposts": {  # AWS Outposts
-            "order": None,
-            "outpost": None,
-            "site": None,
+            "order": 'https://{data.get("region", "")}.{data.get("console", "")}/outposts/home?region={data.get("region", "")}#/orders',
+            "outpost": 'https://{data.get("region", "")}.{data.get("console", "")}/outposts/home?region={data.get("region", "")}#/outposts/{data.get("resource", "")}',
+            "site": 'https://{data.get("region", "")}.{data.get("console", "")}/outposts/home?region={data.get("region", "")}#/sites/{data.get("resource", "")}',
         },
         "personalize": {  # Amazon Personalize
             "algorithm": None,
