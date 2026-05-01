@@ -555,8 +555,8 @@ def get_links() -> Dict:
             "tunnel": 'https://{data.get("region", "")}.{data.get("console", "")}/iot/home?region={data.get("region", "")}#/tunnels/{data.get("resource", "")}',
         },
         "iot1click": {  # AWS IoT 1-Click
-            "devices": None,
-            "projects": None,
+            "devices": 'https://{data.get("region", "")}.{data.get("console", "")}/iot1click/home?region={data.get("region", "")}#/devices',
+            "projects": 'https://{data.get("region", "")}.{data.get("console", "")}/iot1click/home?region={data.get("region", "")}#/projects/{data.get("resource", "")}',
         },
         "iotanalytics": {  # AWS IoT Analytics
             "channel": 'https://{data.get("region", "")}.{data.get("console", "")}/iotanalytics/home?region={data.get("region", "")}#/channels/{data.get("resource", "")}',
