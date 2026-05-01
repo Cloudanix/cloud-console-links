@@ -198,13 +198,13 @@ def get_links() -> Dict:
             "notificationrule": None,
         },
         "cognito-identity": {  # Amazon Cognito Identity
-            "identitypool": None,
+            "identitypool": 'https://{data.get("region", "")}.{data.get("console", "")}/cognito/v2/identity/identity-pools/{data.get("resource", "")}/basic-information?region={data.get("region", "")}',
         },
         "cognito-idp": {  # Amazon Cognito User Pools
-            "userpool": None,
+            "userpool": 'https://{data.get("region", "")}.{data.get("console", "")}/cognito/v2/idp/user-pools/{data.get("resource", "")}/users?region={data.get("region", "")}',
         },
         "cognito-sync": {  # Amazon Cognito Sync
-            "identitypool": None,
+            "identitypool": 'https://{data.get("region", "")}.{data.get("console", "")}/cognito/v2/identity/identity-pools/{data.get("resource", "")}/basic-information?region={data.get("region", "")}',
         },
         "comprehend": {  # Amazon Comprehend
             "document-classifier": None,
