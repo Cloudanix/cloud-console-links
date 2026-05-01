@@ -207,9 +207,9 @@ def get_links() -> Dict:
             "identitypool": 'https://{data.get("region", "")}.{data.get("console", "")}/cognito/v2/identity/identity-pools/{data.get("resource", "")}/basic-information?region={data.get("region", "")}',
         },
         "comprehend": {  # Amazon Comprehend
-            "document-classifier": None,
-            "document-classifier-endpoint": None,
-            "entity-recognizer": None,
+            "document-classifier": 'https://{data.get("region", "")}.{data.get("console", "")}/comprehend/home?region={data.get("region", "")}#classifier-details/{data.get("resource", "")}',
+            "document-classifier-endpoint": 'https://{data.get("region", "")}.{data.get("console", "")}/comprehend/home?region={data.get("region", "")}#endpoints',
+            "entity-recognizer": 'https://{data.get("region", "")}.{data.get("console", "")}/comprehend/home?region={data.get("region", "")}#recognizer-details/{data.get("resource", "")}',
         },
         "config": {  # AWS Config
             "aggregation-authorization": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/aggregations',
