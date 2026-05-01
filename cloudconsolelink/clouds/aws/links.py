@@ -58,10 +58,10 @@ def get_links() -> Dict:
             "mesh": 'https://{data.get("region", "")}.{data.get("console", "")}/appmesh/home?region={data.get("region", "")}#/meshes/{data.get("resource", "")}',
         },
         "appstream": {  # Amazon AppStream 2.0
-            "fleet": None,
-            "image": None,
-            "image-builder": None,
-            "stack": None,
+            "fleet": 'https://{data.get("region", "")}.{data.get("console", "")}/appstream2/home?region={data.get("region", "")}#/fleets/{data.get("resource", "")}',
+            "image": 'https://{data.get("region", "")}.{data.get("console", "")}/appstream2/home?region={data.get("region", "")}#/images',
+            "image-builder": 'https://{data.get("region", "")}.{data.get("console", "")}/appstream2/home?region={data.get("region", "")}#/imageBuilders',
+            "stack": 'https://{data.get("region", "")}.{data.get("console", "")}/appstream2/home?region={data.get("region", "")}#/stacks/{data.get("resource", "")}',
         },
         "appsync": {  # AWS AppSync
             "apis": None,
