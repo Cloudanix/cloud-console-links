@@ -410,7 +410,7 @@ def get_links() -> Dict:
         },
         "elasticmapreduce": {  # Amazon Elastic MapReduce
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticmapreduce/home?region={data.get("region", "")}#cluster-details:{data.get("resource", "")}',
-            "editor": None,
+            "editor": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticmapreduce/home?region={data.get("region", "")}#/notebooks',
         },
         "elastictranscoder": {  # Amazon Elastic Transcoder
             "job": None,
