@@ -919,8 +919,8 @@ def get_links() -> Dict:
             "template": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/email-templates',
         },
         "shield": {  # AWS Shield
-            "attack": None,
-            "protection": None,
+            "attack": 'https://{data.get("console", "")}/wafv2/shieldv2?region={data.get("region", "")}#/attacks',
+            "protection": 'https://{data.get("console", "")}/wafv2/shieldv2?region={data.get("region", "")}#/protections',
         },
         "signer": {  # AWS Code Signing for Amazon FreeRTOS
             "": None,
