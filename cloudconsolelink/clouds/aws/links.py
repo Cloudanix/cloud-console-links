@@ -586,7 +586,7 @@ def get_links() -> Dict:
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/msk/home?region={data.get("region", "")}#/cluster/{data.get("resource", "")}/view',
         },
         "kendra": {  # Amazon Kendra
-            "index": None,
+            "index": 'https://{data.get("region", "")}.{data.get("console", "")}/kendra/home?region={data.get("region", "")}#indexes/{data.get("resource", "")}',
         },
         "kinesis": {  # Amazon Kinesis
             "stream": 'https://{data.get("region", "")}.{data.get("console", "")}/kinesis/home?region={data.get("region", "")}#/streams/details/{data.get("resource", "")}/monitoring',
