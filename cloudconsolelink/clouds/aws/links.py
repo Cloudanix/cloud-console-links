@@ -752,7 +752,7 @@ def get_links() -> Dict:
             "metrics": None,
         },
         "polly": {  # Amazon Polly
-            "lexicon": None,
+            "lexicon": 'https://{data.get("region", "")}.{data.get("console", "")}/polly/home?region={data.get("region", "")}#/lexicons',
         },
         "qldb": {  # Amazon QLDB
             "ledger": 'https://{data.get("region", "")}.{data.get("console", "")}/qldb/home?region={data.get("region", "")}#/ledger/{data.get("resource", "")}',
