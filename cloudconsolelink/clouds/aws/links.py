@@ -497,11 +497,11 @@ def get_links() -> Dict:
             "detector": 'https://{data.get("region", "")}.{data.get("console", "")}/guardduty/home?region={data.get("region", "")}#/',
         },
         "health": {  # AWS Health APIs and Notifications
-            "event": None,
+            "event": 'https://{data.get("console", "")}/health/home?region={data.get("region", "")}#/event-log',
         },
-        "honeycode": {  # Amazon Honeycode
-            "screen": None,
-            "screen-automation": None,
+        "honeycode": {  # Amazon Honeycode (retired)
+            "screen": None,  # Amazon Honeycode retired June 2023, no console
+            "screen-automation": None,  # Amazon Honeycode retired June 2023, no console
         },
         "iam": {  # AWS Security Token Service
             "access-report": 'https://{data.get("console", "")}/iamv2/home#/last-access-details',
