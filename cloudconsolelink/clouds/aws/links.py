@@ -494,7 +494,7 @@ def get_links() -> Dict:
             "satellite": None,
         },
         "guardduty": {  # Amazon GuardDuty
-            "detector": None,
+            "detector": 'https://{data.get("region", "")}.{data.get("console", "")}/guardduty/home?region={data.get("region", "")}#/',
         },
         "health": {  # AWS Health APIs and Notifications
             "event": None,
