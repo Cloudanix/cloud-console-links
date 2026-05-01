@@ -132,7 +132,7 @@ def get_links() -> Dict:
         },
         "cloudfront": {  # Amazon CloudFront
             "distribution": 'https://{data.get("console", "")}/cloudfront/v4/home#/{data.get("resource", "")}',
-            "origin-access-identity": None,
+            "origin-access-identity": 'https://{data.get("console", "")}/cloudfront/v4/home#/origin-access',
             "streaming-distribution": None,
         },
         "cloudhsm": {  # AWS CloudHSM
