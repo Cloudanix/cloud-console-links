@@ -136,8 +136,8 @@ def get_links() -> Dict:
             "streaming-distribution": None,
         },
         "cloudhsm": {  # AWS CloudHSM
-            "backup": None,
-            "cluster": None,
+            "backup": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudhsm/home?region={data.get("region", "")}#/backups',
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudhsm/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}',
         },
         "cloudsearch": {  # Amazon CloudSearch
             "domain": None,
