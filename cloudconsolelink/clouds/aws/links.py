@@ -425,8 +425,8 @@ def get_links() -> Dict:
         },
         "events": {  # Amazon EventBridge
             "event-bus": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/eventbus/{data.get("resource", "")}',
-            "event-source": None,
-            "rule": None,
+            "event-source": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/partner-event-sources',
+            "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/rules/{data.get("resource", "")}',
         },
         "execute-api": {  # Amazon API Gateway
         },
