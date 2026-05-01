@@ -522,12 +522,12 @@ def get_links() -> Dict:
             "policy_statement": 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}',
         },
         "imagebuilder": {  # Amazon EC2 Image Builder
-            "component": None,
-            "distribution-configuration": None,
-            "image": None,
-            "image-pipeline": None,
-            "image-recipe": None,
-            "infrastructure-configuration": None,
+            "component": 'https://{data.get("region", "")}.{data.get("console", "")}/imagebuilder/home?region={data.get("region", "")}#/components/{data.get("resource", "")}',
+            "distribution-configuration": 'https://{data.get("region", "")}.{data.get("console", "")}/imagebuilder/home?region={data.get("region", "")}#/distributionSettings/{data.get("resource", "")}',
+            "image": 'https://{data.get("region", "")}.{data.get("console", "")}/imagebuilder/home?region={data.get("region", "")}#/images/{data.get("resource", "")}',
+            "image-pipeline": 'https://{data.get("region", "")}.{data.get("console", "")}/imagebuilder/home?region={data.get("region", "")}#/pipelines/{data.get("resource", "")}',
+            "image-recipe": 'https://{data.get("region", "")}.{data.get("console", "")}/imagebuilder/home?region={data.get("region", "")}#/imageRecipes/{data.get("resource", "")}',
+            "infrastructure-configuration": 'https://{data.get("region", "")}.{data.get("console", "")}/imagebuilder/home?region={data.get("region", "")}#/infrastructureConfiguration/{data.get("resource", "")}',
         },
         "iot": {  # AWS IoT
             "authorizer": None,
