@@ -486,12 +486,12 @@ def get_links() -> Dict:
             "": None,
         },
         "groundstation": {  # AWS Ground Station
-            "config": None,
-            "contact": None,
-            "dataflow-endpoint-group": None,
-            "groundstation": None,
-            "mission-profile": None,
-            "satellite": None,
+            "config": 'https://{data.get("region", "")}.{data.get("console", "")}/groundstation/home?region={data.get("region", "")}#/config/{data.get("resource", "")}',
+            "contact": 'https://{data.get("region", "")}.{data.get("console", "")}/groundstation/home?region={data.get("region", "")}#/contacts',
+            "dataflow-endpoint-group": 'https://{data.get("region", "")}.{data.get("console", "")}/groundstation/home?region={data.get("region", "")}#/dataflow-endpoint-groups/{data.get("resource", "")}',
+            "groundstation": 'https://{data.get("region", "")}.{data.get("console", "")}/groundstation/home?region={data.get("region", "")}#/ground-stations',
+            "mission-profile": 'https://{data.get("region", "")}.{data.get("console", "")}/groundstation/home?region={data.get("region", "")}#/mission-profiles/{data.get("resource", "")}',
+            "satellite": 'https://{data.get("region", "")}.{data.get("console", "")}/groundstation/home?region={data.get("region", "")}#/satellites',
         },
         "guardduty": {  # Amazon GuardDuty
             "detector": 'https://{data.get("region", "")}.{data.get("console", "")}/guardduty/home?region={data.get("region", "")}#/',
