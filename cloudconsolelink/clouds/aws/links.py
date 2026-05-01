@@ -106,7 +106,7 @@ def get_links() -> Dict:
             "budget": 'https://{data.get("console", "")}/billing/home?#/budgets/budget/{data.get("resource", "")}',
         },
         "cassandra": {  # Amazon Keyspaces (for Apache Cassandra)
-            "": None,
+            "": 'https://{data.get("region", "")}.{data.get("console", "")}/keyspaces/home?region={data.get("region", "")}',
         },
         "catalog": {  # AWS Service Catalog
             "portfolio": 'https://{data.get("region", "")}.{data.get("console", "")}/servicecatalog/home?region={data.get("region", "")}#/portfolios/{data.get("resource", "")}',
