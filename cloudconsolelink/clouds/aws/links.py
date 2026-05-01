@@ -796,20 +796,20 @@ def get_links() -> Dict:
         "redshift": {  # Amazon Redshift
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2/home?region=\
                 {data.get("region", "")}#cluster-details?cluster={data.get("resource", "")}',
-            "dbgroup": None,
-            "dbname": None,
-            "dbuser": None,
-            "eventsubscription": None,
-            "hsmclientcertificate": None,
-            "hsmconfiguration": None,
-            "parametergroup": None,
+            "dbgroup": None,  # database group, accessible only through SQL, no UI deep-link
+            "dbname": None,  # internal resource, no direct console page
+            "dbuser": None,  # internal resource, no direct console page
+            "eventsubscription": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2/home?region={data.get("region", "")}#event-subscriptions',
+            "hsmclientcertificate": None,  # legacy HSM feature, limited console support
+            "hsmconfiguration": None,  # legacy HSM feature, limited console support
+            "parametergroup": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2/home?region={data.get("region", "")}#parameter-groups',
             "securitygroup": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
                 {data.get("region", "")}#SecurityGroup:groupId={data.get("resource", "")}',
-            "securitygroupingress": None,
-            "snapshot": None,
-            "snapshotcopygrant": None,
-            "snapshotschedule": None,
-            "subnetgroup": None,
+            "securitygroupingress": None,  # sub-resource of security group, no direct deep-link
+            "snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2/home?region={data.get("region", "")}#snapshots',
+            "snapshotcopygrant": None,  # internal resource, no direct console page
+            "snapshotschedule": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2/home?region={data.get("region", "")}#snapshot-schedules',
+            "subnetgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2/home?region={data.get("region", "")}#subnet-groups',
             "reserved-node": 'https://{data.get("region", "")}.{data.get("console", "")}/redshiftv2\
                         /home?region={data.get("region", "")}#reserved-nodes',
         },
