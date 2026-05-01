@@ -239,22 +239,22 @@ def get_links() -> Dict:
             "cache": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region={data.get("region", "")}#dax:cluster-details:{data.get("resource", "")}',
         },
         "deepcomposer": {  # AWS DeepComposer
-            "audio": None,
-            "composition": None,
-            "model": None,
+            "audio": None,  # physical device resource, no direct console deep-link
+            "composition": None,  # physical device resource, no direct console deep-link
+            "model": 'https://{data.get("region", "")}.{data.get("console", "")}/deepcomposer/home?region={data.get("region", "")}#models',
         },
         "deeplens": {  # AWS DeepLens
-            "device": None,
-            "model": None,
-            "project": None,
+            "device": None,  # physical device, no direct console deep-link
+            "model": 'https://{data.get("region", "")}.{data.get("console", "")}/deeplens/home?region={data.get("region", "")}#models',
+            "project": 'https://{data.get("region", "")}.{data.get("console", "")}/deeplens/home?region={data.get("region", "")}#projects',
         },
         "deepracer": {  # AWS DeepRacer
-            " evaluation_job": None,
-            "leaderboard": None,
-            "leaderboard_evaluation_job": None,
-            "model": None,
-            "track": None,
-            "training_job": None,
+            " evaluation_job": None,  # physical/virtual race resource, no direct console deep-link
+            "leaderboard": None,  # community resource, not directly navigable
+            "leaderboard_evaluation_job": None,  # sub-resource, no direct deep-link
+            "model": 'https://{data.get("region", "")}.{data.get("console", "")}/deepracer/home?region={data.get("region", "")}#models',
+            "track": None,  # virtual track resource, not directly navigable
+            "training_job": None,  # sub-resource of model, no direct deep-link
         },
         "detective": {  # Amazon Detective
             "graph": 'https://{data.get("region", "")}.{data.get("console", "")}/detective/home?region={data.get("region", "")}#summary',
