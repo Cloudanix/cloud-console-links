@@ -831,12 +831,12 @@ def get_links() -> Dict:
             "simulation-job-batch": None,
         },
         "route53": {  # Amazon Route 53
-            "change": None,
-            "delegationset": None,
+            "change": None,  # internal resource, no direct console page
+            "delegationset": 'https://{data.get("console", "")}/route53/home#/hosted-zones',
             "healthcheck": 'https://{data.get("console", "")}/route53/healthchecks/home',
             "hostedzone": 'https://{data.get("console", "")}/route53/home?#resource-record-sets:\
             {data.get("resource", "")}',
-            "queryloggingconfig": None,
+            "queryloggingconfig": 'https://{data.get("console", "")}/route53/home#/query-logging',
             "trafficpolicy": 'https://{data.get("console", "")}/route53/trafficflow/home#/policy/\
             {data.get("resource", "")}',
             "trafficpolicyinstance": 'https://{data.get("console", "")}/route53/trafficflow/home#/\
