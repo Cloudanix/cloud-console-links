@@ -249,7 +249,7 @@ def get_links() -> Dict:
             "project": 'https://{data.get("region", "")}.{data.get("console", "")}/deeplens/home?region={data.get("region", "")}#projects',
         },
         "deepracer": {  # AWS DeepRacer
-            " evaluation_job": None,  # physical/virtual race resource, no direct console deep-link
+            "evaluation_job": None,  # physical/virtual race resource, no direct console deep-link
             "leaderboard": None,  # community resource, not directly navigable
             "leaderboard_evaluation_job": None,  # sub-resource, no direct deep-link
             "model": 'https://{data.get("region", "")}.{data.get("console", "")}/deepracer/home?region={data.get("region", "")}#models',

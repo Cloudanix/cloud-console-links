@@ -1,4 +1,5 @@
 from cloudconsolelink.clouds.aws import AWSLinker
+from cloudconsolelink.clouds.aws.links import get_links
 
 aws = AWSLinker()
 
@@ -126,3 +127,21 @@ def test_aws_sns_topic():
     out_link = aws.get_console_link(arn=arn)
     print(out_link)
     assert out_link == expected_link.replace(" ", "")
+
+
+def test_aws_deepracer_evaluation_job_falls_back_to_service_home():
+    arn = "arn:aws:deepracer:us-east-1:123456789012:evaluation_job/job123"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == "https://console.aws.amazon.com/deepracer"
+
+
+def test_aws_links_resource_keys_are_trimmed():
+    links = get_links()
+
+    for service, resource_types in links.items():
+        for resource_type in resource_types:
+            assert resource_type == resource_type.strip(), (
+                f"{service!r} contains malformed resource key {resource_type!r}"
+            )
