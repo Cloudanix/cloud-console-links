@@ -185,8 +185,8 @@ def get_links() -> Dict:
             "association": None,
         },
         "codepipeline": {  # AWS CodePipeline
-            "actiontype": None,
-            "webhook": None,
+            "actiontype": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codepipeline/action-types?region={data.get("region", "")}',
+            "webhook": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codepipeline/webhooks?region={data.get("region", "")}',
         },
         "codestar": {  # AWS CodeStar
             "project": None,
