@@ -724,12 +724,12 @@ def get_links() -> Dict:
             "stack": None,
         },
         "organizations": {  # AWS Organizations
-            "account": None,
-            "handshake": None,
+            "account": 'https://{data.get("console", "")}/organizations/v2/home/accounts/{data.get("resource", "")}',
+            "handshake": None,  # no direct console deep-link for handshakes
             "organization": 'https://{data.get("region", "")}.{data.get("console", "")}/organizations/v2/home/accounts/{data.get("resource", "")}',
-            "ou": None,
-            "policy": None,
-            "root": None,
+            "ou": 'https://{data.get("console", "")}/organizations/v2/home/roots',
+            "policy": 'https://{data.get("console", "")}/organizations/v2/home/policies/{data.get("resource", "")}',
+            "root": 'https://{data.get("console", "")}/organizations/v2/home/roots',
         },
         "outposts": {  # AWS Outposts
             "order": None,
