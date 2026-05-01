@@ -903,8 +903,8 @@ def get_links() -> Dict:
             "applications": None,
         },
         "servicediscovery": {  # AWS Cloud Map
-            "namespace": None,
-            "service": None,
+            "namespace": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudmap/home?region={data.get("region", "")}#/namespaces/{data.get("resource", "")}',
+            "service": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudmap/home?region={data.get("region", "")}#/services/{data.get("resource", "")}',
         },
         "servicequotas": {  # Service Quotas
         },
