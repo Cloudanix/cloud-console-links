@@ -698,10 +698,10 @@ def get_links() -> Dict:
             "playbackConfiguration": 'https://{data.get("region", "")}.{data.get("console", "")}/mediatailor/home?region={data.get("region", "")}#/configurations/{data.get("resource", "")}',
         },
         "mgh": {  # AWS Migration Hub
-            "progressUpdateStream": None,
+            "progressUpdateStream": 'https://{data.get("console", "")}/migrationhub/home?region={data.get("region", "")}#/discover',
         },
-        "mobilehub": {  # AWS Mobile Hub
-            "project": None,
+        "mobilehub": {  # AWS Mobile Hub (retired)
+            "project": None,  # AWS Mobile Hub retired March 2023, no console
         },
         "mobiletargeting": {  # Amazon Pinpoint
             "apps": 'https://{data.get("region", "")}.{data.get("console", "")}/pinpoint/home?region={data.get("region", "")}#/apps/{data.get("resource", "")}',
