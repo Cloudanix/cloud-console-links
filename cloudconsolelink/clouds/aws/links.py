@@ -231,9 +231,9 @@ def get_links() -> Dict:
             "jobs": None,
         },
         "datasync": {  # DataSync
-            "agent": None,
-            "location": None,
-            "task": None,
+            "agent": 'https://{data.get("region", "")}.{data.get("console", "")}/datasync/home?region={data.get("region", "")}#/agents/{data.get("resource", "")}',
+            "location": 'https://{data.get("region", "")}.{data.get("console", "")}/datasync/home?region={data.get("region", "")}#/locations/{data.get("resource", "")}',
+            "task": 'https://{data.get("region", "")}.{data.get("console", "")}/datasync/home?region={data.get("region", "")}#/tasks/{data.get("resource", "")}',
         },
         "dax": {  # Amazon DynamoDB Accelerator (DAX)
             "cache": None,
