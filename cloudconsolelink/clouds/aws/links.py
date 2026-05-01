@@ -885,9 +885,9 @@ def get_links() -> Dict:
             "savingsplan": None,
         },
         "schemas": {  # Amazon EventBridge Schemas
-            "discoverer": None,
-            "registry": None,
-            "schema": None,
+            "discoverer": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/registries/discovered-schemas',
+            "registry": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/registries/{data.get("resource", "")}',
+            "schema": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/registries/{data.get("resource", "")}/schemas',
         },
         "sdb": {  # Amazon SimpleDB
             "domain": None,
