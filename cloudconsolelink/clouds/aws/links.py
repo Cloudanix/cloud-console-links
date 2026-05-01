@@ -103,7 +103,7 @@ def get_links() -> Dict:
             "provisioned-model": 'https://{data.get("region", "")}.{data.get("console", "")}/bedrock/home?region={data.get("region", "")}#/provisioned-throughput/{data.get("resource", "")}',
         },
         "budgets": {  # AWS Budget Service
-            "budget": None,
+            "budget": 'https://{data.get("console", "")}/billing/home?#/budgets/budget/{data.get("resource", "")}',
         },
         "cassandra": {  # Amazon Keyspaces (for Apache Cassandra)
             "": None,
