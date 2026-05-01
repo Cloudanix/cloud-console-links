@@ -72,8 +72,8 @@ def get_links() -> Dict:
             "report-package": None,
         },
         "athena": {  # Amazon Athena
-            "datacatalog": None,
-            "workgroup": None,
+            "datacatalog": 'https://{data.get("region", "")}.{data.get("console", "")}/athena/home?region={data.get("region", "")}#/data-sources/catalog/{data.get("resource", "")}',
+            "workgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/athena/home?region={data.get("region", "")}#/workgroups/details/{data.get("resource", "")}',
         },
         "autoscaling": {  # Amazon EC2 Auto Scaling
             "autoScalingGroup": None,
