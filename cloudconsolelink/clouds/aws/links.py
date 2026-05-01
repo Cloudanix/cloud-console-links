@@ -390,12 +390,12 @@ def get_links() -> Dict:
             "elastic-inference-accelerator": None,
         },
         "elasticbeanstalk": {  # AWS Elastic Beanstalk
-            "application": None,
-            "applicationversion": None,
-            "configurationtemplate": None,
-            "environment": None,
-            "platform": None,
-            "solutionstack": None,
+            "application": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/home?region={data.get("region", "")}#/application/overview?applicationName={data.get("resource", "")}',
+            "applicationversion": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/home?region={data.get("region", "")}#/application/versions?applicationName={data.get("resource", "")}',
+            "configurationtemplate": None,  # no direct deep-link; sub-resource of application
+            "environment": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/home?region={data.get("region", "")}#/environment/dashboard?environmentId={data.get("resource", "")}',
+            "platform": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/home?region={data.get("region", "")}#/platforms',
+            "solutionstack": None,  # internal resource, not directly navigable
         },
         "elasticfilesystem": {  # Amazon Elastic File System
             "access-point": None,
