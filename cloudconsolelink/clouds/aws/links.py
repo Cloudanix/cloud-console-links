@@ -969,7 +969,7 @@ def get_links() -> Dict:
             "domain": None,
         },
         "synthetics": {  # Amazon CloudWatch Synthetics
-            "canary": None,
+            "canary": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#synthetics:canary/detail/{data.get("resource", "")}',
         },
         "transfer": {  # AWS Transfer for SFTP
             "server": None,
