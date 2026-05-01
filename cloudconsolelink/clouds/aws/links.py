@@ -125,10 +125,10 @@ def get_links() -> Dict:
             "schema": None,
         },
         "cloudformation": {  # AWS CloudFormation
-            "changeSet": None,
+            "changeSet": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudformation/home?region={data.get("region", "")}#/stacks',
             "stack": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudformation/home?region={data.get("region", "")}\
             #/stacks/stackinfo?stackId={arn}&# filteringStatus=active&filteringText=&viewNested=true&hideStacks=false',
-            "stackset": None,
+            "stackset": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudformation/home?region={data.get("region", "")}#/stacksets/{data.get("resource", "")}/stacks',
         },
         "cloudfront": {  # Amazon CloudFront
             "distribution": 'https://{data.get("console", "")}/cloudfront/v4/home#/{data.get("resource", "")}',
