@@ -437,13 +437,13 @@ def get_links() -> Dict:
             "policy": 'https://{data.get("console", "")}/wafv2/fmsv2/home?region={data.get("region", "")}#/security-policies/{data.get("resource", "")}',
         },
         "forecast": {  # Amazon Forecast
-            "algorithm": None,
-            "dataset": None,
-            "dataset-group": None,
-            "dataset-import-job": None,
-            "forecast": None,
-            "forecast-export-job": None,
-            "predictor": None,
+            "algorithm": None,  # built-in algorithm, not directly navigable
+            "dataset": 'https://{data.get("region", "")}.{data.get("console", "")}/forecast/home?region={data.get("region", "")}#/datasets/{data.get("resource", "")}',
+            "dataset-group": 'https://{data.get("region", "")}.{data.get("console", "")}/forecast/home?region={data.get("region", "")}#/datasetGroups/{data.get("resource", "")}',
+            "dataset-import-job": None,  # sub-resource of dataset, no direct deep-link
+            "forecast": 'https://{data.get("region", "")}.{data.get("console", "")}/forecast/home?region={data.get("region", "")}#/forecasts/{data.get("resource", "")}',
+            "forecast-export-job": None,  # sub-resource of forecast, no direct deep-link
+            "predictor": 'https://{data.get("region", "")}.{data.get("console", "")}/forecast/home?region={data.get("region", "")}#/predictors/{data.get("resource", "")}',
         },
         "freertos": {  # Amazon FreeRTOS
             "configuration": None,
