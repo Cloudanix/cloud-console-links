@@ -822,13 +822,13 @@ def get_links() -> Dict:
             "group": 'https://{data.get("region", "")}.{data.get("console", "")}/resource-groups/home?region={data.get("region", "")}#/groups/{data.get("resource", "")}',
         },
         "robomaker": {  # AWS RoboMaker
-            "deployment-fleet": None,
-            "deployment-job": None,
-            "robot": None,
-            "robot-application": None,
-            "simulation-application": None,
-            "simulation-job": None,
-            "simulation-job-batch": None,
+            "deployment-fleet": 'https://{data.get("region", "")}.{data.get("console", "")}/robomaker/home?region={data.get("region", "")}#/fleets',
+            "deployment-job": 'https://{data.get("region", "")}.{data.get("console", "")}/robomaker/home?region={data.get("region", "")}#/deploymentJobs',
+            "robot": 'https://{data.get("region", "")}.{data.get("console", "")}/robomaker/home?region={data.get("region", "")}#/robots/{data.get("resource", "")}',
+            "robot-application": 'https://{data.get("region", "")}.{data.get("console", "")}/robomaker/home?region={data.get("region", "")}#/robotApplications/{data.get("resource", "")}',
+            "simulation-application": 'https://{data.get("region", "")}.{data.get("console", "")}/robomaker/home?region={data.get("region", "")}#/simulationApplications/{data.get("resource", "")}',
+            "simulation-job": 'https://{data.get("region", "")}.{data.get("console", "")}/robomaker/home?region={data.get("region", "")}#/simulationJobs/{data.get("resource", "")}',
+            "simulation-job-batch": 'https://{data.get("region", "")}.{data.get("console", "")}/robomaker/home?region={data.get("region", "")}#/simulationJobBatches',
         },
         "route53": {  # Amazon Route 53
             "change": None,  # internal resource, no direct console page
