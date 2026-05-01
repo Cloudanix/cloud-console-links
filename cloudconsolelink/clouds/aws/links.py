@@ -109,8 +109,8 @@ def get_links() -> Dict:
             "": None,
         },
         "catalog": {  # AWS Service Catalog
-            "portfolio": None,
-            "product": None,
+            "portfolio": 'https://{data.get("region", "")}.{data.get("console", "")}/servicecatalog/home?region={data.get("region", "")}#/portfolios/{data.get("resource", "")}',
+            "product": 'https://{data.get("region", "")}.{data.get("console", "")}/servicecatalog/home?region={data.get("region", "")}#/products/{data.get("resource", "")}',
         },
         "chatbot": {  # AWS Chatbot
         },
