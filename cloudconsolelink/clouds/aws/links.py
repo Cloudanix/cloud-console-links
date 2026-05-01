@@ -402,11 +402,11 @@ def get_links() -> Dict:
             "file-system": 'https://{data.get("region", "")}.{data.get("console", "")}/efs/home?region={data.get("region", "")}#/file-systems/{data.get("resource", "")}',
         },
         "elasticloadbalancing": {  # AWS WAF V2
-            "listener": None,
-            "listener-rule": None,
+            "listener": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#LoadBalancers:',
+            "listener-rule": None,  # sub-resource of listener, no direct deep-link
             "loadbalancer": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/\
                         home?region={data.get("region", "")}#LoadBalancers:sort=loadBalancerName',
-            "targetgroup": None,
+            "targetgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#TargetGroups:targetGroupArn={arn}',
         },
         "elasticmapreduce": {  # Amazon Elastic MapReduce
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticmapreduce/home?region={data.get("region", "")}#cluster-details:{data.get("resource", "")}',
