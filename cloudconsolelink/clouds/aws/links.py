@@ -386,8 +386,8 @@ def get_links() -> Dict:
             "fargateprofile": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/fargate-profiles',
             "nodegroup": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/nodegroups',
         },
-        "elastic-inference": {  # Amazon Elastic Inference
-            "elastic-inference-accelerator": None,
+        "elastic-inference": {  # Amazon Elastic Inference (retired April 2024)
+            "elastic-inference-accelerator": None,  # service retired
         },
         "elasticbeanstalk": {  # AWS Elastic Beanstalk
             "application": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/home?region={data.get("region", "")}#/application/overview?applicationName={data.get("resource", "")}',
@@ -446,7 +446,7 @@ def get_links() -> Dict:
             "predictor": 'https://{data.get("region", "")}.{data.get("console", "")}/forecast/home?region={data.get("region", "")}#/predictors/{data.get("resource", "")}',
         },
         "freertos": {  # Amazon FreeRTOS
-            "configuration": None,
+            "configuration": None,  # FreeRTOS device configurations managed via IoT console, no standalone deep-link
         },
         "fsx": {  # Amazon FSx
             "backup": 'https://{data.get("region", "")}.{data.get("console", "")}/fsx/home?region={data.get("region", "")}#backups',
