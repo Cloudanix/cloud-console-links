@@ -413,9 +413,9 @@ def get_links() -> Dict:
             "editor": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticmapreduce/home?region={data.get("region", "")}#/notebooks',
         },
         "elastictranscoder": {  # Amazon Elastic Transcoder
-            "job": None,
-            "pipeline": None,
-            "preset": None,
+            "job": None,  # transient job, no permanent console deep-link
+            "pipeline": 'https://{data.get("region", "")}.{data.get("console", "")}/elastictranscoder/home?region={data.get("region", "")}#pipelines:',
+            "preset": 'https://{data.get("region", "")}.{data.get("console", "")}/elastictranscoder/home?region={data.get("region", "")}#presets:',
         },
         "es": {  # Amazon Elasticsearch Service
             "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/esv3/\
