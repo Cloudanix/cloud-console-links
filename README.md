@@ -10,6 +10,16 @@ For local development, install the package with dev extras:
 pip install -e '.[dev]'
 ```
 
+Verification shortcuts:
+
+```bash
+make test
+make coverage
+make test-arn
+make test-aws-links
+make check
+```
+
 # Usage
 
 ### Import Package
