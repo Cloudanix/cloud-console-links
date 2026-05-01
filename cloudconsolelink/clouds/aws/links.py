@@ -296,7 +296,7 @@ def get_links() -> Dict:
             "task": 'https://{data.get("region", "")}.{data.get("console", "")}/dms/v2/home?region={data.get("region", "")}#taskDetails/{data.get("resource", "")}',
         },
         "ds": {  # AWS Directory Service
-            "directory": None,
+            "directory": 'https://{data.get("region", "")}.{data.get("console", "")}/directoryservicev2/home?region={data.get("region", "")}#/directories/{data.get("resource", "")}',
         },
         "dynamodb": {  # Amazon DynamoDB
             "global-table": None,
