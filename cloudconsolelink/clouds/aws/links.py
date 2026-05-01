@@ -449,9 +449,9 @@ def get_links() -> Dict:
             "configuration": None,
         },
         "fsx": {  # Amazon FSx
-            "backup": None,
-            "file-system": None,
-            "task": None,
+            "backup": 'https://{data.get("region", "")}.{data.get("console", "")}/fsx/home?region={data.get("region", "")}#backups',
+            "file-system": 'https://{data.get("region", "")}.{data.get("console", "")}/fsx/home?region={data.get("region", "")}#file-systems/{data.get("resource", "")}',
+            "task": 'https://{data.get("region", "")}.{data.get("console", "")}/fsx/home?region={data.get("region", "")}#data-repository-tasks',
         },
         "gamelift": {  # Amazon GameLift
             "alias": None,
