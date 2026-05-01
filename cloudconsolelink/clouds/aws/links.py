@@ -882,7 +882,7 @@ def get_links() -> Dict:
             "workteam": 'https://{data.get("region", "")}.{data.get("console", "")}/sagemaker/home?region={data.get("region", "")}#/labeling-workforces/private',
         },
         "savingsplans": {  # AWS Savings Plans
-            "savingsplan": None,
+            "savingsplan": 'https://{data.get("console", "")}/savingsplans/home?region={data.get("region", "")}#/savingsplans/inventory',
         },
         "schemas": {  # Amazon EventBridge Schemas
             "discoverer": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/registries/discovered-schemas',
@@ -900,7 +900,7 @@ def get_links() -> Dict:
             "product": 'https://{data.get("region", "")}.{data.get("console", "")}/securityhub/home?region={data.get("region", "")}#/integrations',
         },
         "serverlessrepo": {  # AWS Serverless Application Repository
-            "applications": None,
+            "applications": 'https://{data.get("region", "")}.{data.get("console", "")}/serverlessrepo/home?region={data.get("region", "")}#/published-applications/{data.get("resource", "")}',
         },
         "servicediscovery": {  # AWS Cloud Map
             "namespace": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudmap/home?region={data.get("region", "")}#/namespaces/{data.get("resource", "")}',
