@@ -189,13 +189,13 @@ def get_links() -> Dict:
             "webhook": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codepipeline/webhooks?region={data.get("region", "")}',
         },
         "codestar": {  # AWS CodeStar
-            "project": None,
+            "project": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/codestar/projects/{data.get("resource", "")}/dashboard?region={data.get("region", "")}',
         },
         "codestar-connections": {  # AWS CodeStar Connections
-            "connection": None,
+            "connection": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/settings/connections?region={data.get("region", "")}',
         },
         "codestar-notifications": {  # AWS CodeStar Notifications
-            "notificationrule": None,
+            "notificationrule": 'https://{data.get("region", "")}.{data.get("console", "")}/codesuite/notifications/notifications?region={data.get("region", "")}',
         },
         "cognito-identity": {  # Amazon Cognito Identity
             "identitypool": 'https://{data.get("region", "")}.{data.get("console", "")}/cognito/v2/identity/identity-pools/{data.get("resource", "")}/basic-information?region={data.get("region", "")}',
