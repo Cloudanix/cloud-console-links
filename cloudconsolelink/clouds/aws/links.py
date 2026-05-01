@@ -434,7 +434,7 @@ def get_links() -> Dict:
             "deliverystream": 'https://{data.get("region", "")}.{data.get("console", "")}/firehose/home?region={data.get("region", "")}#/details/{data.get("resource", "")}/monitoring',
         },
         "fms": {  # AWS Firewall Manager
-            "policy": None,
+            "policy": 'https://{data.get("console", "")}/wafv2/fmsv2/home?region={data.get("region", "")}#/security-policies/{data.get("resource", "")}',
         },
         "forecast": {  # Amazon Forecast
             "algorithm": None,
