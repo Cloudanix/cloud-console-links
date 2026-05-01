@@ -82,8 +82,8 @@ def get_links() -> Dict:
         "aws-marketplace": {  # AWS Marketplace Catalog
         },
         "backup": {  # AWS Backup
-            "backup-plan": None,
-            "backup-vault": None,
+            "backup-plan": 'https://{data.get("region", "")}.{data.get("console", "")}/backup/home?region={data.get("region", "")}#/backupplan/details/{data.get("resource", "")}',
+            "backup-vault": 'https://{data.get("region", "")}.{data.get("console", "")}/backup/home?region={data.get("region", "")}#/backupvault/details/{data.get("resource", "")}',
         },
         "batch": {  # AWS Batch
             "job-definition": None,
