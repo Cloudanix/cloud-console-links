@@ -909,14 +909,14 @@ def get_links() -> Dict:
         "servicequotas": {  # Service Quotas
         },
         "ses": {  # Amazon SES
-            "configuration-set": None,
-            "custom-verification-email-template": None,
-            "dedicated-ip-pool": None,
-            "deliverability-test-report": None,
+            "configuration-set": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/configuration-sets/{data.get("resource", "")}',
+            "custom-verification-email-template": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/custom-verification-emails',
+            "dedicated-ip-pool": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/dedicated-ips',
+            "deliverability-test-report": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/deliverability-dashboard',
             "identity": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/verified-identities/{data.get("resource", "")}',
-            "receipt-filter": None,
-            "receipt-rule-set": None,
-            "template": None,
+            "receipt-filter": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/ip-filters',
+            "receipt-rule-set": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/email-receiving',
+            "template": 'https://{data.get("region", "")}.{data.get("console", "")}/ses/home?region={data.get("region", "")}#/email-templates',
         },
         "shield": {  # AWS Shield
             "attack": None,
