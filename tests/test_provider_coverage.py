@@ -269,3 +269,20 @@ def test_aws_linker_builds_links_for_helper_based_arn_templates():
         aws.get_console_link("arn:aws:states:us-east-1:123456789012:stateMachine:demo-machine")
         == "https://us-east-1.console.aws.amazon.com/states/home?region=us-east-1#/statemachines/view/arn:aws:states:us-east-1:123456789012:stateMachine:demo-machine"
     )
+
+
+def test_aws_linker_builds_links_for_raw_arn_templates():
+    aws = AWSLinker()
+
+    assert (
+        aws.get_console_link(
+            "arn:aws:acm-pca:us-east-1:123456789012:certificate-authority/ca-1234"
+        )
+        == "https://us-east-1.console.aws.amazon.com/acm-pca/home?region=us-east-1#/certificateAuthority?arn=arn:aws:acm-pca:us-east-1:123456789012:certificate-authority/ca-1234"
+    )
+    assert (
+        aws.get_console_link(
+            "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/demo-group/1234567890abcdef"
+        )
+        == "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#TargetGroups:targetGroupArn=arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/demo-group/1234567890abcdef"
+    )

@@ -119,8 +119,19 @@ class AWSLinker:
             # raise ValueError(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
 
         else:
+            template_context = {
+                "arn": arn,
+                "data": data,
+                "get_arn_string": get_arn_string,
+                "get_qualifiers": get_qualifiers,
+                "get_resource_path": get_resource_path,
+            }
             data["resource"] = urllib.parse.quote(str(data["resource"]))
-            return eval(f"f'{links[data['service']][data['resourceType']]}'").replace(
+            return eval(
+                f"f'{links[data['service']][data['resourceType']]}'",
+                {"__builtins__": {}},
+                template_context,
+            ).replace(
                 " ",
                 "",
             )
