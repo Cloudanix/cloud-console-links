@@ -101,6 +101,15 @@ def test_aws_event_eventbus():
     assert out_link == expected_link.replace(" ", "")
 
 
+def test_aws_event_rule():
+    arn = "arn:aws:events:us-east-2:123456789012:rule/RuleName-123"
+    expected_link = "https://us-east-2.console.aws.amazon.com/events/home?region=us-east-2#/rules/RuleName-123"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
 def test_aws_cloudwatch_loggroup():
     arn = "arn:aws:logs:us-east-2:123456789012:log-group/LogGroupName-123"
     expected_link = 'https://https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/LogGroupName-123'
