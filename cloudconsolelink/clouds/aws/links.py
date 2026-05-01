@@ -24,10 +24,10 @@ def get_links() -> Dict:
             {data.get("resource", "")}',
         },
         "acm-pca": {  # AWS Certificate Manager Private Certificate Authority
-            "certificate-authority": None,
+            "certificate-authority": 'https://{data.get("region", "")}.{data.get("console", "")}/acm-pca/home?region={data.get("region", "")}#/certificateAuthority?arn={arn}',
         },
         "amplify": {  # AWS Amplify
-            "apps": None,
+            "apps": 'https://{data.get("region", "")}.{data.get("console", "")}/amplify/home?region={data.get("region", "")}#/{data.get("resource", "")}',
         },
         "apigateway": {  # Manage Amazon API Gateway
             "restapis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
