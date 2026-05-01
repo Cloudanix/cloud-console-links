@@ -463,10 +463,10 @@ def get_links() -> Dict:
             "script": 'https://{data.get("region", "")}.{data.get("console", "")}/gamelift/home?region={data.get("region", "")}#/scripts',
         },
         "glacier": {  # Amazon Glacier
-            "vaults": None,
+            "vaults": 'https://{data.get("region", "")}.{data.get("console", "")}/s3/glaciervaults?region={data.get("region", "")}',
         },
         "globalaccelerator": {  # AWS Global Accelerator
-            "accelerator": None,
+            "accelerator": 'https://{data.get("console", "")}/globalaccelerator/home?region=us-west-2#/accelerators/{data.get("resource", "")}',
         },
         "glue": {  # AWS Glue
             "catalog": 'https://{data.get("region", "")}.{data.get("console", "")}/glue/home?region={data.get("region", "")}#/data-catalog/databases',
