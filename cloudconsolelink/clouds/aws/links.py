@@ -577,10 +577,10 @@ def get_links() -> Dict:
             "portal": 'https://{data.get("region", "")}.{data.get("console", "")}/iotsitewise/home?region={data.get("region", "")}#/portals/{data.get("resource", "")}',
             "project": 'https://{data.get("region", "")}.{data.get("console", "")}/iotsitewise/home?region={data.get("region", "")}#/projects',
         },
-        "iotthingsgraph": {  # AWS IoT Things Graph
-            "Deployment": None,
-            "System": None,
-            "Workflow": None,
+        "iotthingsgraph": {  # AWS IoT Things Graph (retired August 2023)
+            "Deployment": None,  # service retired
+            "System": None,  # service retired
+            "Workflow": None,  # service retired
         },
         "kafka": {  # Amazon Managed Streaming for Kafka
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/msk/home?region={data.get("region", "")}#/cluster/{data.get("resource", "")}/view',
@@ -641,11 +641,11 @@ def get_links() -> Dict:
         "logs": {  # Amazon CloudWatch Logs
             "log-group": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups/log-group/{data.get("resource", "")}',
         },
-        "machinelearning": {  # Amazon Machine Learning
-            "batchprediction": None,
-            "datasource": None,
-            "evaluation": None,
-            "mlmodel": None,
+        "machinelearning": {  # Amazon Machine Learning (retired)
+            "batchprediction": None,  # service retired
+            "datasource": None,  # service retired
+            "evaluation": None,  # service retired
+            "mlmodel": None,  # service retired
         },
         "macie2": {  # Amazon Macie
             "classification-job": 'https://{data.get("region", "")}.{data.get("console", "")}/macie/home?region={data.get("region", "")}#jobs/{data.get("resource", "")}',
@@ -749,7 +749,7 @@ def get_links() -> Dict:
             "solution": 'https://{data.get("region", "")}.{data.get("console", "")}/personalize/home?region={data.get("region", "")}#/datasetGroups/{data.get("resource", "")}/solutions',
         },
         "pi": {  # AWS Performance Insights
-            "metrics": None,
+            "metrics": None,  # Performance Insights is accessed via RDS/Aurora console, not a standalone resource
         },
         "polly": {  # Amazon Polly
             "lexicon": 'https://{data.get("region", "")}.{data.get("console", "")}/polly/home?region={data.get("region", "")}#/lexicons',
@@ -889,8 +889,8 @@ def get_links() -> Dict:
             "registry": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/registries/{data.get("resource", "")}',
             "schema": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/registries/{data.get("resource", "")}/schemas',
         },
-        "sdb": {  # Amazon SimpleDB
-            "domain": None,
+        "sdb": {  # Amazon SimpleDB (legacy)
+            "domain": None,  # SimpleDB is legacy with no modern console deep-link
         },
         "secretsmanager": {  # AWS Secrets Manager
             "secret": 'https://{data.get("region", "")}.{data.get("console", "")}/secretsmanager/secret?name={data.get("resource", "")}&region ={data.get("region", "")}',
@@ -962,11 +962,11 @@ def get_links() -> Dict:
             "share": 'https://{data.get("region", "")}.{data.get("console", "")}/storagegateway/home?region={data.get("region", "")}#/shares',
             "tape": 'https://{data.get("region", "")}.{data.get("console", "")}/storagegateway/home?region={data.get("region", "")}#/tape-gateways',
         },
-        "sumerian": {  # Amazon Sumerian
-            "project": None,
+        "sumerian": {  # Amazon Sumerian (retired)
+            "project": None,  # Amazon Sumerian retired February 2023
         },
         "swf": {  # Amazon Simple Workflow Service
-            "domain": None,
+            "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/swf/home?region={data.get("region", "")}#/domains',
         },
         "synthetics": {  # Amazon CloudWatch Synthetics
             "canary": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#synthetics:canary/detail/{data.get("resource", "")}',
@@ -976,7 +976,7 @@ def get_links() -> Dict:
             "user": 'https://{data.get("region", "")}.{data.get("console", "")}/transfer/home?region={data.get("region", "")}#/servers/{data.get("resource", "")}/users',
         },
         "trustedadvisor": {  # AWS Trusted Advisor
-            "checks": None,
+            "checks": 'https://{data.get("console", "")}/trustedadvisor/home?#/category/all',
         },
         "waf": {  # AWS WAF (Classic, global)
             "bytematchset": None,  # WAF Classic condition, no dedicated console deep-link
