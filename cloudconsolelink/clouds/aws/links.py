@@ -614,10 +614,10 @@ def get_links() -> Dict:
                 {data.get("region", "")}#/functions/{data.get("resource", "")}',
         },
         "lex": {  # Amazon Lex
-            "bot": None,
-            "bot-channel": None,
-            "intent": None,
-            "slottype": None,
+            "bot": 'https://{data.get("region", "")}.{data.get("console", "")}/lex/home?region={data.get("region", "")}#bot/{data.get("resource", "")}',
+            "bot-channel": None,  # sub-resource of bot, no direct deep-link
+            "intent": None,  # sub-resource of bot, no direct deep-link
+            "slottype": None,  # sub-resource of bot, no direct deep-link
         },
         "license-manager": {  # AWS License Manager
             "license-configuration": None,
