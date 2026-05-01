@@ -44,8 +44,8 @@ def get_links() -> Dict:
                     #/{data.get("resource", "")}/resources/',
         },
         "appconfig": {  # AWS AppConfig
-            "application": None,
-            "deploymentstrategy": None,
+            "application": 'https://{data.get("region", "")}.{data.get("console", "")}/systems-manager/appconfig/home?region={data.get("region", "")}',
+            "deploymentstrategy": 'https://{data.get("region", "")}.{data.get("console", "")}/systems-manager/appconfig/home?region={data.get("region", "")}',
         },
         "appflow": {  # Amazon AppFlow
             "connectorprofile": None,
