@@ -773,22 +773,22 @@ def get_links() -> Dict:
         "rds": {  # Amazon RDS
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/\
                     home?region={data.get("region", "")}#database:id={data.get("resource", "")};is-cluster=true',
-            "cluster-endpoint": None,
-            "cluster-pg": None,
-            "cluster-snapshot": None,
+            "cluster-endpoint": None,  # sub-resource of cluster, no direct deep-link
+            "cluster-pg": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#cluster-parameter-groups:',
+            "cluster-snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#cluster-snapshots:',
             "db": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region=\
                 {data.get("region", "")}#database:id={data.get("resource", "")};is-cluster=false',
-            "db-proxy": None,
-            "es": None,
-            "og": None,
-            "pg": None,
+            "db-proxy": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#proxy:id={data.get("resource", "")}',
+            "es": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#event-subscriptions:',
+            "og": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#option-groups-list:',
+            "pg": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#parameter-groups-list:',
             "ri": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#reserved-instances:',
             "secgrp": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
                 {data.get("region", "")}#SecurityGroup:groupId={data.get("resource", "")}',
             "snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#db-snapshot:engine=sqlserver-ee;id={arn}',
-            "subgrp": None,
-            "target": None,
-            "target-group": None,
+            "subgrp": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#subnet-groups-list:',
+            "target": None,  # sub-resource of db-proxy, no direct deep-link
+            "target-group": None,  # sub-resource of db-proxy, no direct deep-link
         },
         "rds-db": {  # Amazon RDS IAM Authentication
             "dbuser": None,
