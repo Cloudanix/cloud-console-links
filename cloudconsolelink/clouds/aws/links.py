@@ -599,7 +599,7 @@ def get_links() -> Dict:
             "stream": None,
         },
         "kms": {  # AWS Key Management Service
-            "alias": None,
+            "alias": 'https://{data.get("region", "")}.{data.get("console", "")}/kms/home?region={data.get("region", "")}#/kms/aliases',
             "key": 'https://{data.get("region", "")}.{data.get("console", "")}/kms/\
                     home?region={data.get("region", "")}#/kms/keys/{data.get("resource", "")}',
         },
