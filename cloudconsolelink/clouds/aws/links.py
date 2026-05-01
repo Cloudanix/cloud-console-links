@@ -299,7 +299,7 @@ def get_links() -> Dict:
             "directory": 'https://{data.get("region", "")}.{data.get("console", "")}/directoryservicev2/home?region={data.get("region", "")}#/directories/{data.get("resource", "")}',
         },
         "dynamodb": {  # Amazon DynamoDB
-            "global-table": None,
+            "global-table": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region={data.get("region", "")}#table?name={data.get("resource", "")}',
             "table": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region=\
                 {data.get("region", "")}#table?name={data.get("resource", "")}',
             "secondary_indexes": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/\
