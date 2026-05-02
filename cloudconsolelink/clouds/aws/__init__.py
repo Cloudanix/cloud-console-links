@@ -2,6 +2,7 @@ import logging
 import urllib.parse
 from typing import Dict
 
+from .errors import ARNTooShortError, InvalidARNError, InvalidPartitionError, InvalidServiceError
 from .links import get_links
 
 logger = logging.getLogger(__name__)
@@ -67,7 +68,7 @@ class AWSLinker:
 
         except IndexError:
             logger.error(f"AWS ARN {arn} is too short")
-            raise ValueError(f"AWS ARN {arn} is too short")
+            raise ARNTooShortError(f"AWS ARN {arn} is too short")
 
         if len(tokens) > 6:
             data["resourceType"] = tokens[5]
@@ -86,14 +87,14 @@ class AWSLinker:
 
         else:
             logger.error(f"Invalid AWS ARN {arn}")
-            raise ValueError(f"Invalid AWS ARN {arn}")
+            raise InvalidARNError(f"Invalid AWS ARN {arn}")
 
         console = get_console(str(data.get("partition", "")))
         if not console:
             logger.error(
                 f"AWS ARN {arn} has invalid partition (Valid Partitions: aws, aws-us-gov, aws-cn)",
             )
-            raise ValueError(
+            raise InvalidPartitionError(
                 f"AWS ARN {arn} has invalid partition (Valid Partitions: aws, aws-us-gov, aws-cn)",
             )
         data["console"] = console
@@ -106,7 +107,7 @@ class AWSLinker:
 
         elif not links.get(data["service"], None):
             logger.error(f"AWS service {data['service']} unknown")
-            raise ValueError(f"AWS service {data['service']} unknown")
+            raise InvalidServiceError(f"AWS service {data['service']} unknown")
 
         elif not links.get(data["service"], {}).get(data["resourceType"], None):
             logger.error(

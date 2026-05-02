@@ -1,4 +1,10 @@
+import pytest
+
 from cloudconsolelink.clouds.aws import AWSLinker
+from cloudconsolelink.clouds.aws import ARNTooShortError
+from cloudconsolelink.clouds.aws import InvalidARNError
+from cloudconsolelink.clouds.aws import InvalidPartitionError
+from cloudconsolelink.clouds.aws import InvalidServiceError
 from cloudconsolelink.clouds.aws.links import get_links
 
 aws = AWSLinker()
@@ -189,6 +195,28 @@ def test_aws_deepracer_evaluation_job_falls_back_to_service_home():
     out_link = aws.get_console_link(arn=arn)
 
     assert out_link == "https://console.aws.amazon.com/deepracer"
+
+
+
+
+def test_aws_arn_too_short_error():
+    with pytest.raises(ARNTooShortError):
+        aws.get_console_link(arn="arn:aws:ec2")
+
+
+def test_aws_invalid_arn_error():
+    with pytest.raises(InvalidARNError):
+        aws.get_console_link(arn="bad:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0")
+
+
+def test_aws_invalid_partition_error():
+    with pytest.raises(InvalidPartitionError):
+        aws.get_console_link(arn="arn:bad-partition:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0")
+
+
+def test_aws_invalid_service_error():
+    with pytest.raises(InvalidServiceError):
+        aws.get_console_link(arn="arn:aws:not-a-service:us-east-1:123456789012:resource/id")
 
 
 def test_aws_links_resource_keys_are_trimmed():
