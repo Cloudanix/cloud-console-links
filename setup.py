@@ -6,13 +6,18 @@ import setuptools
 ROOT = Path(__file__).parent
 
 
-def read_text(path: str) -> str:
-    return (ROOT / path).read_text(encoding="utf-8")
+def read_text(path: str, *, required: bool = True) -> str:
+    file_path = ROOT / path
+    if not file_path.exists():
+        if required:
+            raise FileNotFoundError(file_path)
+        return ""
+    return file_path.read_text(encoding="utf-8")
 
 
 def read_requirements(path: str) -> list[str]:
     lines = []
-    for line in read_text(path).splitlines():
+    for line in read_text(path, required=False).splitlines():
         requirement = line.strip()
         if requirement and not requirement.startswith("#"):
             lines.append(requirement)
