@@ -161,6 +161,15 @@ def test_aws_cloudwatch_rule():
     assert out_link == expected_link
 
 
+def test_aws_apigateway_client_certificate():
+    arn = "arn:aws:apigateway:us-east-1::clientcertificates/abc123"
+    expected_link = "https://us-east-1.console.aws.amazon.com/apigateway/home?region=us-east-1#/client-certificates"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
 def test_aws_cloudwatch_loggroup():
     arn = "arn:aws:logs:us-east-2:123456789012:log-group/LogGroupName-123"
     expected_link = 'https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/LogGroupName-123'

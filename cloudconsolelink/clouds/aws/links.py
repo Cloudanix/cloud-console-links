@@ -38,6 +38,7 @@ def get_links() -> Dict:
                     #/{data.get("resource", "")}/resources/',
             "stage": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
                         home?region={data.get("region", "")}#/{data.get("resource", "")}',
+            "clientcertificates": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}#/client-certificates',
             "certificate": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
                     #/{data.get("resource", "")}/resources/',
             "resource": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
