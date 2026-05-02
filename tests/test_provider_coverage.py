@@ -241,11 +241,6 @@ def test_aws_linker_validates_bad_arns_and_unknown_services():
     with pytest.raises(ValueError, match="is too short"):
         aws.get_console_link("arn:aws")
 
-    assert (
-        aws.get_console_link("arn:aws:ec2:us-east-1:123456789012")
-        == "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1"
-    )
-
     with pytest.raises(ValueError, match="invalid partition"):
         aws.get_console_link("arn:aws-iso:ec2:us-east-1:123456789012:instance/i-123")
 
@@ -254,6 +249,15 @@ def test_aws_linker_validates_bad_arns_and_unknown_services():
 
     with pytest.raises(ValueError, match="unknown"):
         aws.get_console_link("arn:aws:not-a-service:us-east-1:123456789012:item/demo")
+
+
+def test_aws_linker_falls_back_for_service_only_arns():
+    aws = AWSLinker()
+
+    assert (
+        aws.get_console_link("arn:aws:ec2:us-east-1:123456789012")
+        == "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1"
+    )
 
 
 def test_aws_linker_builds_links_for_helper_based_arn_templates():
