@@ -610,10 +610,16 @@ class Resource:
         logger.error("project_id required")
         raise ValueError("Invalid parameters provided")
 
-    def cloud_armor_policy(self, project_id: str, rule_name: str, **keward):
-        if project_id and rule_name:
-            return f"https://console.cloud.google.com/net-security/securitypolicies/details/{rule_name}?project={project_id}"
-        logger.error("project_id and rule_name required")
+    def cloud_armor_policy(
+        self,
+        project_id: str,
+        policy_name: str = "",
+        **keward,
+    ):
+        policy_name = policy_name or keward.get("rule_name", "")
+        if project_id and policy_name:
+            return f"https://console.cloud.google.com/net-security/securitypolicies/details/{policy_name}?project={project_id}"
+        logger.error("project_id and policy_name required")
         raise ValueError("Invalid parameters provided")
 
     def cloud_build_trigger(self, project_id: str, region: str, **keward):

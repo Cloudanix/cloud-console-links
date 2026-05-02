@@ -55,6 +55,7 @@ GCP_SAMPLE_ARGS = {
     "ssl_policy_name": "demo-ssl-policy",
     "backend_bucket_name": "demo-backend-bucket",
     "dns_policy_name": "demo-dns-policy",
+    "policy_name": "demo-policy",
     "api_key_id": "demo-api-key",
     "subscription_id": "demo-subscription",
 }

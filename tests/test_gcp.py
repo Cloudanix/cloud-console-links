@@ -32,13 +32,13 @@ def test_compute_instance():
 
 def test_cloud_armor_policy():
     project_id = "12345"
-    rule_name = "policy-1"
+    policy_name = "policy-1"
     resource_name = "cloud_armor_policy"
     expected_link = "https://console.cloud.google.com/net-security/securitypolicies/details/policy-1?project=12345"
 
     out_link = gcp.get_console_link(
         project_id=project_id,
-        rule_name=rule_name,
+        policy_name=policy_name,
         resource_name=resource_name,
     )
 
