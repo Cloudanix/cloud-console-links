@@ -137,7 +137,7 @@ class AWSLinker:
             data["resource"] = resource_tokens[0]
             data["hasPath"] = False
 
-        else:
+        else:  # pragma: no cover – defensive; unreachable via str.split
             logger.error(f"Invalid AWS ARN {arn}")
             raise InvalidARNError(f"Invalid AWS ARN {arn}")
 
