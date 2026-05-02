@@ -210,4 +210,4 @@ def test_missing_required_params():
 
 def test_bucket_missing_namespace():
     with pytest.raises(ValueError):
-        oci.get_console_link(resource_name="bucket", region=REGION, bucket_name="my-bucket")
+        oci.get_console_link(resource_name="bucket", region=REGION, namespace="", bucket_name="my-bucket")

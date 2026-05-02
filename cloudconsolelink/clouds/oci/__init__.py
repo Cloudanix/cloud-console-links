@@ -9,10 +9,7 @@ class OCILinker:
     def get_console_link(
         self,
         resource_name: str = "",
-        region: str = "",
-        ocid: str = "",
-        namespace: str = "",
-        bucket_name: str = "",
+        **kwargs,
     ) -> str:
         if not resource_name:
             logger.error("resource_name is required")
@@ -119,9 +116,4 @@ class OCILinker:
             logger.error(f"Invalid resource_name - {resource_name}")
             raise ValueError("Invalid parameters provided")
 
-        return resources[resource_name](
-            region=region,
-            ocid=ocid,
-            namespace=namespace,
-            bucket_name=bucket_name,
-        ).replace(" ", "")
+        return resources[resource_name](**kwargs).replace(" ", "")
