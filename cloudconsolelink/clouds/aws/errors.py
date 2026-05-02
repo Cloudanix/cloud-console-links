@@ -16,7 +16,3 @@ class InvalidPartitionError(AWSLinkerError):
 
 class InvalidServiceError(AWSLinkerError):
     """Raised when an ARN contains an unknown AWS service."""
-
-
-class UnsupportedResourceError(AWSLinkerError):
-    """Raised when a known AWS service resource has no direct link mapping."""

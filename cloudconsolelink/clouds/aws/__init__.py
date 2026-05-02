@@ -3,7 +3,6 @@ import urllib.parse
 from typing import Dict
 
 from .errors import ARNTooShortError, InvalidARNError, InvalidPartitionError, InvalidServiceError
-from .errors import UnsupportedResourceError
 from .links import get_links
 
 logger = logging.getLogger(__name__)
@@ -159,7 +158,6 @@ __all__ = [
     "InvalidARNError",
     "InvalidPartitionError",
     "InvalidServiceError",
-    "UnsupportedResourceError",
     "get_arn_string",
     "get_console",
     "get_qualifiers",
