@@ -12,6 +12,8 @@ from cloudconsolelink.clouds.aws import (
 from cloudconsolelink.clouds.azure import AzureLinker
 from cloudconsolelink.clouds.gcp import GCPLinker
 from cloudconsolelink.clouds.gcp.links import Resource
+from cloudconsolelink.clouds.oci import OCILinker
+from cloudconsolelink.clouds.oci.links import Resource as OCIResource
 
 
 GCP_SAMPLE_ARGS = {
@@ -294,3 +296,70 @@ def test_aws_linker_builds_links_for_raw_arn_templates():
         )
         == "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#TargetGroups:targetGroupArn=arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/demo-group/1234567890abcdef"
     )
+
+
+# ---------------------------------------------------------------------------
+# OCI provider coverage
+# ---------------------------------------------------------------------------
+
+OCI_SAMPLE_ARGS = {
+    "region": "us-ashburn-1",
+    "ocid": "ocid1.test.oc1.iad.abc123",
+    "namespace": "demo-namespace",
+    "bucket_name": "demo-bucket",
+}
+
+
+def _oci_method_kwargs(method_name: str) -> dict[str, str]:
+    resource = OCIResource()
+    signature = inspect.signature(getattr(resource, method_name))
+    kwargs: dict[str, str] = {}
+    for name, parameter in signature.parameters.items():
+        if parameter.kind is inspect.Parameter.VAR_KEYWORD:
+            continue
+        kwargs[name] = OCI_SAMPLE_ARGS[name]
+    return kwargs
+
+
+OCI_RESOURCE_METHODS = sorted(
+    method_name
+    for method_name, member in inspect.getmembers(OCIResource, predicate=inspect.isfunction)
+    if not method_name.startswith("_")
+)
+
+
+@pytest.mark.parametrize("method_name", OCI_RESOURCE_METHODS)
+def test_oci_resource_methods_return_console_urls(method_name: str):
+    resource = OCIResource()
+
+    out_link = getattr(resource, method_name)(**_oci_method_kwargs(method_name))
+
+    assert out_link.startswith("https://cloud.oracle.com/")
+
+
+@pytest.mark.parametrize("method_name", OCI_RESOURCE_METHODS)
+def test_oci_resource_methods_validate_required_parameters(method_name: str):
+    resource = OCIResource()
+    kwargs = _oci_method_kwargs(method_name)
+    if not kwargs:
+        pytest.skip("no required args to blank out")
+    first_arg = next(iter(kwargs))
+    kwargs[first_arg] = ""
+
+    with pytest.raises(ValueError, match="Invalid parameters provided"):
+        getattr(resource, method_name)(**kwargs)
+
+
+@pytest.mark.parametrize("method_name", OCI_RESOURCE_METHODS)
+def test_oci_linker_supports_all_resource_builders(method_name: str):
+    kwargs = _oci_method_kwargs(method_name)
+    expected_link = getattr(OCIResource(), method_name)(**kwargs).replace(" ", "")
+
+    out_link = OCILinker().get_console_link(resource_name=method_name, **kwargs)
+
+    assert out_link == expected_link
+
+
+def test_oci_linker_rejects_unknown_resource_name():
+    with pytest.raises(ValueError, match="Invalid parameters provided"):
+        OCILinker().get_console_link(resource_name="missing_resource", region="us-ashburn-1")

@@ -103,3 +103,17 @@ def test_cloud_spanner_database():
     )
 
     assert out_link == expected_link
+
+
+def test_cloud_spanner_database_without_database_name():
+    out_link = gcp.get_console_link(
+        project_id="12345",
+        instance_name="spanner-1",
+        resource_name="cloud_spanner_database",
+    )
+    assert out_link == "https://console.cloud.google.com/spanner/instances/spanner-1/databases?project=12345"
+
+
+def test_cloud_spanner_database_requires_params():
+    with pytest.raises(ValueError):
+        gcp.get_console_link(resource_name="cloud_spanner_database", project_id="12345")
