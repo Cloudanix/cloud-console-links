@@ -1,3 +1,5 @@
+import pytest
+
 from cloudconsolelink.clouds.gcp import GCPLinker
 
 gcp = GCPLinker()
@@ -43,6 +45,15 @@ def test_cloud_armor_policy():
     )
 
     assert out_link == expected_link
+
+
+def test_cloud_armor_policy_requires_policy_name():
+    with pytest.raises(ValueError):
+        gcp.get_console_link(
+            project_id="12345",
+            rule_name="policy-1",
+            resource_name="cloud_armor_policy",
+        )
 
 
 def test_cloud_tasks_queue():

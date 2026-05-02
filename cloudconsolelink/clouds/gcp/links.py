@@ -616,7 +616,6 @@ class Resource:
         policy_name: str = "",
         **keward,
     ):
-        policy_name = policy_name or keward.get("rule_name", "")
         if project_id and policy_name:
             return f"https://console.cloud.google.com/net-security/securitypolicies/details/{policy_name}?project={project_id}"
         logger.error("project_id and policy_name required")
