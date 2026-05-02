@@ -5,6 +5,7 @@ from cloudconsolelink.clouds.aws import ARNTooShortError
 from cloudconsolelink.clouds.aws import InvalidARNError
 from cloudconsolelink.clouds.aws import InvalidPartitionError
 from cloudconsolelink.clouds.aws import InvalidServiceError
+from cloudconsolelink.clouds.aws import get_service_home_link
 from cloudconsolelink.clouds.aws.links import get_links
 
 aws = AWSLinker()
@@ -250,9 +251,6 @@ def test_aws_links_resource_keys_are_trimmed():
             assert resource_type == resource_type.strip(), (
                 f"{service!r} contains malformed resource key {resource_type!r}"
             )
-
-
-from cloudconsolelink.clouds.aws import get_service_home_link
 
 
 def test_aws_get_service_home_link_returns_empty_when_service_missing():
