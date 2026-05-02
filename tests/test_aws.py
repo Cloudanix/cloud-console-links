@@ -214,6 +214,14 @@ def test_aws_service_only_arn_falls_back_to_service_home():
     assert out_link == "https://ap-south-1.console.aws.amazon.com/ec2/home?region=ap-south-1"
 
 
+def test_aws_logs_service_only_arn_uses_logs_home():
+    arn = "arn:aws:logs:us-east-1:123456789012"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups"
+
+
 def test_aws_arn_too_short_error():
     with pytest.raises(ARNTooShortError):
         aws.get_console_link(arn="arn:aws:ec2")
