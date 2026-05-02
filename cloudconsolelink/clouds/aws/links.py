@@ -57,6 +57,12 @@ def get_links() -> Dict:
         "appmesh-preview": {  # AWS App Mesh Preview
             "mesh": 'https://{data.get("region", "")}.{data.get("console", "")}/appmesh/home?region={data.get("region", "")}#/meshes/{data.get("resource", "")}',
         },
+        "apprunner": {  # AWS App Runner
+            "service": 'https://{data.get("region", "")}.{data.get("console", "")}/apprunner/home?region={data.get("region", "")}#/services/{data.get("resource", "")}',
+            "vpcconnector": 'https://{data.get("region", "")}.{data.get("console", "")}/apprunner/home?region={data.get("region", "")}#/vpc-connectors/{data.get("resource", "")}',
+            "autoscalingconfiguration": 'https://{data.get("region", "")}.{data.get("console", "")}/apprunner/home?region={data.get("region", "")}#/autoscaling',
+            "observabilityconfiguration": 'https://{data.get("region", "")}.{data.get("console", "")}/apprunner/home?region={data.get("region", "")}#/observability',
+        },
         "appstream": {  # Amazon AppStream 2.0
             "fleet": 'https://{data.get("region", "")}.{data.get("console", "")}/appstream2/home?region={data.get("region", "")}#/fleets/{data.get("resource", "")}',
             "image": 'https://{data.get("region", "")}.{data.get("console", "")}/appstream2/home?region={data.get("region", "")}#/images',
@@ -116,6 +122,11 @@ def get_links() -> Dict:
         },
         "chime": {  # Amazon Chime
             "meeting": None,  # meetings are transient, no permanent console deep-link
+        },
+        "cleanrooms": {  # AWS Clean Rooms
+            "membership": 'https://{data.get("region", "")}.{data.get("console", "")}/cleanrooms/home?region={data.get("region", "")}#/memberships/{data.get("resource", "")}',
+            "collaboration": 'https://{data.get("region", "")}.{data.get("console", "")}/cleanrooms/home?region={data.get("region", "")}#/collaborations/{data.get("resource", "")}',
+            "configuredtable": 'https://{data.get("region", "")}.{data.get("console", "")}/cleanrooms/home?region={data.get("region", "")}#/configured-tables/{data.get("resource", "")}',
         },
         "cloud9": {  # AWS Cloud9
             "environment": 'https://{data.get("region", "")}.{data.get("console", "")}/cloud9/home/environments/{data.get("resource", "")}?region={data.get("region", "")}',
@@ -222,8 +233,20 @@ def get_links() -> Dict:
         "connect": {  # Amazon Connect
             "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/connect/home?region={data.get("region", "")}',
         },
+        "controltower": {  # AWS Control Tower
+            "enabledcontrol": 'https://{data.get("region", "")}.{data.get("console", "")}/controltower/home?region={data.get("region", "")}#/controls',
+            "landingzone": 'https://{data.get("region", "")}.{data.get("console", "")}/controltower/home?region={data.get("region", "")}#/landing-zone',
+        },
         "cur": {  # AWS Cost and Usage Report
             "definition": 'https://{data.get("console", "")}/billing/home?#/reports',
+        },
+        "databrew": {  # AWS Glue DataBrew
+            "project": 'https://{data.get("region", "")}.{data.get("console", "")}/databrew/home?region={data.get("region", "")}#project-details?project={data.get("resource", "")}',
+            "dataset": 'https://{data.get("region", "")}.{data.get("console", "")}/databrew/home?region={data.get("region", "")}#dataset-details?dataset={data.get("resource", "")}',
+            "recipe": 'https://{data.get("region", "")}.{data.get("console", "")}/databrew/home?region={data.get("region", "")}#recipe-details?recipe={data.get("resource", "")}',
+            "job": 'https://{data.get("region", "")}.{data.get("console", "")}/databrew/home?region={data.get("region", "")}#job-details?job={data.get("resource", "")}',
+            "schedule": 'https://{data.get("region", "")}.{data.get("console", "")}/databrew/home?region={data.get("region", "")}#schedule-details?schedule={data.get("resource", "")}',
+            "ruleset": 'https://{data.get("region", "")}.{data.get("console", "")}/databrew/home?region={data.get("region", "")}#ruleset-details?ruleset={data.get("resource", "")}',
         },
         "dataexchange": {  # AWS Data Exchange
             "data-sets": 'https://{data.get("region", "")}.{data.get("console", "")}/dataexchange/home?region={data.get("region", "")}#/datasets/{data.get("resource", "")}',
@@ -233,6 +256,9 @@ def get_links() -> Dict:
             "agent": 'https://{data.get("region", "")}.{data.get("console", "")}/datasync/home?region={data.get("region", "")}#/agents/{data.get("resource", "")}',
             "location": 'https://{data.get("region", "")}.{data.get("console", "")}/datasync/home?region={data.get("region", "")}#/locations/{data.get("resource", "")}',
             "task": 'https://{data.get("region", "")}.{data.get("console", "")}/datasync/home?region={data.get("region", "")}#/tasks/{data.get("resource", "")}',
+        },
+        "datazone": {  # Amazon DataZone
+            "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/datazone/home?region={data.get("region", "")}#/domains/{data.get("resource", "")}',
         },
         "dax": {  # Amazon DynamoDB Accelerator (DAX)
             "cache": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region={data.get("region", "")}#dax:cluster-details:{data.get("resource", "")}',
@@ -276,6 +302,10 @@ def get_links() -> Dict:
             "testgrid-session": 'https://us-west-2.{data.get("console", "")}/devicefarm/home?region=us-west-2#/testgrid-projects/{data.get("resource", "")}/sessions',
             "upload": None,  # sub-resource of project, no direct deep-link
             "vpceconfiguration": None,  # internal config, no direct deep-link
+        },
+        "devops-guru": {  # Amazon DevOps Guru
+            "channel": 'https://{data.get("region", "")}.{data.get("console", "")}/devops-guru/home?region={data.get("region", "")}#/settings',
+            "insight": 'https://{data.get("region", "")}.{data.get("console", "")}/devops-guru/home?region={data.get("region", "")}#/insights/{data.get("resource", "")}',
         },
         "directconnect": {  # AWS Direct Connect
             "dx-gateway": 'https://{data.get("region", "")}.{data.get("console", "")}/directconnect/v2/home?region={data.get("region", "")}#/direct-connect-gateways/{data.get("resource", "")}',
@@ -388,6 +418,18 @@ def get_links() -> Dict:
         "elastic-inference": {  # Amazon Elastic Inference (retired April 2024)
             "elastic-inference-accelerator": None,  # service retired
         },
+        "elasticache": {  # Amazon ElastiCache
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/memcached/{data.get("resource", "")}',
+            "replicationgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/redis/{data.get("resource", "")}',
+            "reserved-instance": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/reserved-cache-nodes',
+            "snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/snapshots/{data.get("resource", "")}',
+            "subnetgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/subnet-group/{data.get("resource", "")}',
+            "parametergroup": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/parameter-groups/{data.get("resource", "")}',
+            "globalreplicationgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/global-datastores/{data.get("resource", "")}',
+            "user": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/users/{data.get("resource", "")}',
+            "usergroup": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/user-groups/{data.get("resource", "")}',
+            "serverlesscache": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticache/home?region={data.get("region", "")}#/serverless/{data.get("resource", "")}',
+        },
         "elasticbeanstalk": {  # AWS Elastic Beanstalk
             "application": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/home?region={data.get("region", "")}#/application/overview?applicationName={data.get("resource", "")}',
             "applicationversion": 'https://{data.get("region", "")}.{data.get("console", "")}/elasticbeanstalk/home?region={data.get("region", "")}#/application/versions?applicationName={data.get("resource", "")}',
@@ -416,6 +458,14 @@ def get_links() -> Dict:
             "pipeline": 'https://{data.get("region", "")}.{data.get("console", "")}/elastictranscoder/home?region={data.get("region", "")}#pipelines:',
             "preset": 'https://{data.get("region", "")}.{data.get("console", "")}/elastictranscoder/home?region={data.get("region", "")}#presets:',
         },
+        "emr-containers": {  # Amazon EMR on EKS
+            "virtualcluster": 'https://{data.get("region", "")}.{data.get("console", "")}/emr/home?region={data.get("region", "")}#/eks/virtual-clusters/{data.get("resource", "")}',
+            "jobrun": 'https://{data.get("region", "")}.{data.get("console", "")}/emr/home?region={data.get("region", "")}#/eks/virtual-clusters/job-runs/{data.get("resource", "")}',
+        },
+        "emr-serverless": {  # Amazon EMR Serverless
+            "application": 'https://{data.get("region", "")}.{data.get("console", "")}/emr/home?region={data.get("region", "")}#/serverless/applications/{data.get("resource", "")}',
+            "jobrun": 'https://{data.get("region", "")}.{data.get("console", "")}/emr/home?region={data.get("region", "")}#/serverless/job-runs/{data.get("resource", "")}',
+        },
         "es": {  # Amazon Elasticsearch Service
             "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/esv3/\
                         home?region={data.get("region", "")}#opensearch/domains/{data.get("resource", "")}',
@@ -426,6 +476,9 @@ def get_links() -> Dict:
             "event-bus": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/eventbus/{data.get("resource", "")}',
             "event-source": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/partner-event-sources',
             "rule": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/rules/{data.get("resource", "")}',
+        },
+        "evidently": {  # Amazon CloudWatch Evidently
+            "project": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#evidently/projects/{data.get("resource", "")}',
         },
         "execute-api": {  # Amazon API Gateway
         },
@@ -481,6 +534,9 @@ def get_links() -> Dict:
             "userDefinedFunction": None,  # accessible only through database view
             "workflow": 'https://{data.get("region", "")}.{data.get("console", "")}/glue/home?region={data.get("region", "")}#/etl/workflows/{data.get("resource", "")}',
         },
+        "grafana": {  # Amazon Managed Grafana
+            "workspace": 'https://{data.get("region", "")}.{data.get("console", "")}/grafana/home?region={data.get("region", "")}#/workspaces/{data.get("resource", "")}',
+        },
         "greengrass": {  # AWS IoT Greengrass
             "": 'https://{data.get("region", "")}.{data.get("console", "")}/greengrass/v2/home?region={data.get("region", "")}',
         },
@@ -527,6 +583,14 @@ def get_links() -> Dict:
             "image-pipeline": 'https://{data.get("region", "")}.{data.get("console", "")}/imagebuilder/home?region={data.get("region", "")}#/pipelines/{data.get("resource", "")}',
             "image-recipe": 'https://{data.get("region", "")}.{data.get("console", "")}/imagebuilder/home?region={data.get("region", "")}#/imageRecipes/{data.get("resource", "")}',
             "infrastructure-configuration": 'https://{data.get("region", "")}.{data.get("console", "")}/imagebuilder/home?region={data.get("region", "")}#/infrastructureConfiguration/{data.get("resource", "")}',
+        },
+        "inspector2": {  # Amazon Inspector
+            "owner": 'https://{data.get("region", "")}.{data.get("console", "")}/inspector/v2/home?region={data.get("region", "")}',
+            "finding": 'https://{data.get("region", "")}.{data.get("console", "")}/inspector/v2/home?region={data.get("region", "")}#/findings/{data.get("resource", "")}',
+            "filter": 'https://{data.get("region", "")}.{data.get("console", "")}/inspector/v2/home?region={data.get("region", "")}#/filters/{data.get("resource", "")}',
+        },
+        "internetmonitor": {  # Amazon CloudWatch Internet Monitor
+            "monitor": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#internet-monitor/monitors/{data.get("resource", "")}',
         },
         "iot": {  # AWS IoT
             "authorizer": 'https://{data.get("region", "")}.{data.get("console", "")}/iot/home?region={data.get("region", "")}#/security/authorizers/{data.get("resource", "")}',
@@ -581,6 +645,17 @@ def get_links() -> Dict:
             "System": None,  # service retired
             "Workflow": None,  # service retired
         },
+        "iottwinmaker": {  # AWS IoT TwinMaker
+            "workspace": 'https://{data.get("region", "")}.{data.get("console", "")}/iottwinmaker/home?region={data.get("region", "")}#/workspaces/{data.get("resource", "")}',
+            "entity": 'https://{data.get("region", "")}.{data.get("console", "")}/iottwinmaker/home?region={data.get("region", "")}#/workspaces/{data.get("resource", "")}/entities',
+            "scene": 'https://{data.get("region", "")}.{data.get("console", "")}/iottwinmaker/home?region={data.get("region", "")}#/workspaces/{data.get("resource", "")}/scenes',
+        },
+        "ivs": {  # Amazon Interactive Video Service
+            "channel": 'https://{data.get("region", "")}.{data.get("console", "")}/ivs/home?region={data.get("region", "")}#/channels/{data.get("resource", "")}',
+            "playback-key-pair": 'https://{data.get("region", "")}.{data.get("console", "")}/ivs/home?region={data.get("region", "")}#/playback-keys',
+            "recording-configuration": 'https://{data.get("region", "")}.{data.get("console", "")}/ivs/home?region={data.get("region", "")}#/recording-configurations/{data.get("resource", "")}',
+            "stage": 'https://{data.get("region", "")}.{data.get("console", "")}/ivs/home?region={data.get("region", "")}#/stages/{data.get("resource", "")}',
+        },
         "kafka": {  # Amazon Managed Streaming for Kafka
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/msk/home?region={data.get("region", "")}#/cluster/{data.get("resource", "")}/view',
         },
@@ -601,6 +676,9 @@ def get_links() -> Dict:
             "alias": 'https://{data.get("region", "")}.{data.get("console", "")}/kms/home?region={data.get("region", "")}#/kms/aliases',
             "key": 'https://{data.get("region", "")}.{data.get("console", "")}/kms/\
                     home?region={data.get("region", "")}#/kms/keys/{data.get("resource", "")}',
+        },
+        "lakeformation": {  # AWS Lake Formation
+            "resource": 'https://{data.get("region", "")}.{data.get("console", "")}/lakeformation/home?region={data.get("region", "")}#/data-lake/resources',
         },
         "lambda": {  # AWS Lambda
             "event-source-mapping": 'https://{data.get("region", "")}.{data.get("console", "")}/lambda/home?region=\
@@ -639,6 +717,18 @@ def get_links() -> Dict:
         },
         "logs": {  # Amazon CloudWatch Logs
             "log-group": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups/log-group/{data.get("resource", "")}',
+        },
+        "lookoutequipment": {  # Amazon Lookout for Equipment
+            "dataset": 'https://{data.get("region", "")}.{data.get("console", "")}/lookoutequipment/home?region={data.get("region", "")}#/datasets/{data.get("resource", "")}',
+            "model": 'https://{data.get("region", "")}.{data.get("console", "")}/lookoutequipment/home?region={data.get("region", "")}#/models/{data.get("resource", "")}',
+            "inference-scheduler": 'https://{data.get("region", "")}.{data.get("console", "")}/lookoutequipment/home?region={data.get("region", "")}#/inference-schedulers/{data.get("resource", "")}',
+        },
+        "lookoutmetrics": {  # Amazon Lookout for Metrics
+            "AnomalyDetector": 'https://{data.get("region", "")}.{data.get("console", "")}/lookoutmetrics/home?region={data.get("region", "")}#/detectors/{data.get("resource", "")}',
+            "Alert": 'https://{data.get("region", "")}.{data.get("console", "")}/lookoutmetrics/home?region={data.get("region", "")}#/detectors/{data.get("resource", "")}/alerts',
+        },
+        "lookoutvision": {  # Amazon Lookout for Vision
+            "model": 'https://{data.get("region", "")}.{data.get("console", "")}/lookoutvision/home?region={data.get("region", "")}#/projects/{data.get("resource", "")}',
         },
         "machinelearning": {  # Amazon Machine Learning (retired)
             "batchprediction": None,  # service retired
@@ -696,8 +786,21 @@ def get_links() -> Dict:
         "mediatailor": {  # AWS Elemental MediaTailor
             "playbackConfiguration": 'https://{data.get("region", "")}.{data.get("console", "")}/mediatailor/home?region={data.get("region", "")}#/configurations/{data.get("resource", "")}',
         },
+        "memorydb": {  # Amazon MemoryDB
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/memorydb/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}',
+            "snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/memorydb/home?region={data.get("region", "")}#/snapshots/{data.get("resource", "")}',
+            "subnetgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/memorydb/home?region={data.get("region", "")}#/subnet-groups/{data.get("resource", "")}',
+            "parametergroup": 'https://{data.get("region", "")}.{data.get("console", "")}/memorydb/home?region={data.get("region", "")}#/parameter-groups/{data.get("resource", "")}',
+            "user": 'https://{data.get("region", "")}.{data.get("console", "")}/memorydb/home?region={data.get("region", "")}#/users/{data.get("resource", "")}',
+            "acl": 'https://{data.get("region", "")}.{data.get("console", "")}/memorydb/home?region={data.get("region", "")}#/acls/{data.get("resource", "")}',
+        },
         "mgh": {  # AWS Migration Hub
             "progressUpdateStream": 'https://{data.get("console", "")}/migrationhub/home?region={data.get("region", "")}#/discover',
+        },
+        "mgn": {  # AWS Application Migration Service
+            "source-server": 'https://{data.get("region", "")}.{data.get("console", "")}/mgn/home?region={data.get("region", "")}#/source-servers/{data.get("resource", "")}',
+            "job": 'https://{data.get("region", "")}.{data.get("console", "")}/mgn/home?region={data.get("region", "")}#/jobs/{data.get("resource", "")}',
+            "launch-configuration-template": 'https://{data.get("region", "")}.{data.get("console", "")}/mgn/home?region={data.get("region", "")}#/launch-templates',
         },
         "mobilehub": {  # AWS Mobile Hub (retired)
             "project": None,  # AWS Mobile Hub retired March 2023, no console
@@ -719,6 +822,9 @@ def get_links() -> Dict:
             "link": 'https://{data.get("console", "")}/networkmanager/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/links',
             "site": 'https://{data.get("console", "")}/networkmanager/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/sites',
         },
+        "opensearchservice": {  # Amazon OpenSearch Service
+            "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/aos/home?region={data.get("region", "")}#opensearch/domains/{data.get("resource", "")}',
+        },
         "opsworks": {  # AWS OpsWorks
             "stack": 'https://{data.get("region", "")}.{data.get("console", "")}/opsworks/home?region={data.get("region", "")}#/stack/{data.get("resource", "")}',
         },
@@ -735,6 +841,11 @@ def get_links() -> Dict:
             "outpost": 'https://{data.get("region", "")}.{data.get("console", "")}/outposts/home?region={data.get("region", "")}#/outposts/{data.get("resource", "")}',
             "site": 'https://{data.get("region", "")}.{data.get("console", "")}/outposts/home?region={data.get("region", "")}#/sites/{data.get("resource", "")}',
         },
+        "panorama": {  # AWS Panorama
+            "device": 'https://{data.get("region", "")}.{data.get("console", "")}/panorama/home?region={data.get("region", "")}#/devices/{data.get("resource", "")}',
+            "package": 'https://{data.get("region", "")}.{data.get("console", "")}/panorama/home?region={data.get("region", "")}#/packages/{data.get("resource", "")}',
+            "applicationInstance": 'https://{data.get("region", "")}.{data.get("console", "")}/panorama/home?region={data.get("region", "")}#/deployed-apps/{data.get("resource", "")}',
+        },
         "personalize": {  # Amazon Personalize
             "algorithm": None,  # built-in algorithm, not directly navigable
             "campaign": 'https://{data.get("region", "")}.{data.get("console", "")}/personalize/home?region={data.get("region", "")}#/datasetGroups/{data.get("resource", "")}/campaigns',
@@ -750,8 +861,17 @@ def get_links() -> Dict:
         "pi": {  # AWS Performance Insights
             "metrics": None,  # Performance Insights is accessed via RDS/Aurora console, not a standalone resource
         },
+        "pipes": {  # Amazon EventBridge Pipes
+            "pipe": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/pipes/{data.get("resource", "")}',
+        },
         "polly": {  # Amazon Polly
             "lexicon": 'https://{data.get("region", "")}.{data.get("console", "")}/polly/home?region={data.get("region", "")}#/lexicons',
+        },
+        "proton": {  # AWS Proton
+            "environment-template": 'https://{data.get("region", "")}.{data.get("console", "")}/proton/home?region={data.get("region", "")}#/templates/environments/{data.get("resource", "")}',
+            "service-template": 'https://{data.get("region", "")}.{data.get("console", "")}/proton/home?region={data.get("region", "")}#/templates/services/{data.get("resource", "")}',
+            "environment": 'https://{data.get("region", "")}.{data.get("console", "")}/proton/home?region={data.get("region", "")}#/environments/{data.get("resource", "")}',
+            "service": 'https://{data.get("region", "")}.{data.get("console", "")}/proton/home?region={data.get("region", "")}#/services/{data.get("resource", "")}',
         },
         "qldb": {  # Amazon QLDB
             "ledger": 'https://{data.get("region", "")}.{data.get("console", "")}/qldb/home?region={data.get("region", "")}#/ledger/{data.get("resource", "")}',
@@ -817,6 +937,10 @@ def get_links() -> Dict:
             "project": 'https://{data.get("region", "")}.{data.get("console", "")}/rekognition/home?region={data.get("region", "")}#/projects/{data.get("resource", "")}',
             "streamprocessor": 'https://{data.get("region", "")}.{data.get("console", "")}/rekognition/home?region={data.get("region", "")}#/stream-processors',
         },
+        "resiliencehub": {  # AWS Resilience Hub
+            "app": 'https://{data.get("region", "")}.{data.get("console", "")}/resiliencehub/home?region={data.get("region", "")}#/application/{data.get("resource", "")}',
+            "resiliency-policy": 'https://{data.get("region", "")}.{data.get("console", "")}/resiliencehub/home?region={data.get("region", "")}#/policies/{data.get("resource", "")}',
+        },
         "resource-groups": {  # AWS Resource Groups
             "group": 'https://{data.get("region", "")}.{data.get("console", "")}/resource-groups/home?region={data.get("region", "")}#/groups/{data.get("resource", "")}',
         },
@@ -845,6 +969,9 @@ def get_links() -> Dict:
         "route53resolver": {  # Amazon Route 53 Resolver
             "resolver-endpoint": 'https://{data.get("region", "")}.{data.get("console", "")}/route53resolver/home?region={data.get("region", "")}#/endpoints/{data.get("resource", "")}',
             "resolver-rule": 'https://{data.get("region", "")}.{data.get("console", "")}/route53resolver/home?region={data.get("region", "")}#/rules/{data.get("resource", "")}',
+        },
+        "rum": {  # Amazon CloudWatch RUM
+            "appmonitor": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#rum/app-monitors/{data.get("resource", "")}',
         },
         "s3": {  # Amazon S3
             "": 'https://s3.{data.get("console", "")}/s3/buckets/{data.get("resource", "")}',
@@ -883,6 +1010,10 @@ def get_links() -> Dict:
         "savingsplans": {  # AWS Savings Plans
             "savingsplan": 'https://{data.get("console", "")}/savingsplans/home?region={data.get("region", "")}#/savingsplans/inventory',
         },
+        "scheduler": {  # Amazon EventBridge Scheduler
+            "schedule-group": 'https://{data.get("region", "")}.{data.get("console", "")}/scheduler/home?region={data.get("region", "")}#/schedule-groups/{data.get("resource", "")}',
+            "schedule": 'https://{data.get("region", "")}.{data.get("console", "")}/scheduler/home?region={data.get("region", "")}#/schedules/{data.get("resource", "")}',
+        },
         "schemas": {  # Amazon EventBridge Schemas
             "discoverer": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/registries/discovered-schemas',
             "registry": 'https://{data.get("region", "")}.{data.get("console", "")}/events/home?region={data.get("region", "")}#/registries/{data.get("resource", "")}',
@@ -897,6 +1028,9 @@ def get_links() -> Dict:
         "securityhub": {  # AWS Security Hub
             "hub": 'https://{data.get("region", "")}.{data.get("console", "")}/securityhub/home?region={data.get("region", "")}#/summary',
             "product": 'https://{data.get("region", "")}.{data.get("console", "")}/securityhub/home?region={data.get("region", "")}#/integrations',
+        },
+        "securitylake": {  # Amazon Security Lake
+            "subscriber": 'https://{data.get("region", "")}.{data.get("console", "")}/securitylake/home?region={data.get("region", "")}#/subscribers/{data.get("resource", "")}',
         },
         "serverlessrepo": {  # AWS Serverless Application Repository
             "applications": 'https://{data.get("region", "")}.{data.get("console", "")}/serverlessrepo/home?region={data.get("region", "")}#/published-applications/{data.get("resource", "")}',
@@ -951,6 +1085,10 @@ def get_links() -> Dict:
             "windowtarget": 'https://{data.get("region", "")}.{data.get("console", "")}/systems-manager/maintenance-windows?region={data.get("region", "")}',
             "windowtask": 'https://{data.get("region", "")}.{data.get("console", "")}/systems-manager/maintenance-windows?region={data.get("region", "")}',
         },
+        "sso": {  # AWS IAM Identity Center
+            "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/singlesignon/home?region={data.get("region", "")}',
+            "permissionSet": 'https://{data.get("region", "")}.{data.get("console", "")}/singlesignon/home?region={data.get("region", "")}#/permission-sets/{data.get("resource", "")}',
+        },
         "states": {  # AWS Step Functions
             "activity": 'https://{data.get("region", "")}.{data.get("console", "")}/states/home?region={data.get("region", "")}#/activities/{arn}',
             "execution": 'https://{data.get("region", "")}.{data.get("console", "")}/states/home?region={data.get("region", "")}#/executions/details/{arn}',
@@ -971,12 +1109,25 @@ def get_links() -> Dict:
         "synthetics": {  # Amazon CloudWatch Synthetics
             "canary": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#synthetics:canary/detail/{data.get("resource", "")}',
         },
+        "timestream": {  # Amazon Timestream
+            "database": 'https://{data.get("region", "")}.{data.get("console", "")}/timestream/home?region={data.get("region", "")}#/databases/{data.get("resource", "")}',
+            "table": 'https://{data.get("region", "")}.{data.get("console", "")}/timestream/home?region={data.get("region", "")}#/tables/{data.get("resource", "")}',
+            "scheduled-query": 'https://{data.get("region", "")}.{data.get("console", "")}/timestream/home?region={data.get("region", "")}#/scheduled-queries/{data.get("resource", "")}',
+        },
         "transfer": {  # AWS Transfer for SFTP
             "server": 'https://{data.get("region", "")}.{data.get("console", "")}/transfer/home?region={data.get("region", "")}#/servers/{data.get("resource", "")}',
             "user": 'https://{data.get("region", "")}.{data.get("console", "")}/transfer/home?region={data.get("region", "")}#/servers/{data.get("resource", "")}/users',
         },
         "trustedadvisor": {  # AWS Trusted Advisor
             "checks": 'https://{data.get("console", "")}/trustedadvisor/home?#/category/all',
+        },
+        "verifiedpermissions": {  # Amazon Verified Permissions
+            "policy-store": 'https://{data.get("region", "")}.{data.get("console", "")}/verifiedpermissions/home?region={data.get("region", "")}#/policy-stores/{data.get("resource", "")}',
+        },
+        "vpc-lattice": {  # Amazon VPC Lattice
+            "servicenetwork": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#VpcLatticeServiceNetworks:service-network/{data.get("resource", "")}',
+            "service": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#VpcLatticeServices:service/{data.get("resource", "")}',
+            "targetgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#VpcLatticeTargetGroups:target-group/{data.get("resource", "")}',
         },
         "waf": {  # AWS WAF (Classic, global)
             "bytematchset": None,  # WAF Classic condition, no dedicated console deep-link
@@ -1010,6 +1161,10 @@ def get_links() -> Dict:
         },
         "wellarchitected": {  # AWS Well-Architected Tool
             "workload": 'https://{data.get("region", "")}.{data.get("console", "")}/wellarchitected/home?region={data.get("region", "")}#/workload/{data.get("resource", "")}',
+        },
+        "wisdom": {  # Amazon Connect Wisdom
+            "assistant": 'https://{data.get("region", "")}.{data.get("console", "")}/connect/home?region={data.get("region", "")}#/wisdom/assistants/{data.get("resource", "")}',
+            "knowledge-base": 'https://{data.get("region", "")}.{data.get("console", "")}/connect/home?region={data.get("region", "")}#/wisdom/knowledge-bases/{data.get("resource", "")}',
         },
         "worklink": {  # Amazon WorkLink
             "fleet": 'https://{data.get("region", "")}.{data.get("console", "")}/worklink/home?region={data.get("region", "")}#/fleets/{data.get("resource", "")}',
