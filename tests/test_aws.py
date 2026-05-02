@@ -1,4 +1,10 @@
+import pytest
+
 from cloudconsolelink.clouds.aws import AWSLinker
+from cloudconsolelink.clouds.aws import ARNTooShortError
+from cloudconsolelink.clouds.aws import InvalidARNError
+from cloudconsolelink.clouds.aws import InvalidPartitionError
+from cloudconsolelink.clouds.aws import InvalidServiceError
 from cloudconsolelink.clouds.aws.links import get_links
 
 aws = AWSLinker()
@@ -155,6 +161,15 @@ def test_aws_cloudwatch_rule():
     assert out_link == expected_link
 
 
+def test_aws_apigateway_client_certificate():
+    arn = "arn:aws:apigateway:us-east-1::clientcertificates/abc123"
+    expected_link = "https://us-east-1.console.aws.amazon.com/apigateway/home?region=us-east-1#/client-certificates"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == expected_link
+
+
 def test_aws_cloudwatch_loggroup():
     arn = "arn:aws:logs:us-east-2:123456789012:log-group/LogGroupName-123"
     expected_link = 'https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/LogGroupName-123'
@@ -188,7 +203,43 @@ def test_aws_deepracer_evaluation_job_falls_back_to_service_home():
 
     out_link = aws.get_console_link(arn=arn)
 
-    assert out_link == "https://console.aws.amazon.com/deepracer"
+    assert out_link == "https://us-east-1.console.aws.amazon.com/deepracer/home?region=us-east-1"
+
+
+def test_aws_service_only_arn_falls_back_to_service_home():
+    arn = "arn:aws:ec2:ap-south-1:"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == "https://ap-south-1.console.aws.amazon.com/ec2/home?region=ap-south-1"
+
+
+def test_aws_logs_service_only_arn_uses_logs_home():
+    arn = "arn:aws:logs:us-east-1:123456789012"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups"
+
+
+def test_aws_arn_too_short_error():
+    with pytest.raises(ARNTooShortError):
+        aws.get_console_link(arn="arn:aws:ec2")
+
+
+def test_aws_invalid_arn_error():
+    with pytest.raises(InvalidARNError):
+        aws.get_console_link(arn="bad:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0")
+
+
+def test_aws_invalid_partition_error():
+    with pytest.raises(InvalidPartitionError):
+        aws.get_console_link(arn="arn:bad-partition:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0")
+
+
+def test_aws_invalid_service_error():
+    with pytest.raises(InvalidServiceError):
+        aws.get_console_link(arn="arn:aws:not-a-service:us-east-1:123456789012:resource/id")
 
 
 def test_aws_links_resource_keys_are_trimmed():

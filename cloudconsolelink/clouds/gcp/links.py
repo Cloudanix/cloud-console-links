@@ -609,3 +609,322 @@ class Resource:
             return f"https://console.cloud.google.com/run?referrer=search&project={project_id}"
         logger.error("project_id required")
         raise ValueError("Invalid parameters provided")
+
+    def cloud_armor_policy(
+        self,
+        project_id: str,
+        policy_name: str = "",
+        **keward,
+    ):
+        if project_id and policy_name:
+            return f"https://console.cloud.google.com/net-security/securitypolicies/details/{policy_name}?project={project_id}"
+        logger.error("project_id and policy_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_build_trigger(self, project_id: str, region: str, **keward):
+        if project_id and region:
+            return f"https://console.cloud.google.com/cloud-build/triggers;region={region}?project={project_id}"
+        logger.error("project_id and region required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_composer_environment(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/composer/environments/detail/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_scheduler_job(self, project_id: str, region: str, **keward):
+        if project_id and region:
+            return f"https://console.cloud.google.com/cloudscheduler?project={project_id}&region={region}"
+        logger.error("project_id and region required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_tasks_queue(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/cloudtasks/queue/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_spanner_instance(self, project_id: str, instance_name: str, **keward):
+        if project_id and instance_name:
+            return f"https://console.cloud.google.com/spanner/instances/{instance_name}/details/databases?project={project_id}"
+        logger.error("project_id and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_spanner_database(
+        self,
+        project_id: str,
+        instance_name: str,
+        database_name: str = "",
+        **keward,
+    ):
+        if project_id and instance_name and database_name:
+            return f"https://console.cloud.google.com/spanner/instances/{instance_name}/databases/{database_name}/details?project={project_id}"
+        if project_id and instance_name:
+            return f"https://console.cloud.google.com/spanner/instances/{instance_name}/databases?project={project_id}"
+        logger.error("project_id and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def artifact_registry_repository(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/artifacts/docker/{project_id}/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def secret_manager_secret(self, project_id: str, instance_name: str, **keward):
+        if project_id and instance_name:
+            return f"https://console.cloud.google.com/security/secret-manager/secret/{instance_name}?project={project_id}"
+        logger.error("project_id and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def memorystore_redis_instance(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/memorystore/redis/locations/{region}/instances/{instance_name}/details/overview?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def memorystore_memcached_instance(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/memorystore/memcached/locations/{region}/instances/{instance_name}/details/overview?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_nat_gateway(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/net-services/nat/details/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_router(self, project_id: str, region: str, instance_name: str, **keward):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/hybrid/routers/details/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def vpn_tunnel(self, project_id: str, region: str, instance_name: str, **keward):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/hybrid/vpn/tunnels/details/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def vpn_gateway(self, project_id: str, region: str, instance_name: str, **keward):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/hybrid/vpn/gateways/details/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def vertex_ai_model(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/vertex-ai/models/{instance_name}?project={project_id}&region={region}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def vertex_ai_endpoint(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/vertex-ai/endpoints/{instance_name}?project={project_id}&region={region}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def vertex_ai_dataset(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/vertex-ai/datasets/{instance_name}?project={project_id}&region={region}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def workflows_workflow(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/workflows/workflow/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def eventarc_trigger(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/eventarc/triggers/{instance_name}?project={project_id}&region={region}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def alloydb_cluster(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/alloydb/locations/{region}/clusters/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def alloydb_instance(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/alloydb/locations/{region}/clusters/{instance_name}/instances?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_filestore_instance(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/filestore/instances/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def target_http_proxy(self, project_id: str, instance_name: str, **keward):
+        if project_id and instance_name:
+            return f"https://console.cloud.google.com/net-services/loadbalancing/advanced/targetHttpProxies/details/{instance_name}?project={project_id}"
+        logger.error("project_id and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def target_https_proxy(self, project_id: str, instance_name: str, **keward):
+        if project_id and instance_name:
+            return f"https://console.cloud.google.com/net-services/loadbalancing/advanced/targetHttpsProxies/details/{instance_name}?project={project_id}"
+        logger.error("project_id and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def url_map(self, project_id: str, instance_name: str, **keward):
+        if project_id and instance_name:
+            return f"https://console.cloud.google.com/net-services/loadbalancing/advanced/urlMaps/details/{instance_name}?project={project_id}"
+        logger.error("project_id and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def network_endpoint_group(
+        self,
+        project_id: str,
+        zone: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and zone and instance_name:
+            return f"https://console.cloud.google.com/compute/networkendpointgroups/details/{zone}/{instance_name}?project={project_id}"
+        logger.error("project_id, zone and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def target_pool(self, project_id: str, region: str, instance_name: str, **keward):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/net-services/loadbalancing/advanced/targetPools/details/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def interconnect_attachment(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/hybrid/interconnects/attachments/details/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_deploy_pipeline(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/deploy/delivery-pipelines/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_ids_endpoint(
+        self,
+        project_id: str,
+        region: str,
+        instance_name: str,
+        **keward,
+    ):
+        if project_id and region and instance_name:
+            return f"https://console.cloud.google.com/net-security/ids/endpoints/{region}/{instance_name}?project={project_id}"
+        logger.error("project_id, region and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def dialogflow_agent(self, project_id: str, region: str, **keward):
+        if project_id and region:
+            return f"https://console.cloud.google.com/dialogflow/cx/projects/{project_id}/locations/{region}/agents?project={project_id}"
+        logger.error("project_id and region required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_endpoints_service(self, project_id: str, instance_name: str, **keward):
+        if project_id and instance_name:
+            return f"https://console.cloud.google.com/endpoints/api/{instance_name}/overview?project={project_id}"
+        logger.error("project_id and instance_name required")
+        raise ValueError("Invalid parameters provided")
