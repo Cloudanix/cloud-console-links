@@ -19,7 +19,7 @@ def read_requirements(path: str) -> list[str]:
     lines = []
     for line in read_text(path, required=False).splitlines():
         requirement = line.strip()
-        if requirement and not requirement.startswith("#"):
+        if requirement and not requirement.startswith("#") and requirement not in {".", "-e ."}:
             lines.append(requirement)
     return lines
 
