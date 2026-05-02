@@ -1,1 +1,3 @@
-# Runtime dependencies are currently empty.
+.
+# Install the local checkout for source-based workflows like `uv pip install -r requirements.txt`.
+# setup.py filters this bootstrap entry out of published package metadata.

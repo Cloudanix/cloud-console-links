@@ -23,3 +23,19 @@ def test_sdist_includes_requirement_files(tmp_path):
     archive_root = archive_path.name.removesuffix(".tar.gz")
     assert f"{archive_root}/requirements.txt" in archive_names
     assert f"{archive_root}/requirements-dev.txt" in archive_names
+
+
+def test_egg_info_excludes_local_bootstrap_requirement(tmp_path):
+    subprocess.run(
+        [sys.executable, "setup.py", "egg_info"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    requires_path = REPO_ROOT / "cloudconsolelink.egg-info" / "requires.txt"
+    requires_text = requires_path.read_text(encoding="utf-8")
+
+    assert "." not in requires_text.splitlines()
+    assert "-e ." not in requires_text
