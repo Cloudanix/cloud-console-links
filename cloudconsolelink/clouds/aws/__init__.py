@@ -3,6 +3,7 @@ import urllib.parse
 from typing import Dict
 
 from .errors import ARNTooShortError, InvalidARNError, InvalidPartitionError, InvalidServiceError
+from .errors import UnsupportedResourceError
 from .links import get_links
 
 logger = logging.getLogger(__name__)
@@ -47,47 +48,44 @@ def get_resource_path(resource: str) -> str:
     return resource.split("/")[-1]
 
 
+def get_service_home_link(data: Dict) -> str:
+    service = str(data.get("service", ""))
+    console = str(data.get("console", ""))
+    region = str(data.get("region", ""))
+
+    if not service or not console:
+        return ""
+
+    host = f"{region}.{console}" if region else console
+    path = f"/{service}/home" if region else f"/{service}"
+    link = f"https://{host}{path}"
+    if region:
+        link = f"{link}?region={urllib.parse.quote(region)}"
+    return link
+
+
 class AWSLinker:
     def get_console_link(self, arn: str) -> str:
         logger.debug(f"Start Process for AWS ARN: {arn}")
         arn = arn.strip()
-        firstTokens = arn.split(":")
-        tokens = firstTokens[:7]
+        tokens = arn.split(":")
 
-        try:
-            data: dict[str, str | bool] = {
-                "prefix": tokens[0],
-                "partition": tokens[1],
-                "service": tokens[2],
-                "region": tokens[3],
-                "account": tokens[4],
-                "resourceType": "",
-                "resource": "",
-                "hasPath": False,
-            }
-
-        except IndexError:
+        if len(tokens) < 5:
             logger.error(f"AWS ARN {arn} is too short")
             raise ARNTooShortError(f"AWS ARN {arn} is too short")
 
-        if len(tokens) > 6:
-            data["resourceType"] = tokens[5]
-            data["resource"] = tokens[6]
-            data["hasPath"] = False
+        data: dict[str, str | bool] = {
+            "prefix": tokens[0],
+            "partition": tokens[1],
+            "service": tokens[2],
+            "region": tokens[3],
+            "account": tokens[4],
+            "resourceType": "",
+            "resource": "",
+            "hasPath": False,
+        }
 
-        elif len(tokens) > 5 and tokens[5].count("/") > 0:
-            data["resourceType"] = tokens[5][: tokens[5].index("/")]
-            data["resource"] = tokens[5][tokens[5].index("/") + 1 :]
-            data["hasPath"] = True
-
-        elif len(tokens) > 5 and tokens[5].count("/") == 0:
-            data["resourceType"] = ""
-            data["resource"] = tokens[5]
-            data["hasPath"] = False
-
-        else:
-            logger.error(f"Invalid AWS ARN {arn}")
-            raise InvalidARNError(f"Invalid AWS ARN {arn}")
+        resource_tokens = tokens[5:]
 
         console = get_console(str(data.get("partition", "")))
         if not console:
@@ -103,36 +101,71 @@ class AWSLinker:
 
         if data["prefix"] != "arn":
             logger.error(f"Invalid AWS ARN {arn}")
-            raise ValueError(f"Invalid AWS ARN {arn}")
+            raise InvalidARNError(f"Invalid AWS ARN {arn}")
 
-        elif not links.get(data["service"], None):
+        if data["service"] not in links:
             logger.error(f"AWS service {data['service']} unknown")
             raise InvalidServiceError(f"AWS service {data['service']} unknown")
 
-        elif not links.get(data["service"], {}).get(data["resourceType"], None):
+        if not resource_tokens or resource_tokens == [""]:
+            return get_service_home_link(data)
+
+        if len(resource_tokens) > 1:
+            data["resourceType"] = resource_tokens[0]
+            data["resource"] = ":".join(resource_tokens[1:])
+            data["hasPath"] = False
+
+        elif resource_tokens[0].count("/") > 0:
+            data["resourceType"] = resource_tokens[0][: resource_tokens[0].index("/")]
+            data["resource"] = resource_tokens[0][resource_tokens[0].index("/") + 1 :]
+            data["hasPath"] = True
+
+        elif resource_tokens[0]:
+            data["resourceType"] = ""
+            data["resource"] = resource_tokens[0]
+            data["hasPath"] = False
+
+        else:
+            logger.error(f"Invalid AWS ARN {arn}")
+            raise InvalidARNError(f"Invalid AWS ARN {arn}")
+
+        if not links.get(data["service"], {}).get(data["resourceType"], None):
             logger.error(
                 f"AWS service {data['service']} resource type {data['resourceType']} not supported",
             )
-
-            # If resource type does not exist, take the user to service home page
-            return f"https://console.aws.amazon.com/{data['service']}"
-
-            # raise ValueError(f"AWS service {data['service']} resource type {data['resourceType']} not supported")
-
-        else:
-            template_context = {
-                "arn": arn,
-                "data": data,
-                "get_arn_string": get_arn_string,
-                "get_qualifiers": get_qualifiers,
-                "get_resource_path": get_resource_path,
-            }
-            data["resource"] = urllib.parse.quote(str(data["resource"]))
-            return eval(
-                f"f'{links[data['service']][data['resourceType']]}'",
-                {"__builtins__": {}},
-                template_context,
-            ).replace(
-                " ",
-                "",
+            UnsupportedResourceError(
+                f"AWS service {data['service']} resource type {data['resourceType']} not supported",
             )
+            return get_service_home_link(data)
+
+        template_context = {
+            "arn": arn,
+            "data": data,
+            "get_arn_string": get_arn_string,
+            "get_qualifiers": get_qualifiers,
+            "get_resource_path": get_resource_path,
+        }
+        data["resource"] = urllib.parse.quote(str(data["resource"]))
+        return eval(
+            f"f'{links[data['service']][data['resourceType']]}'",
+            {"__builtins__": {}},
+            template_context,
+        ).replace(
+            " ",
+            "",
+        )
+
+
+__all__ = [
+    "ARNTooShortError",
+    "AWSLinker",
+    "InvalidARNError",
+    "InvalidPartitionError",
+    "InvalidServiceError",
+    "UnsupportedResourceError",
+    "get_arn_string",
+    "get_console",
+    "get_qualifiers",
+    "get_resource_path",
+    "get_service_home_link",
+]

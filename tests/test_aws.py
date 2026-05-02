@@ -194,9 +194,15 @@ def test_aws_deepracer_evaluation_job_falls_back_to_service_home():
 
     out_link = aws.get_console_link(arn=arn)
 
-    assert out_link == "https://console.aws.amazon.com/deepracer"
+    assert out_link == "https://us-east-1.console.aws.amazon.com/deepracer/home?region=us-east-1"
 
 
+def test_aws_service_only_arn_falls_back_to_service_home():
+    arn = "arn:aws:ec2:ap-south-1:"
+
+    out_link = aws.get_console_link(arn=arn)
+
+    assert out_link == "https://ap-south-1.console.aws.amazon.com/ec2/home?region=ap-south-1"
 
 
 def test_aws_arn_too_short_error():
