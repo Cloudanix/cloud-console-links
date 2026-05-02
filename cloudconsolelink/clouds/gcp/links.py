@@ -664,7 +664,15 @@ class Resource:
         logger.error("project_id and instance_name required")
         raise ValueError("Invalid parameters provided")
 
-    def cloud_spanner_database(self, project_id: str, instance_name: str, **keward):
+    def cloud_spanner_database(
+        self,
+        project_id: str,
+        instance_name: str,
+        database_name: str = "",
+        **keward,
+    ):
+        if project_id and instance_name and database_name:
+            return f"https://console.cloud.google.com/spanner/instances/{instance_name}/databases/{database_name}/details?project={project_id}"
         if project_id and instance_name:
             return f"https://console.cloud.google.com/spanner/instances/{instance_name}/databases?project={project_id}"
         logger.error("project_id and instance_name required")

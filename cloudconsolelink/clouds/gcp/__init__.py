@@ -49,6 +49,7 @@ def build_kwargs(
     backend_bucket_name=None,
     dns_policy_name=None,
     policy_name=None,
+    database_name=None,
     api_key_id=None,
     subscription_id=None,
 ) -> Dict:
@@ -95,6 +96,7 @@ def build_kwargs(
         "backend_bucket_name": backend_bucket_name,
         "dns_policy_name": dns_policy_name,
         "policy_name": policy_name,
+        "database_name": database_name,
         "api_key_id": api_key_id,
         "subscription_id": subscription_id,
     }
@@ -145,6 +147,7 @@ class GCPLinker:
         backend_bucket_name=None,
         dns_policy_name=None,
         policy_name=None,
+        database_name=None,
         api_key_id=None,
         subscription_id=None,
     ) -> str:
@@ -287,6 +290,7 @@ class GCPLinker:
             backend_bucket_name=backend_bucket_name,
             dns_policy_name=dns_policy_name,
             policy_name=policy_name,
+            database_name=database_name,
             api_key_id=api_key_id,
             subscription_id=subscription_id,
         )

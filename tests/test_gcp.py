@@ -75,3 +75,20 @@ def test_cloud_spanner_instance():
     )
 
     assert out_link == expected_link
+
+
+def test_cloud_spanner_database():
+    project_id = "12345"
+    instance_name = "spanner-1"
+    database_name = "db-1"
+    resource_name = "cloud_spanner_database"
+    expected_link = "https://console.cloud.google.com/spanner/instances/spanner-1/databases/db-1/details?project=12345"
+
+    out_link = gcp.get_console_link(
+        project_id=project_id,
+        instance_name=instance_name,
+        database_name=database_name,
+        resource_name=resource_name,
+    )
+
+    assert out_link == expected_link
