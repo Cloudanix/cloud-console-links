@@ -317,8 +317,7 @@ def _oci_method_kwargs(method_name: str) -> dict[str, str]:
     for name, parameter in signature.parameters.items():
         if parameter.kind is inspect.Parameter.VAR_KEYWORD:
             continue
-        if name in OCI_SAMPLE_ARGS:
-            kwargs[name] = OCI_SAMPLE_ARGS[name]
+        kwargs[name] = OCI_SAMPLE_ARGS[name]
     return kwargs
 
 
