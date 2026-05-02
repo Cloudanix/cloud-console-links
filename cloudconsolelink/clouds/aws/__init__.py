@@ -133,9 +133,6 @@ class AWSLinker:
             logger.error(
                 f"AWS service {data['service']} resource type {data['resourceType']} not supported",
             )
-            UnsupportedResourceError(
-                f"AWS service {data['service']} resource type {data['resourceType']} not supported",
-            )
             return get_service_home_link(data)
 
         template_context = {
