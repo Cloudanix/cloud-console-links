@@ -29,12 +29,11 @@ class AzureLinker:
         }
 
         if iam_entity_type and id and iam_entities.get(iam_entity_type):
-            if iam_entity_type == "role" and primary_ad_domain_name:
-                return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
-            elif iam_entity_type == "service_principal" and app_id:
-                return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
-            else:
-                return eval(f"f'{iam_entities[iam_entity_type]}'").replace(" ", "")
+            return (
+                iam_entities[iam_entity_type]
+                .format(id=id, primary_ad_domain_name=primary_ad_domain_name, app_id=app_id)
+                .replace(" ", "")
+            )
 
         elif primary_ad_domain_name and id:
             if id.startswith("https"):

@@ -1,4 +1,5 @@
 import logging
+import re
 import urllib.parse
 from typing import Dict
 
@@ -6,6 +7,42 @@ from .errors import ARNTooShortError, InvalidARNError, InvalidPartitionError, In
 from .links import HOME_URLS, get_links
 
 logger = logging.getLogger(__name__)
+
+_EXPR_RE = re.compile(r"\{([^}]+)\}")
+
+
+def _render(template: str, data: Dict, arn: str = "") -> str:
+    """Render a link template without eval.
+
+    Templates in links.py use patterns like {data.get("region", "")} and {arn}.
+    We substitute each {expr} by looking it up in a pre-built context dict after
+    stripping all internal whitespace (backslash-continuation lines in the source
+    produce spaces inside expressions). Unknown expressions render as empty string.
+    """
+    resource = str(data.get("resource", ""))
+    ctx: Dict[str, str] = {
+        'data.get("region","")': str(data.get("region", "")),
+        'data.get("console","")': str(data.get("console", "")),
+        'data.get("resource","")': resource,
+        'data.get("account","")': str(data.get("account", "")),
+        'data.get("service","")': str(data.get("service", "")),
+        'get_arn_string(data)': get_arn_string(data),
+        'get_resource_path(data.get("resource",""))': get_resource_path(resource),
+        "arn": arn,
+        "region": str(data.get("region", "")),
+        "console": str(data.get("console", "")),
+        "resource": resource,
+        "account": str(data.get("account", "")),
+        "service": str(data.get("service", "")),
+    }
+
+    def _sub(m: re.Match) -> str:
+        expr = re.sub(r"\s+", "", m.group(1))  # collapse whitespace from line continuations
+        if expr not in ctx:
+            logger.debug("Unknown template expression %r", expr)
+        return ctx.get(expr, "")
+
+    return _EXPR_RE.sub(_sub, template).replace(" ", "")
 
 
 def get_console(partition: str) -> str:
@@ -57,11 +94,7 @@ def get_service_home_link(data: Dict) -> str:
 
     home_template = HOME_URLS.get(service)
     if region and home_template:
-        return eval(
-            f"f'{home_template}'",
-            {"__builtins__": {}},
-            {"data": data},
-        ).replace(" ", "")
+        return _render(home_template, data)
 
     host = f"{region}.{console}" if region else console
     path = f"/{service}/home" if region else f"/{service}"
@@ -142,22 +175,8 @@ class AWSLinker:
             )
             return get_service_home_link(data)
 
-        template_context = {
-            "arn": arn,
-            "data": data,
-            "get_arn_string": get_arn_string,
-            "get_qualifiers": get_qualifiers,
-            "get_resource_path": get_resource_path,
-        }
         data["resource"] = urllib.parse.quote(str(data["resource"]))
-        return eval(
-            f"f'{links[data['service']][data['resourceType']]}'",
-            {"__builtins__": {}},
-            template_context,
-        ).replace(
-            " ",
-            "",
-        )
+        return _render(links[data["service"]][data["resourceType"]], data, arn)
 
 
 __all__ = [
