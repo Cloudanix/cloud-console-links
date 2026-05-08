@@ -13,7 +13,7 @@ class AzureLinker:
         iam_entity_type: str = "",
     ) -> str:
         if not primary_ad_domain_name and not iam_entity_type:
-            logger.error(
+            logger.debug(
                 "For IAM entity required `iam_entity_type` and for other entity required `primary_ad_domain_name`",
             )
             raise ValueError("Invalid parameters provided")
@@ -48,5 +48,5 @@ class AzureLinker:
             return f"https://portal.azure.com/#@{primary_ad_domain_name}/resource{id}/overview"
 
         else:
-            logger.error("entity id required")
+            logger.debug("entity id required")
             raise ValueError("Invalid parameters provided")

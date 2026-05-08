@@ -83,7 +83,7 @@ class AWSLinker:
         tokens = arn.split(":")
 
         if len(tokens) < 5:
-            logger.error(f"AWS ARN {arn} is too short")
+            logger.debug(f"AWS ARN {arn} is too short")
             raise ARNTooShortError(f"AWS ARN {arn} is too short")
 
         data: dict[str, str | bool] = {
@@ -101,7 +101,7 @@ class AWSLinker:
 
         console = get_console(str(data.get("partition", "")))
         if not console:
-            logger.error(
+            logger.debug(
                 f"AWS ARN {arn} has invalid partition (Valid Partitions: aws, aws-us-gov, aws-cn)",
             )
             raise InvalidPartitionError(
@@ -112,11 +112,11 @@ class AWSLinker:
         links = get_links()
 
         if data["prefix"] != "arn":
-            logger.error(f"Invalid AWS ARN {arn}")
+            logger.debug(f"Invalid AWS ARN {arn}")
             raise InvalidARNError(f"Invalid AWS ARN {arn}")
 
         if data["service"] not in links:
-            logger.error(f"AWS service {data['service']} unknown")
+            logger.debug(f"AWS service {data['service']} unknown")
             raise InvalidServiceError(f"AWS service {data['service']} unknown")
 
         if not resource_tokens or resource_tokens == [""]:
@@ -138,11 +138,11 @@ class AWSLinker:
             data["hasPath"] = False
 
         else:  # pragma: no cover – defensive; unreachable via str.split
-            logger.error(f"Invalid AWS ARN {arn}")
+            logger.debug(f"Invalid AWS ARN {arn}")
             raise InvalidARNError(f"Invalid AWS ARN {arn}")
 
         if not links.get(data["service"], {}).get(data["resourceType"], None):
-            logger.error(
+            logger.debug(
                 f"AWS service {data['service']} resource type {data['resourceType']} not supported",
             )
             return get_service_home_link(data)
