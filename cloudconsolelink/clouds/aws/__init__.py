@@ -122,7 +122,7 @@ class AWSLinker:
         if not resource_tokens or resource_tokens == [""]:
             return get_service_home_link(data)
 
-        if len(resource_tokens) > 1:
+        if len(resource_tokens) > 1 and "/" not in resource_tokens[0]:
             data["resourceType"] = resource_tokens[0]
             data["resource"] = ":".join(resource_tokens[1:])
             data["hasPath"] = False
