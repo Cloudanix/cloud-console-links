@@ -1,4 +1,5 @@
 import logging
+from typing import Dict
 
 
 logger = logging.getLogger(__name__)
@@ -928,3 +929,287 @@ class Resource:
             return f"https://console.cloud.google.com/endpoints/api/{instance_name}/overview?project={project_id}"
         logger.debug("project_id and instance_name required")
         raise ValueError("Invalid parameters provided")
+
+    # --- Service home pages ---
+
+    def compute_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/compute/instances?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def storage_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/storage/browser?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def bigtable_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/bigtable/instances?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloudfunction_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/functions/list?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def kms_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/security/kms/keyrings?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def gke_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/kubernetes/list?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def sql_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/sql/instances?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def iam_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/iam-admin/iam?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def firestore_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/firestore/databases?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def pubsub_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/cloudpubsub/topic/list?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def logging_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/logs/query?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def dataproc_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/dataproc/clusters?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def monitoring_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/monitoring?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_armor_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/net-security/securitypolicies/list?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_build_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/cloud-build/triggers?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_composer_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/composer/environments?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_scheduler_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/cloudscheduler?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_tasks_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/cloudtasks?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def spanner_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/spanner/instances?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def artifact_registry_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/artifacts?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def secret_manager_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/security/secret-manager?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def memorystore_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/memorystore/redis/instances?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def vpn_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/hybrid-connectivity/vpn/tunnels?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def vertex_ai_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/vertex-ai?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def workflows_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/workflows?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def eventarc_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/eventarc/triggers?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def alloydb_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/alloydb/clusters?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def filestore_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/filestore/instances?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_deploy_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/deploy/delivery-pipelines?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_ids_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/ids/endpoints?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def dialogflow_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/dialogflow/cx/projects/{project_id}/locations?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_endpoints_home(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/endpoints?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+
+# Maps each resource name to the home method to fall back to when the resource
+# is not found. Keeps fallback data co-located with link definitions.
+SERVICE_HOME_MAP: Dict[str, str] = {
+    "storage_bucket": "storage_home",
+    "compute_instance": "compute_home",
+    "compute_instance_vpc_network": "vpc_home",
+    "compute_instance_vpc_network_subnet": "vpc_home",
+    "compute_instance_disk": "compute_home",
+    "compute_firewall_rule": "vpc_home",
+    "compute_forwarding_rule": "load_balancer_home",
+    "api": "apigateway_home",
+    "api_config": "apigateway_home",
+    "api_gateway": "apigateway_home",
+    "big_table_instance": "bigtable_home",
+    "big_table_cluster": "bigtable_home",
+    "big_table": "bigtable_home",
+    "big_table_backup": "bigtable_home",
+    "cloud_function": "cloudfunction_home",
+    "kms_key_ring": "kms_home",
+    "kms_key": "kms_home",
+    "dns_zone": "dns_home",
+    "dns_resource_record_set": "dns_home",
+    "gke_cluster": "gke_home",
+    "sql_instance": "sql_home",
+    "sql_user": "sql_home",
+    "service_account": "iam_home",
+    "service_account_key": "iam_home",
+    "iam_role": "iam_home",
+    "iam_group": "iam_home",
+    "iam_user": "iam_home",
+    "iam_domain": "iam_home",
+    "firestore_collection": "firestore_home",
+    "firestore_index": "firestore_home",
+    "cloud_run_revision": "cloudrun_home",
+    "cloud_run_service": "cloudrun_home",
+    "cloudrun_domain": "cloudrun_home",
+    "cloud_pubsub_topic": "pubsub_home",
+    "cloud_pubsub_subscription": "pubsub_home",
+    "cloud_logging_metric": "logging_home",
+    "cloud_logging_sink": "logging_home",
+    "dataproc_cluster": "dataproc_home",
+    "cloud_monitoring_notification_channels": "monitoring_home",
+    "cloud_monitoring_uptime_check_config": "monitoring_home",
+    "cloud_monitoring_alert_policy": "monitoring_home",
+    "global_instance_group": "compute_home",
+    "regional_instance_group": "compute_home",
+    "regional_health_check": "load_balancer_home",
+    "global_health_check": "load_balancer_home",
+    "regional_backend_service": "load_balancer_home",
+    "global_backend_service": "load_balancer_home",
+    "ssl_policy": "load_balancer_home",
+    "backend_bucket": "cdn_home",
+    "dns_policy": "dns_home",
+    "api_key": "apigateway_home",
+    "cloud_armor_policy": "cloud_armor_home",
+    "cloud_build_trigger": "cloud_build_home",
+    "cloud_composer_environment": "cloud_composer_home",
+    "cloud_scheduler_job": "cloud_scheduler_home",
+    "cloud_tasks_queue": "cloud_tasks_home",
+    "cloud_spanner_instance": "spanner_home",
+    "cloud_spanner_database": "spanner_home",
+    "artifact_registry_repository": "artifact_registry_home",
+    "secret_manager_secret": "secret_manager_home",
+    "memorystore_redis_instance": "memorystore_home",
+    "memorystore_memcached_instance": "memorystore_home",
+    "cloud_nat_gateway": "vpc_home",
+    "cloud_router": "vpc_home",
+    "vpn_tunnel": "vpn_home",
+    "vpn_gateway": "vpn_home",
+    "vertex_ai_model": "vertex_ai_home",
+    "vertex_ai_endpoint": "vertex_ai_home",
+    "vertex_ai_dataset": "vertex_ai_home",
+    "workflows_workflow": "workflows_home",
+    "eventarc_trigger": "eventarc_home",
+    "alloydb_cluster": "alloydb_home",
+    "alloydb_instance": "alloydb_home",
+    "cloud_filestore_instance": "filestore_home",
+    "target_http_proxy": "load_balancer_home",
+    "target_https_proxy": "load_balancer_home",
+    "url_map": "load_balancer_home",
+    "network_endpoint_group": "compute_home",
+    "target_pool": "load_balancer_home",
+    "interconnect_attachment": "vpc_home",
+    "cloud_deploy_pipeline": "cloud_deploy_home",
+    "cloud_ids_endpoint": "cloud_ids_home",
+    "dialogflow_agent": "dialogflow_home",
+    "cloud_endpoints_service": "cloud_endpoints_home",
+}

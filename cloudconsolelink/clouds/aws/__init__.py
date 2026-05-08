@@ -3,16 +3,9 @@ import urllib.parse
 from typing import Dict
 
 from .errors import ARNTooShortError, InvalidARNError, InvalidPartitionError, InvalidServiceError
-from .links import get_links
+from .links import HOME_URLS, get_links
 
 logger = logging.getLogger(__name__)
-
-SERVICE_HOME_OVERRIDES = {
-    "elasticloadbalancing": "https://{region}.{console}/ec2/home?region={region}#LoadBalancers:",
-    "logs": "https://{region}.{console}/cloudwatch/home?region={region}#logsV2:log-groups",
-    "sns": "https://{region}.{console}/sns/v3/home?region={region}",
-    "sqs": "https://{region}.{console}/sqs/v2/home?region={region}",
-}
 
 
 def get_console(partition: str) -> str:
@@ -62,11 +55,13 @@ def get_service_home_link(data: Dict) -> str:
     if not service or not console:
         return ""
 
-    if region and service in SERVICE_HOME_OVERRIDES:
-        return SERVICE_HOME_OVERRIDES[service].format(
-            console=console,
-            region=urllib.parse.quote(region),
-        )
+    home_template = HOME_URLS.get(service)
+    if region and home_template:
+        return eval(
+            f"f'{home_template}'",
+            {"__builtins__": {}},
+            {"data": data},
+        ).replace(" ", "")
 
     host = f"{region}.{console}" if region else console
     path = f"/{service}/home" if region else f"/{service}"
@@ -168,10 +163,10 @@ class AWSLinker:
 __all__ = [
     "ARNTooShortError",
     "AWSLinker",
+    "HOME_URLS",
     "InvalidARNError",
     "InvalidPartitionError",
     "InvalidServiceError",
-    "SERVICE_HOME_OVERRIDES",
     "get_arn_string",
     "get_console",
     "get_qualifiers",

@@ -1,4 +1,5 @@
 import logging
+from typing import Dict
 
 
 logger = logging.getLogger(__name__)
@@ -465,3 +466,190 @@ class Resource:
             return f"{BASE}/containers/clusters?region={region}"
         logger.debug("region required")
         raise ValueError("Invalid parameters provided")
+
+    def container_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/container-instances?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def artifact_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/artifacts/repositories?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def functions_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/functions/applications?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def security_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/security/vaults?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def bastion_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/bastion/bastions?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_guard_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/cloud-guard/targets?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def observability_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/monitoring/alarms?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def streaming_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/streaming/streams?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def devops_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/devops/projects?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def resource_manager_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/resource-manager/stacks?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def data_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/data-science/projects?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def api_gateway_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/api-gateway/gateways?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def dns_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/dns/zones?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def email_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/email-delivery/senders?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def file_storage_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/file-storage/file-systems?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def queue_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/queue/queues?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+
+# Maps each resource name to the home method to fall back to when the resource
+# is not found. Keeps fallback data co-located with link definitions.
+SERVICE_HOME_MAP: Dict[str, str] = {
+    # Compute
+    "compute_instance": "compute_home",
+    "compute_image": "compute_home",
+    "instance_pool": "compute_home",
+    "boot_volume": "compute_home",
+    "block_volume": "compute_home",
+    "dedicated_vm_host": "compute_home",
+    # Networking
+    "vcn": "networking_home",
+    "subnet": "networking_home",
+    "security_list": "networking_home",
+    "network_security_group": "networking_home",
+    "route_table": "networking_home",
+    "internet_gateway": "networking_home",
+    "nat_gateway": "networking_home",
+    "service_gateway": "networking_home",
+    "drg": "networking_home",
+    "local_peering_gateway": "networking_home",
+    "network_firewall": "networking_home",
+    "network_firewall_policy": "networking_home",
+    "load_balancer": "networking_home",
+    "network_load_balancer": "networking_home",
+    "public_ip": "networking_home",
+    "dhcp_options": "networking_home",
+    # Object Storage
+    "bucket": "object_storage_home",
+    # Database
+    "db_system": "database_home",
+    "autonomous_database": "database_home",
+    "mysql_db_system": "database_home",
+    "nosql_table": "database_home",
+    "postgresql_db_system": "database_home",
+    # Identity
+    "compartment": "identity_home",
+    "user": "identity_home",
+    "group": "identity_home",
+    "policy": "identity_home",
+    "dynamic_group": "identity_home",
+    "identity_domain": "identity_home",
+    # Containers
+    "oke_cluster": "oke_home",
+    "container_instance": "container_home",
+    "container_repository": "container_home",
+    "artifact_repository": "artifact_home",
+    # Functions
+    "functions_application": "functions_home",
+    # Security
+    "vault": "security_home",
+    "key": "security_home",
+    "secret": "security_home",
+    "bastion": "bastion_home",
+    "cloud_guard_target": "cloud_guard_home",
+    "waf_policy": "cloud_guard_home",
+    "vulnerability_scanning_target": "cloud_guard_home",
+    # Observability
+    "alarm": "observability_home",
+    "notification_topic": "observability_home",
+    "log_group": "observability_home",
+    "apm_domain": "observability_home",
+    "events_rule": "observability_home",
+    "streaming": "streaming_home",
+    "connector": "streaming_home",
+    # DevOps
+    "devops_project": "devops_home",
+    "devops_build_pipeline": "devops_home",
+    "devops_deploy_pipeline": "devops_home",
+    # Resource Manager
+    "stack": "resource_manager_home",
+    # Data & AI
+    "data_science_project": "data_home",
+    "data_catalog": "data_home",
+    "data_flow_application": "data_home",
+    "data_integration_workspace": "data_home",
+    # API Gateway
+    "api_gateway": "api_gateway_home",
+    "api_deployment": "api_gateway_home",
+    # DNS
+    "dns_zone": "dns_home",
+    # Email
+    "email_sender": "email_home",
+    # File Storage
+    "file_system": "file_storage_home",
+    "mount_target": "file_storage_home",
+    # Queue
+    "queue": "queue_home",
+}

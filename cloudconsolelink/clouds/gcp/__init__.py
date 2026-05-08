@@ -1,7 +1,7 @@
 import logging
 from typing import Dict
 
-from .links import Resource
+from .links import Resource, SERVICE_HOME_MAP
 
 logger = logging.getLogger(__name__)
 
@@ -212,6 +212,38 @@ class GCPLinker:
             "vpc_home": resource.vpc_home,
             "apigateway_home": resource.apigateway_home,
             "cloudrun_home": resource.cloudrun_home,
+            "compute_home": resource.compute_home,
+            "storage_home": resource.storage_home,
+            "bigtable_home": resource.bigtable_home,
+            "cloudfunction_home": resource.cloudfunction_home,
+            "kms_home": resource.kms_home,
+            "gke_home": resource.gke_home,
+            "sql_home": resource.sql_home,
+            "iam_home": resource.iam_home,
+            "firestore_home": resource.firestore_home,
+            "pubsub_home": resource.pubsub_home,
+            "logging_home": resource.logging_home,
+            "dataproc_home": resource.dataproc_home,
+            "monitoring_home": resource.monitoring_home,
+            "cloud_armor_home": resource.cloud_armor_home,
+            "cloud_build_home": resource.cloud_build_home,
+            "cloud_composer_home": resource.cloud_composer_home,
+            "cloud_scheduler_home": resource.cloud_scheduler_home,
+            "cloud_tasks_home": resource.cloud_tasks_home,
+            "spanner_home": resource.spanner_home,
+            "artifact_registry_home": resource.artifact_registry_home,
+            "secret_manager_home": resource.secret_manager_home,
+            "memorystore_home": resource.memorystore_home,
+            "vpn_home": resource.vpn_home,
+            "vertex_ai_home": resource.vertex_ai_home,
+            "workflows_home": resource.workflows_home,
+            "eventarc_home": resource.eventarc_home,
+            "alloydb_home": resource.alloydb_home,
+            "filestore_home": resource.filestore_home,
+            "cloud_deploy_home": resource.cloud_deploy_home,
+            "cloud_ids_home": resource.cloud_ids_home,
+            "dialogflow_home": resource.dialogflow_home,
+            "cloud_endpoints_home": resource.cloud_endpoints_home,
             "cloud_armor_policy": resource.cloud_armor_policy,
             "cloud_build_trigger": resource.cloud_build_trigger,
             "cloud_composer_environment": resource.cloud_composer_environment,
@@ -298,6 +330,11 @@ class GCPLinker:
         resources_list = list(resources.keys())
         if resource_name in resources_list:
             return resources[resource_name](**param).replace(" ", "")  # type: ignore
+
+        home_name = SERVICE_HOME_MAP.get(resource_name)
+        if home_name and home_name in resources:
+            logger.debug(f"resource_name {resource_name!r} not found, falling back to {home_name!r}")
+            return resources[home_name](**param).replace(" ", "")  # type: ignore
 
         logger.debug(f"Invalid resource_name - {resource_name}")
         raise ValueError("Invalid parameters provided")
