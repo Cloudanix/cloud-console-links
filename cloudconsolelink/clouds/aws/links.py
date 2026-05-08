@@ -1,5 +1,16 @@
 from typing import Dict
 
+# Explicit home page URL for each service where the computed default is wrong.
+# Template syntax matches links below: eval'd as an f-string with {"data": data}.
+# Add an entry here whenever a service's console home does not follow the pattern
+# https://{region}.console.aws.amazon.com/{service}/home?region={region}.
+HOME_URLS: Dict[str, str] = {
+    "elasticloadbalancing": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#LoadBalancers:',
+    "logs": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups',
+    "sns": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}',
+    "sqs": 'https://{data.get("region", "")}.{data.get("console", "")}/sqs/v2/home?region={data.get("region", "")}',
+}
+
 
 def get_links() -> Dict:
     links = {

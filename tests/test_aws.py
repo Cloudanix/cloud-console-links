@@ -260,3 +260,26 @@ def test_aws_get_service_home_link_returns_empty_when_service_missing():
 def test_aws_get_service_home_link_returns_empty_when_console_missing():
     assert get_service_home_link({"service": "ec2", "console": ""}) == ""
 
+
+def test_aws_ec2_key_pair_slash_separator():
+    # Standard ARN format: key-pair/name
+    arn = "arn:aws:ec2:us-east-1:123456789012:key-pair/key-pair-name"
+    out_link = aws.get_console_link(arn=arn)
+    assert out_link == "https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:"
+
+
+def test_aws_ec2_key_pair_colon_separator():
+    # Colon-separated format: key-pair:name
+    arn = "arn:aws:ec2:us-east-1:123456789012:key-pair:key-pair-name"
+    out_link = aws.get_console_link(arn=arn)
+    assert out_link == "https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:"
+
+
+def test_aws_ec2_key_pair_trailing_colon_falls_back_to_key_pair_page():
+    # ARN with trailing colon was the root cause: resource_tokens = ["key-pair/name", ""]
+    # len > 1 branch was taken, setting resourceType = "key-pair/name" (slash included).
+    # Fix ensures the slash-containing first token still goes through the path-split branch.
+    arn = "arn:aws:ec2:us-east-1:123456789012:key-pair/key-pair-name:"
+    out_link = aws.get_console_link(arn=arn)
+    assert out_link == "https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:"
+

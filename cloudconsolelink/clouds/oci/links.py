@@ -1,4 +1,5 @@
 import logging
+from typing import Dict
 
 
 logger = logging.getLogger(__name__)
@@ -11,450 +12,450 @@ class Resource:
     def compute_instance(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/compute/instances/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def compute_image(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/compute/images/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def instance_pool(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/compute/instance-pools/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def boot_volume(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/block-storage/boot-volumes/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def block_volume(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/block-storage/volumes/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def dedicated_vm_host(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/compute/dedicated-vm-hosts/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Networking ---
     def vcn(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/vcns/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def subnet(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/subnets/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def security_list(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/security-lists/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def network_security_group(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/network-security-groups/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def route_table(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/route-tables/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def internet_gateway(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/internet-gateways/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def nat_gateway(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/nat-gateways/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def service_gateway(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/service-gateways/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def drg(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/drgs/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def load_balancer(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/load-balancers/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def network_load_balancer(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/network-load-balancers/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def public_ip(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/public-ips/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def dhcp_options(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/dhcp-options/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def local_peering_gateway(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/networking/local-peering-gateways/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def network_firewall(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/network-firewall/firewalls/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def network_firewall_policy(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/network-firewall/firewall-policies/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Object Storage ---
     def bucket(self, region: str, namespace: str, bucket_name: str, **kwargs) -> str:
         if region and namespace and bucket_name:
             return f"{BASE}/object-storage/buckets/{namespace}/{bucket_name}?region={region}"
-        logger.error("region, namespace, and bucket_name required")
+        logger.debug("region, namespace, and bucket_name required")
         raise ValueError("Invalid parameters provided")
 
     # --- Database ---
     def db_system(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/db-systems/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def autonomous_database(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/autonomous-database/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def mysql_db_system(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/mysql/db-systems/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def nosql_table(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/nosql/tables/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def postgresql_db_system(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/postgresql/db-systems/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Identity & Access Management ---
     def compartment(self, ocid: str, **kwargs) -> str:
         if ocid:
             return f"{BASE}/identity/compartments/{ocid}"
-        logger.error("ocid required")
+        logger.debug("ocid required")
         raise ValueError("Invalid parameters provided")
 
     def user(self, ocid: str, **kwargs) -> str:
         if ocid:
             return f"{BASE}/identity/users/{ocid}"
-        logger.error("ocid required")
+        logger.debug("ocid required")
         raise ValueError("Invalid parameters provided")
 
     def group(self, ocid: str, **kwargs) -> str:
         if ocid:
             return f"{BASE}/identity/groups/{ocid}"
-        logger.error("ocid required")
+        logger.debug("ocid required")
         raise ValueError("Invalid parameters provided")
 
     def policy(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/identity/policies/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def dynamic_group(self, ocid: str, **kwargs) -> str:
         if ocid:
             return f"{BASE}/identity/dynamic-groups/{ocid}"
-        logger.error("ocid required")
+        logger.debug("ocid required")
         raise ValueError("Invalid parameters provided")
 
     def identity_domain(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/identity/domains/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Container & Kubernetes ---
     def oke_cluster(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/containers/clusters/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def container_instance(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/container-instances/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def container_repository(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/container-registry/repositories/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def artifact_repository(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/artifacts/repositories/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Functions / Serverless ---
     def functions_application(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/functions/applications/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Security ---
     def vault(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/security/vaults/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def key(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/security/keys/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def secret(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/security/vaults/secrets/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def bastion(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/bastion/bastions/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def cloud_guard_target(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/cloud-guard/targets/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def waf_policy(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/waf/policies/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def vulnerability_scanning_target(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/vulnerability-scanning/targets/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Observability & Management ---
     def alarm(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/monitoring/alarms/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def notification_topic(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/notification/topics/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def log_group(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/logging/log-groups/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def apm_domain(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/apm/domains/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def streaming(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/streaming/streams/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def connector(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/connector-hub/connectors/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def events_rule(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/events/rules/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- DevOps ---
     def devops_project(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/devops/projects/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def devops_build_pipeline(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/devops/build-pipelines/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def devops_deploy_pipeline(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/devops/deploy-pipelines/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Resource Manager ---
     def stack(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/resource-manager/stacks/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Data & AI ---
     def data_science_project(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/data-science/projects/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def data_catalog(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/data-catalog/catalogs/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def data_flow_application(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/data-flow/applications/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def data_integration_workspace(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/data-integration/workspaces/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- API Gateway ---
     def api_gateway(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/api-gateway/gateways/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def api_deployment(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/api-gateway/deployments/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- DNS ---
     def dns_zone(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/dns/zones/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Email ---
     def email_sender(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/email-delivery/senders/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- File Storage ---
     def file_system(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/file-storage/file-systems/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     def mount_target(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/file-storage/mount-targets/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Queue ---
     def queue(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/queue/queues/{ocid}?region={region}"
-        logger.error("region and ocid required")
+        logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
     # --- Service home pages ---
     def compute_home(self, region: str, **kwargs) -> str:
         if region:
             return f"{BASE}/compute/instances?region={region}"
-        logger.error("region required")
+        logger.debug("region required")
         raise ValueError("Invalid parameters provided")
 
     def networking_home(self, region: str, **kwargs) -> str:
         if region:
             return f"{BASE}/networking/vcns?region={region}"
-        logger.error("region required")
+        logger.debug("region required")
         raise ValueError("Invalid parameters provided")
 
     def object_storage_home(self, region: str, **kwargs) -> str:
         if region:
             return f"{BASE}/object-storage/buckets?region={region}"
-        logger.error("region required")
+        logger.debug("region required")
         raise ValueError("Invalid parameters provided")
 
     def database_home(self, region: str, **kwargs) -> str:
         if region:
             return f"{BASE}/db-systems?region={region}"
-        logger.error("region required")
+        logger.debug("region required")
         raise ValueError("Invalid parameters provided")
 
     def identity_home(self, **kwargs) -> str:
@@ -463,5 +464,192 @@ class Resource:
     def oke_home(self, region: str, **kwargs) -> str:
         if region:
             return f"{BASE}/containers/clusters?region={region}"
-        logger.error("region required")
+        logger.debug("region required")
         raise ValueError("Invalid parameters provided")
+
+    def container_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/container-instances?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def artifact_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/artifacts/repositories?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def functions_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/functions/applications?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def security_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/security/vaults?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def bastion_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/bastion/bastions?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def cloud_guard_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/cloud-guard/targets?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def observability_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/monitoring/alarms?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def streaming_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/streaming/streams?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def devops_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/devops/projects?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def resource_manager_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/resource-manager/stacks?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def data_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/data-science/projects?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def api_gateway_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/api-gateway/gateways?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def dns_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/dns/zones?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def email_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/email-delivery/senders?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def file_storage_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/file-storage/file-systems?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+    def queue_home(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/queue/queues?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
+
+# Maps each resource name to the home method to fall back to when the resource
+# is not found. Keeps fallback data co-located with link definitions.
+SERVICE_HOME_MAP: Dict[str, str] = {
+    # Compute
+    "compute_instance": "compute_home",
+    "compute_image": "compute_home",
+    "instance_pool": "compute_home",
+    "boot_volume": "compute_home",
+    "block_volume": "compute_home",
+    "dedicated_vm_host": "compute_home",
+    # Networking
+    "vcn": "networking_home",
+    "subnet": "networking_home",
+    "security_list": "networking_home",
+    "network_security_group": "networking_home",
+    "route_table": "networking_home",
+    "internet_gateway": "networking_home",
+    "nat_gateway": "networking_home",
+    "service_gateway": "networking_home",
+    "drg": "networking_home",
+    "local_peering_gateway": "networking_home",
+    "network_firewall": "networking_home",
+    "network_firewall_policy": "networking_home",
+    "load_balancer": "networking_home",
+    "network_load_balancer": "networking_home",
+    "public_ip": "networking_home",
+    "dhcp_options": "networking_home",
+    # Object Storage
+    "bucket": "object_storage_home",
+    # Database
+    "db_system": "database_home",
+    "autonomous_database": "database_home",
+    "mysql_db_system": "database_home",
+    "nosql_table": "database_home",
+    "postgresql_db_system": "database_home",
+    # Identity
+    "compartment": "identity_home",
+    "user": "identity_home",
+    "group": "identity_home",
+    "policy": "identity_home",
+    "dynamic_group": "identity_home",
+    "identity_domain": "identity_home",
+    # Containers
+    "oke_cluster": "oke_home",
+    "container_instance": "container_home",
+    "container_repository": "container_home",
+    "artifact_repository": "artifact_home",
+    # Functions
+    "functions_application": "functions_home",
+    # Security
+    "vault": "security_home",
+    "key": "security_home",
+    "secret": "security_home",
+    "bastion": "bastion_home",
+    "cloud_guard_target": "cloud_guard_home",
+    "waf_policy": "cloud_guard_home",
+    "vulnerability_scanning_target": "cloud_guard_home",
+    # Observability
+    "alarm": "observability_home",
+    "notification_topic": "observability_home",
+    "log_group": "observability_home",
+    "apm_domain": "observability_home",
+    "events_rule": "observability_home",
+    "streaming": "streaming_home",
+    "connector": "streaming_home",
+    # DevOps
+    "devops_project": "devops_home",
+    "devops_build_pipeline": "devops_home",
+    "devops_deploy_pipeline": "devops_home",
+    # Resource Manager
+    "stack": "resource_manager_home",
+    # Data & AI
+    "data_science_project": "data_home",
+    "data_catalog": "data_home",
+    "data_flow_application": "data_home",
+    "data_integration_workspace": "data_home",
+    # API Gateway
+    "api_gateway": "api_gateway_home",
+    "api_deployment": "api_gateway_home",
+    # DNS
+    "dns_zone": "dns_home",
+    # Email
+    "email_sender": "email_home",
+    # File Storage
+    "file_system": "file_storage_home",
+    "mount_target": "file_storage_home",
+    # Queue
+    "queue": "queue_home",
+}

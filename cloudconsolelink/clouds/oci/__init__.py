@@ -1,6 +1,6 @@
 import logging
 
-from .links import Resource
+from .links import Resource, SERVICE_HOME_MAP
 
 logger = logging.getLogger(__name__)
 
@@ -12,14 +12,20 @@ class OCILinker:
         **kwargs,
     ) -> str:
         if not resource_name:
-            logger.error("resource_name is required")
+            logger.debug("resource_name is required")
             raise ValueError("Invalid parameters provided")
 
         resource = Resource()
         method = getattr(resource, resource_name, None)
 
         if method is None or resource_name.startswith("_") or not callable(method):
-            logger.error(f"Invalid resource_name - {resource_name}")
+            home_name = SERVICE_HOME_MAP.get(resource_name)
+            if home_name:
+                home_method = getattr(resource, home_name, None)
+                if home_method and callable(home_method):
+                    logger.debug(f"resource_name {resource_name!r} not found, falling back to {home_name!r}")
+                    return home_method(**kwargs).replace(" ", "")
+            logger.debug(f"Invalid resource_name - {resource_name}")
             raise ValueError("Invalid parameters provided")
 
         return method(**kwargs).replace(" ", "")
