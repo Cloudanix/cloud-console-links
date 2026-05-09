@@ -6,6 +6,7 @@ from cloudconsolelink.clouds.aws import InvalidARNError
 from cloudconsolelink.clouds.aws import InvalidPartitionError
 from cloudconsolelink.clouds.aws import InvalidServiceError
 from cloudconsolelink.clouds.aws import get_service_home_link
+from cloudconsolelink.clouds.aws import _render
 from cloudconsolelink.clouds.aws.links import get_links
 
 aws = AWSLinker()
@@ -328,6 +329,11 @@ def test_aws_network_firewall_home():
     arn = "arn:aws:network-firewall:us-east-1:123456789012"
     out_link = aws.get_console_link(arn=arn)
     assert out_link == "https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#Firewalls:"
+
+
+def test_aws_render_unknown_template_expression_returns_empty_string():
+    result = _render("{unknown_expr}", {"region": "us-east-1", "console": "console.aws.amazon.com"})
+    assert result == ""
 
 
 def test_aws_network_firewall_unknown_resource_falls_back_to_home():
