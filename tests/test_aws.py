@@ -283,3 +283,55 @@ def test_aws_ec2_key_pair_trailing_colon_falls_back_to_key_pair_page():
     out_link = aws.get_console_link(arn=arn)
     assert out_link == "https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:"
 
+
+def test_aws_network_firewall_firewall():
+    arn = "arn:aws:network-firewall:us-east-1:123456789012:firewall/my-firewall"
+    out_link = aws.get_console_link(arn=arn)
+    assert out_link == (
+        "https://us-east-1.console.aws.amazon.com/vpc/home"
+        "?region=us-east-1"
+        "#FirewallDetails:firewallArn=arn:aws:network-firewall:us-east-1:123456789012:firewall/my-firewall"
+    )
+
+
+def test_aws_network_firewall_policy():
+    arn = "arn:aws:network-firewall:us-east-1:123456789012:firewall-policy/my-policy"
+    out_link = aws.get_console_link(arn=arn)
+    assert out_link == (
+        "https://us-east-1.console.aws.amazon.com/vpc/home"
+        "?region=us-east-1"
+        "#FirewallPolicyDetails:firewallPolicyArn=arn:aws:network-firewall:us-east-1:123456789012:firewall-policy/my-policy"
+    )
+
+
+def test_aws_network_firewall_stateful_rulegroup():
+    arn = "arn:aws:network-firewall:us-east-1:123456789012:stateful-rulegroup/my-rules"
+    out_link = aws.get_console_link(arn=arn)
+    assert out_link == (
+        "https://us-east-1.console.aws.amazon.com/vpc/home"
+        "?region=us-east-1"
+        "#StatefulRuleGroupDetails:ruleGroupArn=arn:aws:network-firewall:us-east-1:123456789012:stateful-rulegroup/my-rules"
+    )
+
+
+def test_aws_network_firewall_stateless_rulegroup():
+    arn = "arn:aws:network-firewall:us-east-1:123456789012:stateless-rulegroup/my-rules"
+    out_link = aws.get_console_link(arn=arn)
+    assert out_link == (
+        "https://us-east-1.console.aws.amazon.com/vpc/home"
+        "?region=us-east-1"
+        "#StatelessRuleGroupDetails:ruleGroupArn=arn:aws:network-firewall:us-east-1:123456789012:stateless-rulegroup/my-rules"
+    )
+
+
+def test_aws_network_firewall_home():
+    arn = "arn:aws:network-firewall:us-east-1:123456789012"
+    out_link = aws.get_console_link(arn=arn)
+    assert out_link == "https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#Firewalls:"
+
+
+def test_aws_network_firewall_unknown_resource_falls_back_to_home():
+    arn = "arn:aws:network-firewall:us-east-1:123456789012:unknown-type/res-1"
+    out_link = aws.get_console_link(arn=arn)
+    assert out_link == "https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#Firewalls:"
+
