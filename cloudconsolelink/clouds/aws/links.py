@@ -6,6 +6,7 @@ from typing import Dict
 # https://{region}.console.aws.amazon.com/{service}/home?region={region}.
 HOME_URLS: Dict[str, str] = {
     "elasticloadbalancing": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#LoadBalancers:',
+    "network-firewall": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#Firewalls:',
     "logs": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups',
     "sns": 'https://{data.get("region", "")}.{data.get("console", "")}/sns/v3/home?region={data.get("region", "")}',
     "sqs": 'https://{data.get("region", "")}.{data.get("console", "")}/sqs/v2/home?region={data.get("region", "")}',
@@ -827,6 +828,12 @@ def get_links() -> Dict:
             "configuration": 'https://{data.get("region", "")}.{data.get("console", "")}/amazon-mq/home?region={data.get("region", "")}#/configurations/{data.get("resource", "")}',
         },
         "neptune-db": {  # Amazon Neptune
+        },
+        "network-firewall": {  # AWS Network Firewall
+            "firewall": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#FirewallDetails:firewallArn={arn}',
+            "firewall-policy": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#FirewallPolicyDetails:firewallPolicyArn={arn}',
+            "stateful-rulegroup": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#StatefulRuleGroupDetails:ruleGroupArn={arn}',
+            "stateless-rulegroup": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region={data.get("region", "")}#StatelessRuleGroupDetails:ruleGroupArn={arn}',
         },
         "networkmanager": {  # Network Manager
             "device": 'https://{data.get("console", "")}/networkmanager/home?region={data.get("region", "")}#/networks/{data.get("resource", "")}/devices',
