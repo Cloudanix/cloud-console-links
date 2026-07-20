@@ -33,6 +33,9 @@ make check
 #### For GCP
 ```from cloudconsolelink.clouds.gcp import GCPLinker```
 
+#### For container images (ECR, GAR/GCR, ACR, Docker Hub, OCIR)
+```from cloudconsolelink.clouds.registry import image_console_link```
+
 #### To get console link
 call method ```get_console_link()```
 
@@ -87,7 +90,26 @@ resource_name = "storage_bucket"
 console_link = gcp.get_console_link(bucket_name=bucket_name, resource_name=resource_name)
   ```
 
-## get_console_link() parameters discription:
+#### Container image (ECR, GAR/GCR, ACR, Docker Hub, OCIR):
+```python
+from cloudconsolelink.clouds.registry import image_console_link
+
+# Provider is detected from the registry hostname of the image reference.
+console_link = image_console_link(
+    "602401143452.dkr.ecr.us-east-2.amazonaws.com/amazon-k8s-cni-init"
+)
+
+# Azure Container Registry needs subscription/resource-group hints for a deep
+# link (they are not present in the image reference); without them it degrades
+# to a registry browse link.
+console_link = image_console_link(
+    "myregistry.azurecr.io/app",
+    subscription_id="5592e8dc-...",
+    resource_group="my-rg",
+)
+```
+
+## get_console_link() parameters description:
 
 ### AWS:
   1) arn: arn of resource

@@ -141,3 +141,8 @@ dmypy.json
 *.vscode
 .compose
 generated
+
+# personal, per-developer — graphify tooling + local agent setup
+AGENTS.LOCAL.md
+graphify-out/
+
