@@ -1,3 +1,4 @@
+import subprocess
 from pathlib import Path
 
 import setuptools
@@ -24,8 +25,23 @@ def read_requirements(path: str) -> list[str]:
     return lines
 
 
+def git_version(fallback: str) -> str:
+    # ponytail: build-time version from the current git tag; falls back to
+    # __init__.py when git/tags are absent (e.g. building from an sdist tarball).
+    try:
+        tag = subprocess.check_output(
+            ["git", "describe", "--tags", "--abbrev=0"],
+            cwd=ROOT,
+            stderr=subprocess.DEVNULL,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return fallback
+    return tag.decode().strip().lstrip("v") or fallback
+
+
 package_info: dict[str, object] = {}
 exec(read_text("cloudconsolelink/__init__.py"), package_info)
+version = git_version(str(package_info["__version__"]))
 long_description = read_text("README.md")
 install_requires = read_requirements("requirements.txt")
 dev_requirements = read_requirements("requirements-dev.txt")
@@ -35,7 +51,7 @@ setuptools.setup(
     # Here is the module name.
     name="cloudconsolelink",
     # version of the module
-    version=str(package_info["__version__"]),
+    version=version,
     # Name of Maintainer
     maintainer="Cloudanix",
     # Maintainer Email address
