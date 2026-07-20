@@ -109,7 +109,7 @@ console_link = image_console_link(
 )
 ```
 
-## get_console_link() parameters discription:
+## get_console_link() parameters description:
 
 ### AWS:
   1) arn: arn of resource
