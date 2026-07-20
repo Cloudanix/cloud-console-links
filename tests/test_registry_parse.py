@@ -55,6 +55,18 @@ def test_parse_image_ref_host_only_no_repo_raises():
         parse_image_ref("reg.example.com/")
 
 
+@pytest.mark.parametrize("bad", ["repo@", "reg.io/repo@", "reg.io/a/b:v1@"])
+def test_parse_image_ref_empty_digest_raises(bad):
+    with pytest.raises(ValueError, match="empty digest"):
+        parse_image_ref(bad)
+
+
+@pytest.mark.parametrize("bad", ["repo:", "reg.io/repo:", "reg.io/a/b:"])
+def test_parse_image_ref_empty_tag_raises(bad):
+    with pytest.raises(ValueError, match="empty tag"):
+        parse_image_ref(bad)
+
+
 @pytest.mark.parametrize(
     "host, family",
     [

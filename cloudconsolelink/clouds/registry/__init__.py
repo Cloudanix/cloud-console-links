@@ -41,6 +41,8 @@ def parse_image_ref(ref):
     digest = ""
     if "@" in ref:
         ref, digest = ref.split("@", 1)
+        if not digest:
+            raise ValueError(f"image reference has an empty digest: {ref!r}@")
 
     first, slash, rest = ref.partition("/")
     if slash and ("." in first or ":" in first or first == "localhost"):
@@ -54,6 +56,8 @@ def parse_image_ref(ref):
     if colon != -1:
         tag = path[colon + 1:]
         path = path[:colon]
+        if not tag:
+            raise ValueError(f"image reference has an empty tag: {path!r}:")
 
     if not path:
         raise ValueError(f"image reference has no repository: {ref!r}")
