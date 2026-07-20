@@ -109,3 +109,8 @@ def test_acr_partial_hints_falls_back():
 def test_invalid_ref_raises():
     with pytest.raises(ValueError):
         image_console_link("")
+
+
+def test_gar_single_segment_raises_clear_error():
+    with pytest.raises(ValueError, match="GAR image reference needs"):
+        image_console_link("us-docker.pkg.dev/proj")

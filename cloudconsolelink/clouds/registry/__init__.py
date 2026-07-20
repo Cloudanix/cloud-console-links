@@ -123,7 +123,11 @@ def _ecr_public(ref, hints):
 def _gar(ref, hints):
     location = ref.host[: -len("-docker.pkg.dev")]
     parts = ref.repository.split("/")
-    project, repo = parts[0], parts[1] if len(parts) > 1 else ""
+    if len(parts) < 2:
+        raise ValueError(
+            f"GAR image reference needs <project>/<repository>[/<image>]: {ref.repository!r}"
+        )
+    project, repo = parts[0], parts[1]
 
     if len(parts) >= 3:
         image = "/".join(parts[2:])  # net-new: image drill-in below the repo
