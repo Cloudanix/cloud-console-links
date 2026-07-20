@@ -67,7 +67,8 @@ console URL changes.
 
 Instead, the front door **normalizes an image ref into an existing identifier and
 delegates** to the existing linker. New URL-building code exists *only* for
-registries with no existing path (Docker Hub, ECR Public, ACR).
+registries with no existing path (Docker Hub, ECR Public, GCR, OCIR, ACR)
+and for image/digest drill-in.
 
 ```
 image_ref ──parse──▶ {host, repository, tag, digest}
@@ -119,8 +120,8 @@ digest}`, no runtime deps).
 |----------|--------------|-------|
 | ECR private | `<account>.dkr.ecr.<region>.amazonaws.com[.cn]` | **delegate → AWSLinker** |
 | GAR | `<location>-docker.pkg.dev` | **delegate → GCPLinker** |
-| GCR legacy | `gcr.io`, `<us\|eu\|asia>.gcr.io` | **delegate → GCPLinker** |
-| OCI Registry | `<region>.ocir.io` | **delegate → OCILinker** |
+| GCR legacy | `gcr.io`, `<us\|eu\|asia>.gcr.io` | new builder (direct URL) |
+| OCI Registry | `<region>.ocir.io` | landing-page fallback (no OCID in ref) |
 | ECR Public | `public.ecr.aws` | new builder |
 | ACR | `<registry>.azurecr.io` | new builder (+hints) |
 | Docker Hub | `docker.io`, `registry-1.docker.io`, bare | new builder |
@@ -143,22 +144,23 @@ GCPLinker().get_console_link(
 )
 ```
 
-**GCR / OCI Registry.** Same pattern against their existing `Resource` methods.
+**GCR / OCI Registry.** No name-based `Resource` method exists, so these are
+*not* delegated: GCR builds the console URL directly, and OCIR (whose ref
+carries no OCID) falls back to the Oracle Container Registry landing page.
 
-### 2.5 Tag / digest drill-in — extend templates in place
+### 2.5 Tag / digest drill-in — built in the registry module
 
-The existing templates are repo-level. To reach a specific image, **extend the
-existing templates**, do not fork them:
+An ARN / `resource_name` cannot carry a tag or digest, so image-level drill-in
+URLs are **built directly in `clouds/registry`**, not by the delegated linker:
 
-- ECR: `image` template →
-  `…/ecr/repositories/private/<account>/<repo>/_/image/<digest>/details?region=<region>`
-  when a digest is present. (Also modernizes the repo template to the canonical
-  `/private/<account>/` form.) ECR console addresses images by **digest**; a
-  tag-only ref stays at the repo view (tags are listed there) — documented limit.
-- GAR: append the image segment to the Artifact Registry template.
-
-These edits live in `links.py` next to the current templates, so there is still one
-source of truth per provider.
+- ECR: when a digest is present →
+  `…/ecr/repositories/private/<account>/<repo>/_/image/<digest>/details?region=<region>`.
+  ECR console addresses images by **digest**; a tag-only ref stays at the repo
+  view (tags are listed there) — documented limit. The AWS `ecr.repository`
+  template was modernized to the canonical `/private/<account>/` form; the
+  `ecr.image` template stays repo-level.
+- GAR: when an image segment is present the image path is appended directly; the
+  repo-only case still delegates to the Artifact Registry template.
 
 ### 2.6 New builders (no existing path)
 
@@ -166,6 +168,9 @@ source of truth per provider.
   `docker.io/<ns>/<repo>[:tag]` → `https://hub.docker.com/r/<ns>/<repo>[/tags?name=<tag>]`;
   `library/<repo>` → `https://hub.docker.com/_/<repo>` (official).
 - **ECR Public.** `public.ecr.aws/<alias>/<repo>` → `https://gallery.ecr.aws/<alias>/<repo>`.
+- **GCR (legacy).** `gcr.io/<project>/<image>` →
+  `https://console.cloud.google.com/gcr/images/<project>/<LOCATION>/<image>?project=<project>`.
+- **OCIR.** Ref carries no OCID → Oracle Container Registry landing page.
 - **ACR.** Portal blade needs the ARM id
   `/subscriptions/<sub>/resourceGroups/<rg>/providers/Microsoft.ContainerRegistry/registries/<name>`.
   `<sub>`/`<rg>` are **not** in `<name>.azurecr.io/<repo>`:
@@ -173,7 +178,7 @@ source of truth per provider.
   - without → registry-browse fallback
     (`…/BrowseResource/resourceType/Microsoft.ContainerRegistry%2Fregistries`).
 
-  `ponytail:` no cloud-API lookup to recover sub/RG — take the optional hints,
+  No cloud-API lookup to recover sub/RG — take the optional hints,
   degrade to browse otherwise. Add lookup only if a consumer needs the deep blade
   without hints.
 
@@ -205,7 +210,8 @@ No new runtime deps (library constraint). Delegation targets are the existing
 
 - New package `cloudconsolelink/clouds/registry/` (parser + classifier + router;
   new builders inline until they grow).
-- Template edits for ECR/GAR image drill-in go in the respective `links.py`.
+- ECR/GAR image drill-in URLs are built in `clouds/registry`; only the AWS
+  `ecr.repository` template is modernized in `links.py`.
 - Extend `tests/test_provider_coverage.py` (the coverage contract) with a
   registry-family list asserting each classifier → route is reachable.
 - Table-driven `(image_ref, expected_url)` tests: motivating ECR example, tag vs
