@@ -24,7 +24,7 @@ def test_aws_ec2_instance():
 
 def test_aws_ecr_repository():
     arn = "arn:aws:ecr:us-east1:1234567890:repository/repo1"
-    expected_link = "https://us-east1.console.aws.amazon.com/ecr/repositories/repo1\
+    expected_link = "https://us-east1.console.aws.amazon.com/ecr/repositories/private/1234567890/repo1\
         ?region=us-east1"
 
     out_link = aws.get_console_link(arn=arn)

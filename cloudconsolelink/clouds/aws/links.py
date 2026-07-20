@@ -408,10 +408,10 @@ def get_links() -> Dict:
                             home?region=u{data.get("region", "")}#LoadBalancers:search={data.get("resource", "")};sort=loadBalancerName',
         },
         "ecr": {  # Amazon Elastic Container Registry
-            "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
-                ("resource", "")}?region={data.get("region", "")}',
-            "image": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/{data.get\
-                ("resource", "")}?region={data.get("region", "")}',
+            "repository": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/private/\
+                {data.get("account", "")}/{data.get("resource", "")}?region={data.get("region", "")}',
+            "image": 'https://{data.get("region", "")}.{data.get("console", "")}/ecr/repositories/private/\
+                {data.get("account", "")}/{data.get("resource", "")}?region={data.get("region", "")}',
         },
         "ecs": {  # Amazon Elastic Container Service
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}',
