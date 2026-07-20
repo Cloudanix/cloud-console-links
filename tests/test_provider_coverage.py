@@ -363,3 +363,41 @@ def test_oci_linker_supports_all_resource_builders(method_name: str):
 def test_oci_linker_rejects_unknown_resource_name():
     with pytest.raises(ValueError, match="Invalid parameters provided"):
         OCILinker().get_console_link(resource_name="missing_resource", region="us-ashburn-1")
+
+
+# ---------------------------------------------------------------------------
+# Container-registry (OCI image) coverage
+# ---------------------------------------------------------------------------
+
+from cloudconsolelink.clouds.registry import _BUILDERS, classify, image_console_link
+
+# One representative image ref per registry family, exercising every builder.
+REGISTRY_SAMPLE_REFS = {
+    "ecr": "123456789012.dkr.ecr.us-east-1.amazonaws.com/repo",
+    "ecr-public": "public.ecr.aws/alias/repo",
+    "gar": "us-docker.pkg.dev/proj/repo/img",
+    "gcr": "gcr.io/proj/img",
+    "dockerhub": "docker.io/library/nginx",
+    "ocir": "iad.ocir.io/tenancy/repo",
+    "acr": "myreg.azurecr.io/app",
+}
+
+
+def test_every_builder_has_a_sample_ref():
+    # A new registry family must be wired into classify() *and* covered here.
+    assert set(_BUILDERS) == set(REGISTRY_SAMPLE_REFS)
+
+
+@pytest.mark.parametrize("family", sorted(_BUILDERS))
+def test_registry_family_is_reachable(family: str):
+    ref = REGISTRY_SAMPLE_REFS[family]
+    # The sample ref classifies to the family it stands for...
+    assert classify(classify_host(ref)) == family
+    # ...and routing it yields an https console link.
+    assert image_console_link(ref).startswith("https://")
+
+
+def classify_host(ref: str) -> str:
+    from cloudconsolelink.clouds.registry import parse_image_ref
+
+    return parse_image_ref(ref).host
