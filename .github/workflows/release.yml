@@ -22,7 +22,6 @@ jobs:
       - name: Check if HEAD is already tagged
         id: check
         run: |
-          git fetch --tags
           EXISTING=$(git tag --points-at HEAD | grep -E "^v?[0-9]+\.[0-9]+\.[0-9]+$" | head -1)
           if [ -n "$EXISTING" ]; then
             echo "HEAD is already tagged as $EXISTING — skipping release."
@@ -35,25 +34,11 @@ jobs:
         id: latest_tag
         if: steps.check.outputs.already_tagged == 'false'
         run: |
-          # Find highest version across both formats (1.1.1 and v1.1.1) and normalise to v-prefix
-          WITH_V=$(git tag -l "v[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -1)
-          WITHOUT_V=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -1)
-          
-          # Normalise both to v-prefix for comparison, then pick the higher one
-          A="${WITH_V:-v0.0.0}"
-          B="${WITHOUT_V:+v${WITHOUT_V}}"
-          B="${B:-v0.0.0}"
-          LATEST=$(printf '%s\n' "$A" "$B" | sort -V | tail -1)
-          
-          if [ "$LATEST" = "$A" ] && [ "$A" != "v0.0.0" ]; then
-            RAW_TAG="$WITH_V"
-          elif [ "$LATEST" = "$B" ] && [ "$B" != "v0.0.0" ]; then
-            RAW_TAG="$WITHOUT_V"
-          else
-            RAW_TAG=""
-          fi
-          
-          echo "tag=${LATEST:-v0.0.0}" >> $GITHUB_OUTPUT
+          # Tags exist as both 1.1.1 and v1.1.1; sort on the bare version, keep the raw name.
+          RAW_TAG=$(git tag -l | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' \
+            | sed -E 's/^v?(.*)$/\1 &/' | sort -V | tail -1 | cut -d' ' -f2)
+          VERSION="${RAW_TAG#v}"
+          echo "tag=v${VERSION:-0.0.0}" >> $GITHUB_OUTPUT
           echo "raw_tag=$RAW_TAG" >> $GITHUB_OUTPUT
 
       - name: Determine bump type from all merged PRs since last tag
@@ -61,7 +46,7 @@ jobs:
         if: steps.check.outputs.already_tagged == 'false'
         run: |
           RAW_TAG="${{ steps.latest_tag.outputs.raw_tag }}"
-          
+
           if [ -n "$RAW_TAG" ]; then
             SINCE=$(git for-each-ref --format='%(creatordate:iso-strict)' "refs/tags/$RAW_TAG")
             SEARCH_QUERY="merged:>$SINCE"
