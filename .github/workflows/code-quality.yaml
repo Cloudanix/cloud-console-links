@@ -28,4 +28,4 @@ jobs:
         run: pre-commit run --all-files --show-diff-on-failure
 
       - name: Tests and coverage
-        run: pytest tests --cov=cloudconsolelink --cov-report=term-missing -q
+        run: make coverage
