@@ -211,3 +211,77 @@ def test_missing_required_params():
 def test_bucket_missing_namespace():
     with pytest.raises(ValueError):
         oci.get_console_link(resource_name="bucket", region=REGION, namespace="", bucket_name="my-bucket")
+
+
+# --- Child resources linked through their parent ---
+def test_oke_node_pool():
+    ocid = "ocid1.nodepool.oc1.iad.abc123"
+    cluster = "ocid1.cluster.oc1.iad.abc123"
+    link = oci.get_console_link(resource_name="oke_node_pool", region=REGION, ocid=ocid, cluster_id=cluster)
+    assert link == f"https://cloud.oracle.com/containers/clusters/{cluster}/node-pools/{ocid}?region={REGION}"
+
+
+def test_oke_node_pool_without_cluster_falls_back_to_clusters_list():
+    link = oci.get_console_link(resource_name="oke_node_pool", region=REGION, ocid="ocid1.nodepool.oc1.iad.abc123")
+    assert link == f"https://cloud.oracle.com/containers/clusters?region={REGION}"
+
+
+def test_tenancy():
+    assert oci.get_console_link(resource_name="tenancy") == "https://cloud.oracle.com/tenancy"
+
+
+def test_cloud_guard():
+    link = oci.get_console_link(resource_name="cloud_guard", region=REGION)
+    assert link == f"https://cloud.oracle.com/cloud-guard/overview?region={REGION}"
+
+
+def test_volume_backup_block_and_boot():
+    ocid = "ocid1.volumebackup.oc1.iad.abc123"
+    block = oci.get_console_link(resource_name="volume_backup", region=REGION, ocid=ocid, source_kind="BLOCK")
+    boot = oci.get_console_link(resource_name="volume_backup", region=REGION, ocid=ocid, source_kind="BOOT")
+    default = oci.get_console_link(resource_name="volume_backup", region=REGION, ocid=ocid)
+    assert block == f"https://cloud.oracle.com/block-storage/backups/{ocid}?region={REGION}"
+    assert boot == f"https://cloud.oracle.com/block-storage/boot-volume-backups/{ocid}?region={REGION}"
+    assert default == block
+
+
+def test_log():
+    ocid = "ocid1.log.oc1.iad.abc123"
+    group = "ocid1.loggroup.oc1.iad.abc123"
+    link = oci.get_console_link(resource_name="log", region=REGION, ocid=ocid, log_group_id=group)
+    assert link == f"https://cloud.oracle.com/logging/log-groups/{group}/logs/{ocid}?region={REGION}"
+
+
+def test_log_without_group_falls_back_to_observability_home():
+    link = oci.get_console_link(resource_name="log", region=REGION, ocid="ocid1.log.oc1.iad.abc123")
+    assert link == f"https://cloud.oracle.com/monitoring/alarms?region={REGION}"
+
+
+def test_db_home_and_db_node_link_parent_db_system():
+    db_system = "ocid1.dbsystem.oc1.iad.abc123"
+    expected = f"https://cloud.oracle.com/db-systems/{db_system}?region={REGION}"
+    for name in ("db_home", "db_node"):
+        link = oci.get_console_link(resource_name=name, region=REGION, ocid="ocid1.x.oc1.iad.1", db_system_id=db_system)
+        assert link == expected
+        assert oci.get_console_link(resource_name=name, region=REGION, ocid="ocid1.x.oc1.iad.1") == (
+            f"https://cloud.oracle.com/db-systems?region={REGION}"
+        )
+
+
+def test_container_image_links_parent_repository():
+    repo = "ocid1.containerrepo.oc1.iad.abc123"
+    link = oci.get_console_link(
+        resource_name="container_image", region=REGION, ocid="ocid1.containerimage.oc1.iad.1", repository_id=repo,
+    )
+    assert link == f"https://cloud.oracle.com/container-registry/repositories/{repo}?region={REGION}"
+
+
+def test_vnic_links_owning_instance():
+    instance = "ocid1.instance.oc1.iad.abc123"
+    vnic = "ocid1.vnic.oc1.iad.abc123"
+    assert oci.get_console_link(resource_name="vnic", region=REGION, ocid=vnic, instance_id=instance) == (
+        f"https://cloud.oracle.com/compute/instances/{instance}?region={REGION}"
+    )
+    assert oci.get_console_link(resource_name="vnic", region=REGION, ocid=vnic) == (
+        f"https://cloud.oracle.com/networking/vcns?region={REGION}"
+    )

@@ -42,12 +42,15 @@ def get_links() -> Dict:
             "apps": 'https://{data.get("region", "")}.{data.get("console", "")}/amplify/home?region={data.get("region", "")}#/{data.get("resource", "")}',
         },
         "apigateway": {  # Manage Amazon API Gateway
-            "restapis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
-                #/{data.get("resource", "")}/resources/',
+            "restapis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/main/apis/\
+                {resource_part(0)}/resources?api={resource_part(0)}&region={data.get("region", "")}',
+            "restapis/stages": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/main/apis/\
+                {resource_part(0)}/stages?api={resource_part(0)}&region={data.get("region", "")}',
             "stages": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
                         home?region={data.get("region", "")}#/{data.get("resource", "")}',
-            "apis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}\
-                    #/{data.get("resource", "")}/resources/',
+            # HTTP and WebSocket APIs (API Gateway v2)
+            "apis": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/main/api-detail?\
+                    api={resource_part(0)}&region={data.get("region", "")}',
             "stage": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/\
                         home?region={data.get("region", "")}#/{data.get("resource", "")}',
             "clientcertificates": 'https://{data.get("region", "")}.{data.get("console", "")}/apigateway/home?region={data.get("region", "")}#/client-certificates',
@@ -95,7 +98,7 @@ def get_links() -> Dict:
             "workgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/athena/home?region={data.get("region", "")}#/workgroups/details/{data.get("resource", "")}',
         },
         "autoscaling": {  # Amazon EC2 Auto Scaling
-            "autoScalingGroup": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#AutoScalingGroupDetails:id={data.get("resource", "")}',
+            "autoScalingGroup": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#AutoScalingGroupDetails:id={resource_tail}',
             "launchConfiguration": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#LaunchConfigurations:',
         },
         "aws-marketplace": {  # AWS Marketplace Catalog
@@ -238,6 +241,8 @@ def get_links() -> Dict:
             "aggregation-authorization": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/aggregations',
             "config-aggregator": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/aggregations',
             "config-rule": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/rules/rule-details/{data.get("resource", "")}',
+            "configuration-recorder": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/settings',
+            "delivery-channel": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/settings',
             "conformance-pack": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/conformance-packs/details/{data.get("resource", "")}',
             "organization-config-rule": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/rules',
             "organization-conformance-pack": 'https://{data.get("region", "")}.{data.get("console", "")}/config/home?region={data.get("region", "")}#/conformance-packs',
@@ -345,7 +350,7 @@ def get_links() -> Dict:
             "table": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/home?region=\
                 {data.get("region", "")}#table?name={data.get("resource", "")}',
             "secondary_indexes": 'https://{data.get("region", "")}.{data.get("console", "")}/dynamodbv2/\
-                                home?region=us-east-1#table?initialTagKey=&name={data.get("resource", "")}&tab=indexes',
+                                home?region={data.get("region", "")}#table?initialTagKey=&name={data.get("resource", "")}&tab=indexes',
         },
         "ec2": {  # AWS Systems Manager
             "capacity-reservation": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#CapacityReservationDetails:capacityReservationId={data.get("resource", "")}',
@@ -387,7 +392,7 @@ def get_links() -> Dict:
             "traffic-mirror-session": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TrafficMirrorSessions:',
             "traffic-mirror-target": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TrafficMirrorTargets:',
             "transit-gateway": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TransitGateways:transitGatewayId={data.get("resource", "")}',
-            "transit-gateway-attachment": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TransitGatewayAttachments:',
+            "transit-gateway-attachment": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TransitGatewayAttachmentDetails:transitGatewayAttachmentId={data.get("resource", "")}',
             "transit-gateway-multicast-domain": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TransitGatewayMulticastDomains:',
             "transit-gateway-route-table": 'https://{data.get("region", "")}.{data.get("console", "")}/vpcconsole/home?region={data.get("region", "")}#TransitGatewayRouteTables:',
             "volume": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2\
@@ -414,19 +419,19 @@ def get_links() -> Dict:
                 {data.get("account", "")}/{data.get("resource", "")}?region={data.get("region", "")}',
         },
         "ecs": {  # Amazon Elastic Container Service
-            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}',
-            "container-instance": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/containerInstances',
-            "service": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/services',
-            "task": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/tasks',
-            "task-definition": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs\
-                    /home?region={data.get("region", "")}#/taskDefinitions/{data.get("resource", "")}',
+            # Resource paths are cluster/<id>; the classic #/clusters console is retired, so these use /ecs/v2.
+            "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/v2/clusters/{resource_part(0)}?region={data.get("region", "")}',
+            "container-instance": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/v2/clusters/{resource_part(0)}/infrastructure?region={data.get("region", "")}',
+            "service": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/v2/clusters/{resource_part(0)}/services/{resource_part(1)}?region={data.get("region", "")}',
+            "task": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/v2/clusters/{resource_part(0)}/tasks/{resource_part(1)}?region={data.get("region", "")}',
+            "task-definition": 'https://{data.get("region", "")}.{data.get("console", "")}/ecs/v2/task-definitions/{resource_part(0)}?region={data.get("region", "")}',
             "task-set": None,  # task-set is a sub-resource of service, no direct deep-link
         },
         "eks": {  # Amazon Elastic Container Service for Kubernetes
             "cluster": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get\
                 ("region", "")}#/clusters/{data.get("resource", "")}',
             "fargateprofile": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/fargate-profiles',
-            "nodegroup": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get("region", "")}#/clusters/{data.get("resource", "")}/nodegroups',
+            "nodegroup": 'https://{data.get("region", "")}.{data.get("console", "")}/eks/home?region={data.get("region", "")}#/clusters/{resource_part(0)}/nodegroups/{resource_part(1)}',
         },
         "elastic-inference": {  # Amazon Elastic Inference (retired April 2024)
             "elastic-inference-accelerator": None,  # service retired
@@ -456,10 +461,20 @@ def get_links() -> Dict:
             "file-system": 'https://{data.get("region", "")}.{data.get("console", "")}/efs/home?region={data.get("region", "")}#/file-systems/{data.get("resource", "")}',
         },
         "elasticloadbalancing": {  # AWS WAF V2
-            "listener": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#LoadBalancers:',
+            # A listener (listener/app/<lb>/<lb-id>/<id>) links to its load balancer's page.
+            "listener": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}\
+                #LoadBalancer:loadBalancerArn=arn:{partition}:elasticloadbalancing:{data.get("region", "")}:\
+                {data.get("account", "")}:loadbalancer/{resource_part(0)}/{resource_part(1)}/{resource_part(2)}',
             "listener-rule": None,  # sub-resource of listener, no direct deep-link
+            # Classic load balancers (loadbalancer/<name>) have no ARN-addressable page.
             "loadbalancer": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/\
                         home?region={data.get("region", "")}#LoadBalancers:sort=loadBalancerName',
+            "loadbalancer/app": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region=\
+                {data.get("region", "")}#LoadBalancer:loadBalancerArn={arn}',
+            "loadbalancer/net": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region=\
+                {data.get("region", "")}#LoadBalancer:loadBalancerArn={arn}',
+            "loadbalancer/gwy": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region=\
+                {data.get("region", "")}#LoadBalancer:loadBalancerArn={arn}',
             "targetgroup": 'https://{data.get("region", "")}.{data.get("console", "")}/ec2/home?region={data.get("region", "")}#TargetGroups:targetGroupArn={arn}',
         },
         "elasticmapreduce": {  # Amazon Elastic MapReduce
@@ -483,6 +498,8 @@ def get_links() -> Dict:
             "domain": 'https://{data.get("region", "")}.{data.get("console", "")}/esv3/\
                         home?region={data.get("region", "")}#opensearch/domains/{data.get("resource", "")}',
             "reserved_instance": 'https://{data.get("region", "")}.{data.get("console", "")}/esv3/\
+                        home?region={data.get("region", "")}#opensearch/reserved-instances',
+            "reserved-instances": 'https://{data.get("region", "")}.{data.get("console", "")}/esv3/\
                         home?region={data.get("region", "")}#opensearch/reserved-instances',
         },
         "events": {  # Amazon EventBridge
@@ -585,7 +602,7 @@ def get_links() -> Dict:
             "saml-provider": 'https://{data.get("console", "")}/iamv2/home#/identity-providers',
             "server-certificate": 'https://{data.get("console", "")}/iam/home?#/server-certificates',
             "sms-mfa": None,  # no direct console deep-link for SMS MFA device
-            "user": 'https://{data.get("console", "")}/iam/home?#/users/{data.get("resource", "")}',
+            "user": 'https://{data.get("console", "")}/iam/home?#/users/{get_resource_path(data.get("resource", ""))}',
             "access_keys": 'https://{data.get("console", "")}/iam/home#/users/{data.get("resource", "")}?section=security_credentials',
             "policy_statement": 'https://{data.get("console", "")}/iam/home?#/policies/{get_arn_string(data)}',
         },
@@ -729,7 +746,7 @@ def get_links() -> Dict:
             "StaticIp": "https://lightsail.aws.amazon.com/ls/webapp/home/static-ips",
         },
         "logs": {  # Amazon CloudWatch Logs
-            "log-group": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups/log-group/{data.get("resource", "")}',
+            "log-group": 'https://{data.get("region", "")}.{data.get("console", "")}/cloudwatch/home?region={data.get("region", "")}#logsV2:log-groups/log-group/{log_group_id}',
         },
         "lookoutequipment": {  # Amazon Lookout for Equipment
             "dataset": 'https://{data.get("region", "")}.{data.get("console", "")}/lookoutequipment/home?region={data.get("region", "")}#/datasets/{data.get("resource", "")}',
@@ -850,7 +867,7 @@ def get_links() -> Dict:
         "organizations": {  # AWS Organizations
             "account": 'https://{data.get("console", "")}/organizations/v2/home/accounts/{data.get("resource", "")}',
             "handshake": None,  # no direct console deep-link for handshakes
-            "organization": 'https://{data.get("region", "")}.{data.get("console", "")}/organizations/v2/home/accounts/{data.get("resource", "")}',
+            "organization": 'https://{data.get("console", "")}/organizations/v2/home',
             "ou": 'https://{data.get("console", "")}/organizations/v2/home/roots',
             "policy": 'https://{data.get("console", "")}/organizations/v2/home/policies/{data.get("resource", "")}',
             "root": 'https://{data.get("console", "")}/organizations/v2/home/roots',
@@ -923,8 +940,8 @@ def get_links() -> Dict:
             "ri": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#reserved-instances:',
             "secgrp": 'https://{data.get("region", "")}.{data.get("console", "")}/vpc/home?region=\
                 {data.get("region", "")}#SecurityGroup:groupId={data.get("resource", "")}',
-            "snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#db-snapshot:engine=sqlserver-ee;id={arn}',
-            "subgrp": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#subnet-groups-list:',
+            "snapshot": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#db-snapshot:id={data.get("resource", "")}',
+            "subgrp": 'https://{data.get("region", "")}.{data.get("console", "")}/rds/home?region={data.get("region", "")}#db-subnet-group:id={data.get("resource", "")}',
             "target": None,  # sub-resource of db-proxy, no direct deep-link
             "target-group": None,  # sub-resource of db-proxy, no direct deep-link
         },
@@ -976,8 +993,9 @@ def get_links() -> Dict:
             "change": None,  # internal resource, no direct console page
             "delegationset": 'https://{data.get("console", "")}/route53/home#/hosted-zones',
             "healthcheck": 'https://{data.get("console", "")}/route53/healthchecks/home',
-            "hostedzone": 'https://{data.get("console", "")}/route53/home?#resource-record-sets:\
-            {data.get("resource", "")}',
+            # get_resource_path also accepts the "hostedzone//hostedzone/Z1" ARNs built from the API's zone Id.
+            "hostedzone": 'https://{data.get("console", "")}/route53/v2/hostedzones#ListRecordSets/\
+            {get_resource_path(data.get("resource", ""))}',
             "queryloggingconfig": 'https://{data.get("console", "")}/route53/home#/query-logging',
             "trafficpolicy": 'https://{data.get("console", "")}/route53/trafficflow/home#/policy/\
             {data.get("resource", "")}',
@@ -1106,8 +1124,9 @@ def get_links() -> Dict:
             "windowtask": 'https://{data.get("region", "")}.{data.get("console", "")}/systems-manager/maintenance-windows?region={data.get("region", "")}',
         },
         "sso": {  # AWS IAM Identity Center
+            # Identity Center ARNs carry no region; the console opens the instance's home region.
             "instance": 'https://{data.get("region", "")}.{data.get("console", "")}/singlesignon/home?region={data.get("region", "")}',
-            "permissionSet": 'https://{data.get("region", "")}.{data.get("console", "")}/singlesignon/home?region={data.get("region", "")}#/permission-sets/{data.get("resource", "")}',
+            "permissionSet": 'https://{data.get("region", "")}.{data.get("console", "")}/singlesignon/home?region={data.get("region", "")}',
         },
         "states": {  # AWS Step Functions
             "activity": 'https://{data.get("region", "")}.{data.get("console", "")}/states/home?region={data.get("region", "")}#/activities/{arn}',
@@ -1178,6 +1197,11 @@ def get_links() -> Dict:
             "xssmatchset": None,  # WAF Classic condition, no dedicated console deep-link
         },
         "wafv2": {  # AWS WAF V2
+            # Web ACL ARNs: {regional|global}/webacl/<name>/<id>; global (CloudFront) ACLs use region=global.
+            "regional/webacl": 'https://{data.get("region", "")}.{data.get("console", "")}/wafv2/homev2/web-acl/\
+                {resource_part(1)}/{resource_part(2)}/overview?region={data.get("region", "")}',
+            "global/webacl": 'https://{data.get("region", "")}.{data.get("console", "")}/wafv2/homev2/web-acl/\
+                {resource_part(1)}/{resource_part(2)}/overview?region=global',
         },
         "wellarchitected": {  # AWS Well-Architected Tool
             "workload": 'https://{data.get("region", "")}.{data.get("console", "")}/wellarchitected/home?region={data.get("region", "")}#/workload/{data.get("resource", "")}',

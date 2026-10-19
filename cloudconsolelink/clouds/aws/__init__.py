@@ -2,9 +2,14 @@ import logging
 import re
 import urllib.parse
 from typing import Dict
+from typing import Optional
 
-from .errors import ARNTooShortError, InvalidARNError, InvalidPartitionError, InvalidServiceError
-from .links import HOME_URLS, get_links
+from .errors import ARNTooShortError
+from .errors import InvalidARNError
+from .errors import InvalidPartitionError
+from .errors import InvalidServiceError
+from .links import get_links
+from .links import HOME_URLS
 
 logger = logging.getLogger(__name__)
 
@@ -20,16 +25,19 @@ def _render(template: str, data: Dict, arn: str = "") -> str:
     produce spaces inside expressions). Unknown expressions render as empty string.
     """
     resource = str(data.get("resource", ""))
+    region = str(data.get("region", ""))
     ctx: Dict[str, str] = {
+        **_resource_part_ctx(resource),
         'data.get("region","")': str(data.get("region", "")),
         'data.get("console","")': str(data.get("console", "")),
         'data.get("resource","")': resource,
         'data.get("account","")': str(data.get("account", "")),
         'data.get("service","")': str(data.get("service", "")),
-        'get_arn_string(data)': get_arn_string(data),
+        "get_arn_string(data)": get_arn_string(data),
         'get_resource_path(data.get("resource",""))': get_resource_path(resource),
         "arn": arn,
-        "region": str(data.get("region", "")),
+        "partition": str(data.get("partition", "")),
+        "region": region,
         "console": str(data.get("console", "")),
         "resource": resource,
         "account": str(data.get("account", "")),
@@ -37,12 +45,50 @@ def _render(template: str, data: Dict, arn: str = "") -> str:
     }
 
     def _sub(m: re.Match) -> str:
-        expr = re.sub(r"\s+", "", m.group(1))  # collapse whitespace from line continuations
+        expr = re.sub(
+            r"\s+",
+            "",
+            m.group(1),
+        )  # collapse whitespace from line continuations
         if expr not in ctx:
             logger.debug("Unknown template expression %r", expr)
         return ctx.get(expr, "")
 
-    return _EXPR_RE.sub(_sub, template).replace(" ", "")
+    link = _EXPR_RE.sub(_sub, template).replace(" ", "")
+    return link if region else _drop_empty_region(link)
+
+
+def _resource_part_ctx(resource: str) -> Dict[str, str]:
+    """Template keys for the pieces of a path-style resource.
+
+    resource_part(N) is the Nth "/"-separated segment (ecs "service/cluster/svc" -> cluster, svc),
+    resource_tail is everything after the first "/" (autoscaling "uuid:autoScalingGroupName/name" -> name),
+    log_group_id is the log group name in the double-encoded form the CloudWatch console expects.
+    """
+    raw = urllib.parse.unquote(resource)
+    parts = raw.split("/")
+    ctx = {
+        f"resource_part({i})": urllib.parse.quote(part, safe="")
+        for i, part in enumerate(parts)
+    }
+    ctx["resource_tail"] = urllib.parse.quote(raw.split("/", 1)[-1], safe="")
+    log_group = raw[: -len(":*")] if raw.endswith(":*") else raw
+    ctx["log_group_id"] = urllib.parse.quote(
+        urllib.parse.quote(log_group, safe=""),
+        safe="",
+    ).replace("%", "$")
+    return ctx
+
+
+def _drop_empty_region(link: str) -> str:
+    """Remove the empty region a region-less ARN (IAM, Route 53, SSO, ...) leaves in a template.
+
+    "https://.console..." becomes "https://console..." and a bare "region=" query parameter is dropped.
+    """
+    link = link.replace("https://.", "https://", 1)
+    link = link.replace("?region=&", "?")
+    link = re.sub(r"[?&]region=(?=#|$)", "", link)
+    return re.sub(r"&region=(?=&)", "", link)
 
 
 def get_console(partition: str) -> str:
@@ -173,14 +219,41 @@ class AWSLinker:
             logger.debug(f"Invalid AWS ARN {arn}")
             raise InvalidARNError(f"Invalid AWS ARN {arn}")
 
-        if not links.get(data["service"], {}).get(data["resourceType"], None):
+        # An SNS subscription ARN is the topic ARN plus a subscription id: sns:...:topic:uuid.
+        if data["service"] == "sns" and len(resource_tokens) == 2:
+            data["resourceType"] = "subscription"
+
+        template = _find_template(
+            links[data["service"]],
+            str(data["resourceType"]),
+            str(data["resource"]),
+        )
+        if not template:
             logger.debug(
                 f"AWS service {data['service']} resource type {data['resourceType']} not supported",
             )
             return get_service_home_link(data)
 
         data["resource"] = urllib.parse.quote(str(data["resource"]))
-        return _render(links[data["service"]][data["resourceType"]], data, arn)
+        return _render(template, data, arn)
+
+
+def _find_template(
+    service_links: Dict,
+    resource_type: str,
+    resource: str,
+) -> Optional[str]:
+    """Pick the template for a resource, preferring a "type/sub-type" key over the plain type.
+
+    Some ARNs carry their real kind one level down: apigateway "restapis/{id}/stages/{stage}" (sub-type in
+    the second segment) or wafv2 "regional/webacl/{name}/{id}" (sub-type in the first segment).
+    """
+    parts = resource.split("/")
+    for sub_type in parts[1:2] + parts[:1] if len(parts) > 1 else []:
+        template = service_links.get(f"{resource_type}/{sub_type}")
+        if template:
+            return template
+    return service_links.get(resource_type)
 
 
 __all__ = [

@@ -61,6 +61,15 @@ GCP_SAMPLE_ARGS = {
     "database_name": "demo-database",
     "api_key_id": "demo-api-key",
     "subscription_id": "demo-subscription",
+    "node_pool_name": "demo-pool",
+    "job_id": "2026-01-01_00_00_00-123",
+    "image_name": "demo-image",
+    "image_project": "debian-cloud",
+    "organization_id": "organizations/123",
+    "folder_id": "folders/456",
+    "dataset_id": "demo_dataset",
+    "table_id": "demo_table",
+    "repository_format": "DOCKER",
 }
 
 
@@ -307,6 +316,12 @@ OCI_SAMPLE_ARGS = {
     "ocid": "ocid1.test.oc1.iad.abc123",
     "namespace": "demo-namespace",
     "bucket_name": "demo-bucket",
+    "instance_id": "ocid1.instance.oc1.iad.abc123",
+    "cluster_id": "ocid1.cluster.oc1.iad.abc123",
+    "db_system_id": "ocid1.dbsystem.oc1.iad.abc123",
+    "repository_id": "ocid1.containerrepo.oc1.iad.abc123",
+    "log_group_id": "ocid1.loggroup.oc1.iad.abc123",
+    "source_kind": "BOOT",
 }
 
 

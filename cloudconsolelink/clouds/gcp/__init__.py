@@ -1,7 +1,8 @@
 import logging
 from typing import Dict
 
-from .links import Resource, SERVICE_HOME_MAP
+from .links import Resource
+from .links import SERVICE_HOME_MAP
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +53,15 @@ def build_kwargs(
     database_name=None,
     api_key_id=None,
     subscription_id=None,
+    node_pool_name=None,
+    job_id=None,
+    image_name=None,
+    image_project=None,
+    organization_id=None,
+    folder_id=None,
+    dataset_id=None,
+    table_id=None,
+    repository_format=None,
 ) -> Dict:
     return {
         "resource_name": resource_name,
@@ -99,6 +109,15 @@ def build_kwargs(
         "database_name": database_name,
         "api_key_id": api_key_id,
         "subscription_id": subscription_id,
+        "node_pool_name": node_pool_name,
+        "job_id": job_id,
+        "image_name": image_name,
+        "image_project": image_project,
+        "organization_id": organization_id,
+        "folder_id": folder_id,
+        "dataset_id": dataset_id,
+        "table_id": table_id,
+        "repository_format": repository_format,
     }
 
 
@@ -150,6 +169,15 @@ class GCPLinker:
         database_name=None,
         api_key_id=None,
         subscription_id=None,
+        node_pool_name=None,
+        job_id=None,
+        image_name=None,
+        image_project=None,
+        organization_id=None,
+        folder_id=None,
+        dataset_id=None,
+        table_id=None,
+        repository_format=None,
     ) -> str:
         resource = Resource()
 
@@ -277,6 +305,20 @@ class GCPLinker:
             "cloud_ids_endpoint": resource.cloud_ids_endpoint,
             "dialogflow_agent": resource.dialogflow_agent,
             "cloud_endpoints_service": resource.cloud_endpoints_service,
+            "target_ssl_proxy": resource.target_ssl_proxy,
+            "gke_node_pool": resource.gke_node_pool,
+            "dataflow_job": resource.dataflow_job,
+            "compute_image": resource.compute_image,
+            "project": resource.project,
+            "organization": resource.organization,
+            "folder": resource.folder,
+            "bigquery_dataset": resource.bigquery_dataset,
+            "bigquery_table": resource.bigquery_table,
+            "sql_database": resource.sql_database,
+            "spanner_backup": resource.spanner_backup,
+            "firestore_database": resource.firestore_database,
+            "container_registry": resource.container_registry,
+            "cloud_monitoring_metric_descriptor": resource.cloud_monitoring_metric_descriptor,
         }
 
         param = build_kwargs(
@@ -325,6 +367,15 @@ class GCPLinker:
             database_name=database_name,
             api_key_id=api_key_id,
             subscription_id=subscription_id,
+            node_pool_name=node_pool_name,
+            job_id=job_id,
+            image_name=image_name,
+            image_project=image_project,
+            organization_id=organization_id,
+            folder_id=folder_id,
+            dataset_id=dataset_id,
+            table_id=table_id,
+            repository_format=repository_format,
         )
 
         resources_list = list(resources.keys())
@@ -333,7 +384,9 @@ class GCPLinker:
 
         home_name = SERVICE_HOME_MAP.get(resource_name)
         if home_name and home_name in resources:
-            logger.debug(f"resource_name {resource_name!r} not found, falling back to {home_name!r}")
+            logger.debug(
+                f"resource_name {resource_name!r} not found, falling back to {home_name!r}",
+            )
             return resources[home_name](**param).replace(" ", "")  # type: ignore
 
         logger.debug(f"Invalid resource_name - {resource_name}")

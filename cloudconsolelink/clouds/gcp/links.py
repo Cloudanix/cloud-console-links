@@ -5,6 +5,16 @@ from typing import Dict
 logger = logging.getLogger(__name__)
 
 
+def _firestore_database_path(database_name: str) -> str:
+    # The console spells the default database "-default-" in its URLs.
+    return "-default-" if database_name == "(default)" else database_name
+
+
+def _strip_prefix(value: str, prefix: str) -> str:
+    # Accept both "organizations/123" and "123" (same for folders).
+    return value[len(prefix) :] if value.startswith(prefix) else value
+
+
 class Resource:
     def storage_bucket(self, bucket_name: str, **keward) -> str:
         if bucket_name:
@@ -78,13 +88,18 @@ class Resource:
         self,
         project_id: str,
         rule_name: str,
-        region: str,
+        region: str = "",
         **keward,
     ):
-        if project_id and rule_name and region:
+        if project_id and rule_name and region and region != "global":
             return f"https://console.cloud.google.com/net-services/loadbalancing/advanced/\
                 forwardingRules/details/regions/{region}/forwardingRules/{rule_name}?project={project_id}"
-        logger.debug("project_id and rule_name and region required")
+        if project_id and rule_name:
+            return (
+                f"https://console.cloud.google.com/net-services/loadbalancing/advanced/\
+                globalForwardingRules/details/{rule_name}?project={project_id}"
+            )
+        logger.debug("project_id and rule_name required")
         raise ValueError("Invalid parameters provided")
 
     def api(self, project_id: str, managed_service_name: str, api_name: str, **keward):
@@ -246,15 +261,16 @@ class Resource:
         project_id: str,
         dns_zone_name: str,
         dns_rrset_name: str,
-        dns_type: str,
+        dns_type: str = "",
         **keward,
     ):
         if project_id and dns_zone_name and dns_rrset_name and dns_type:
             return f"https://console.cloud.google.com/net-services/dns/zones/{dns_zone_name}/\
                 rrsets/{dns_rrset_name}/{dns_type}/view?project={project_id}"
-        logger.debug(
-            "project_id and dns_zone_name and dns_rrset_name and dns_type required",
-        )
+        # A record set page needs its type; without one, the zone's record list is the closest page.
+        if project_id and dns_zone_name:
+            return self.dns_zone(project_id=project_id, dns_zone_name=dns_zone_name)
+        logger.debug("project_id and dns_zone_name required")
         raise ValueError("Invalid parameters provided")
 
     def gke_cluster(self, project_id: str, zone: str, gke_cluster_name: str, **keward):
@@ -537,7 +553,10 @@ class Resource:
         logger.debug("project_id and api_key_id required")
         raise ValueError("Invalid parameters provided")
 
-    def firestore_index(self, project_id: str, **keward):
+    def firestore_index(self, project_id: str, database_name: str = "", **keward):
+        if project_id and database_name:
+            return f"https://console.cloud.google.com/firestore/databases/\
+                {_firestore_database_path(database_name)}/indexes/composite?project={project_id}"
         if project_id:
             return f"https://console.cloud.google.com/firestore/indexes/\
                     composite?project={project_id}"
@@ -683,10 +702,13 @@ class Resource:
         project_id: str,
         region: str,
         instance_name: str,
+        repository_format: str = "docker",
         **keward,
     ):
         if project_id and region and instance_name:
-            return f"https://console.cloud.google.com/artifacts/docker/{project_id}/{region}/{instance_name}?project={project_id}"
+            # The API reports formats upper-case (DOCKER, NPM, MAVEN); the console path wants lower-case.
+            fmt = (repository_format or "docker").lower()
+            return f"https://console.cloud.google.com/artifacts/{fmt}/{project_id}/{region}/{instance_name}?project={project_id}"
         logger.debug("project_id, region and instance_name required")
         raise ValueError("Invalid parameters provided")
 
@@ -930,6 +952,110 @@ class Resource:
         logger.debug("project_id and instance_name required")
         raise ValueError("Invalid parameters provided")
 
+    def target_ssl_proxy(self, project_id: str, instance_name: str, **keward):
+        if project_id and instance_name:
+            return f"https://console.cloud.google.com/net-services/loadbalancing/advanced/targetSslProxies/details/{instance_name}?project={project_id}"
+        logger.debug("project_id and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def gke_node_pool(
+        self,
+        project_id: str,
+        zone: str,
+        gke_cluster_name: str,
+        node_pool_name: str,
+        **keward,
+    ):
+        if project_id and zone and gke_cluster_name and node_pool_name:
+            return f"https://console.cloud.google.com/kubernetes/nodepool/{zone}/{gke_cluster_name}/{node_pool_name}?project={project_id}"
+        logger.debug("project_id, zone, gke_cluster_name and node_pool_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def dataflow_job(self, project_id: str, region: str, job_id: str, **keward):
+        if project_id and region and job_id:
+            return f"https://console.cloud.google.com/dataflow/jobs/{region}/{job_id}?project={project_id}"
+        logger.debug("project_id, region and job_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def compute_image(
+        self,
+        project_id: str,
+        image_name: str,
+        image_project: str = "",
+        **keward,
+    ):
+        # Public images (debian-cloud, cos-cloud, ...) live in a different project than the viewer's.
+        if project_id and image_name:
+            return f"https://console.cloud.google.com/compute/imagesDetail/projects/{image_project or project_id}/\
+                global/images/{image_name}?project={project_id}"
+        logger.debug("project_id and image_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def project(self, project_id: str, **keward):
+        if project_id:
+            return (
+                f"https://console.cloud.google.com/home/dashboard?project={project_id}"
+            )
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def organization(self, organization_id: str, **keward):
+        if organization_id:
+            return f"https://console.cloud.google.com/iam-admin/settings?\
+                organizationId={_strip_prefix(organization_id, 'organizations/')}"
+        logger.debug("organization_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def folder(self, folder_id: str, **keward):
+        if folder_id:
+            return f"https://console.cloud.google.com/iam-admin/iam?folder={_strip_prefix(folder_id, 'folders/')}"
+        logger.debug("folder_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def bigquery_dataset(self, project_id: str, dataset_id: str, **keward):
+        if project_id and dataset_id:
+            return f"https://console.cloud.google.com/bigquery?project={project_id}&p={project_id}&\
+                d={dataset_id}&page=dataset"
+        logger.debug("project_id and dataset_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def bigquery_table(self, project_id: str, dataset_id: str, table_id: str, **keward):
+        if project_id and dataset_id and table_id:
+            return f"https://console.cloud.google.com/bigquery?project={project_id}&p={project_id}&\
+                d={dataset_id}&t={table_id}&page=table"
+        logger.debug("project_id, dataset_id and table_id required")
+        raise ValueError("Invalid parameters provided")
+
+    def sql_database(self, project_id: str, sql_instance_name: str, **keward):
+        if project_id and sql_instance_name:
+            return f"https://console.cloud.google.com/sql/instances/{sql_instance_name}/databases?project={project_id}"
+        logger.debug("project_id and sql_instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def spanner_backup(self, project_id: str, instance_name: str, **keward):
+        # ponytail: lands on the instance's backup list; no stable per-backup deep link.
+        if project_id and instance_name:
+            return f"https://console.cloud.google.com/spanner/instances/{instance_name}/backups?project={project_id}"
+        logger.debug("project_id and instance_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def firestore_database(self, project_id: str, database_name: str, **keward):
+        if project_id and database_name:
+            return f"https://console.cloud.google.com/firestore/databases/\
+                {_firestore_database_path(database_name)}/data/panel?project={project_id}"
+        logger.debug("project_id and database_name required")
+        raise ValueError("Invalid parameters provided")
+
+    def container_registry(self, project_id: str, **keward):
+        # Legacy Container Registry (gcr.io) repos are served by Artifact Registry now.
+        return self.artifact_registry_home(project_id=project_id)
+
+    def cloud_monitoring_metric_descriptor(self, project_id: str, **keward):
+        if project_id:
+            return f"https://console.cloud.google.com/monitoring/metrics-explorer?project={project_id}"
+        logger.debug("project_id required")
+        raise ValueError("Invalid parameters provided")
+
     # --- Service home pages ---
 
     def compute_home(self, project_id: str, **keward):
@@ -940,7 +1066,9 @@ class Resource:
 
     def storage_home(self, project_id: str, **keward):
         if project_id:
-            return f"https://console.cloud.google.com/storage/browser?project={project_id}"
+            return (
+                f"https://console.cloud.google.com/storage/browser?project={project_id}"
+            )
         logger.debug("project_id required")
         raise ValueError("Invalid parameters provided")
 
@@ -952,7 +1080,9 @@ class Resource:
 
     def cloudfunction_home(self, project_id: str, **keward):
         if project_id:
-            return f"https://console.cloud.google.com/functions/list?project={project_id}"
+            return (
+                f"https://console.cloud.google.com/functions/list?project={project_id}"
+            )
         logger.debug("project_id required")
         raise ValueError("Invalid parameters provided")
 
@@ -964,19 +1094,25 @@ class Resource:
 
     def gke_home(self, project_id: str, **keward):
         if project_id:
-            return f"https://console.cloud.google.com/kubernetes/list?project={project_id}"
+            return (
+                f"https://console.cloud.google.com/kubernetes/list?project={project_id}"
+            )
         logger.debug("project_id required")
         raise ValueError("Invalid parameters provided")
 
     def sql_home(self, project_id: str, **keward):
         if project_id:
-            return f"https://console.cloud.google.com/sql/instances?project={project_id}"
+            return (
+                f"https://console.cloud.google.com/sql/instances?project={project_id}"
+            )
         logger.debug("project_id required")
         raise ValueError("Invalid parameters provided")
 
     def iam_home(self, project_id: str, **keward):
         if project_id:
-            return f"https://console.cloud.google.com/iam-admin/iam?project={project_id}"
+            return (
+                f"https://console.cloud.google.com/iam-admin/iam?project={project_id}"
+            )
         logger.debug("project_id required")
         raise ValueError("Invalid parameters provided")
 
@@ -1030,7 +1166,9 @@ class Resource:
 
     def cloud_scheduler_home(self, project_id: str, **keward):
         if project_id:
-            return f"https://console.cloud.google.com/cloudscheduler?project={project_id}"
+            return (
+                f"https://console.cloud.google.com/cloudscheduler?project={project_id}"
+            )
         logger.debug("project_id required")
         raise ValueError("Invalid parameters provided")
 
@@ -1108,7 +1246,9 @@ class Resource:
 
     def cloud_ids_home(self, project_id: str, **keward):
         if project_id:
-            return f"https://console.cloud.google.com/ids/endpoints?project={project_id}"
+            return (
+                f"https://console.cloud.google.com/ids/endpoints?project={project_id}"
+            )
         logger.debug("project_id required")
         raise ValueError("Invalid parameters provided")
 
@@ -1212,4 +1352,14 @@ SERVICE_HOME_MAP: Dict[str, str] = {
     "cloud_ids_endpoint": "cloud_ids_home",
     "dialogflow_agent": "dialogflow_home",
     "cloud_endpoints_service": "cloud_endpoints_home",
+    "target_ssl_proxy": "load_balancer_home",
+    "gke_node_pool": "gke_home",
+    "compute_image": "compute_home",
+    "bigquery_dataset": "bigquery_home",
+    "bigquery_table": "bigquery_home",
+    "sql_database": "sql_home",
+    "spanner_backup": "spanner_home",
+    "firestore_database": "firestore_home",
+    "container_registry": "artifact_registry_home",
+    "cloud_monitoring_metric_descriptor": "monitoring_home",
 }

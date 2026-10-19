@@ -1,5 +1,6 @@
 # What is cloudconsolelink?
-This project for generate console links for AWS, GCP and Azure cloud resources
+This project for generate console links for AWS, GCP, Azure and OCI cloud resources, and web links for
+GitHub, GitLab, Bitbucket and Azure DevOps entities
 
 # Install
 Run ```pip install cloudconsolelink``` to install our code
@@ -32,6 +33,12 @@ make check
 
 #### For GCP
 ```from cloudconsolelink.clouds.gcp import GCPLinker```
+
+#### For OCI
+```from cloudconsolelink.clouds.oci import OCILinker```
+
+#### For GitHub, GitLab, Bitbucket, Azure DevOps
+```from cloudconsolelink.clouds.git import GitLinker```
 
 #### For container images (ECR, GAR/GCR, ACR, Docker Hub, OCIR)
 ```from cloudconsolelink.clouds.registry import image_console_link```
@@ -109,6 +116,21 @@ console_link = image_console_link(
 )
 ```
 
+#### Git providers:
+```python
+from cloudconsolelink.clouds.git import GitLinker
+
+git = GitLinker()
+
+git.get_console_link("github", "branch", owner="acme", repo="api", branch="main")
+# https://github.com/acme/api/tree/main
+
+# Self-hosted GitHub Enterprise / GitLab: pass base_url
+git.get_console_link("gitlab", "project", base_url="https://gitlab.acme.com", project_path="platform/api")
+# https://gitlab.acme.com/platform/api
+```
+Resource names per provider are the keys of `LINKS` in `cloudconsolelink/clouds/git/__init__.py`.
+
 ## get_console_link() parameters description:
 
 ### AWS:
@@ -154,6 +176,8 @@ console_link = image_console_link(
   29) group_unique_id
   31) firestore_collection_name
   32) cloud_run_service_name
+
+The full, current list of GCP resource names is the `resources` dict in `cloudconsolelink/clouds/gcp/__init__.py`.
 
 
 # Who uses cloudconsolelink?
