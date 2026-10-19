@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+# Back-to-back pushes would otherwise compute and race for the same tag.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
   tag:
     name: Create Semantic Version Tag
