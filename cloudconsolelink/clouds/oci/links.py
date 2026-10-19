@@ -15,6 +15,15 @@ class Resource:
         logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
+    def vnic(self, region: str, ocid: str, instance_id: str = "", **kwargs) -> str:
+        # ponytail: links the owning instance (its page lists attached VNICs); no per-VNIC deep link.
+        if region and ocid and instance_id:
+            return self.compute_instance(region=region, ocid=instance_id)
+        if region and ocid:
+            return f"{BASE}/networking/vcns?region={region}"
+        logger.debug("region and ocid required")
+        raise ValueError("Invalid parameters provided")
+
     def compute_image(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/compute/images/{ocid}?region={region}"
@@ -36,6 +45,20 @@ class Resource:
     def block_volume(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/block-storage/volumes/{ocid}?region={region}"
+        logger.debug("region and ocid required")
+        raise ValueError("Invalid parameters provided")
+
+    def volume_backup(
+        self,
+        region: str,
+        ocid: str,
+        source_kind: str = "",
+        **kwargs,
+    ) -> str:
+        # Boot and block volume backups live under different console paths.
+        if region and ocid:
+            kind = "boot-volume-backups" if source_kind.upper() == "BOOT" else "backups"
+            return f"{BASE}/block-storage/{kind}/{ocid}?region={region}"
         logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
@@ -162,6 +185,18 @@ class Resource:
         logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
+    def db_home(self, region: str, ocid: str, db_system_id: str = "", **kwargs) -> str:
+        # ponytail: DB homes and nodes are listed on their DB system page; no per-item deep link.
+        if region and ocid and db_system_id:
+            return self.db_system(region=region, ocid=db_system_id)
+        if region and ocid:
+            return self.database_home(region=region)
+        logger.debug("region and ocid required")
+        raise ValueError("Invalid parameters provided")
+
+    def db_node(self, region: str, ocid: str, db_system_id: str = "", **kwargs) -> str:
+        return self.db_home(region=region, ocid=ocid, db_system_id=db_system_id)
+
     def mysql_db_system(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/mysql/db-systems/{ocid}?region={region}"
@@ -211,6 +246,9 @@ class Resource:
         logger.debug("ocid required")
         raise ValueError("Invalid parameters provided")
 
+    def tenancy(self, **kwargs) -> str:
+        return f"{BASE}/tenancy"
+
     def identity_domain(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/identity/domains/{ocid}?region={region}"
@@ -224,6 +262,20 @@ class Resource:
         logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
+    def oke_node_pool(
+        self,
+        region: str,
+        ocid: str,
+        cluster_id: str = "",
+        **kwargs,
+    ) -> str:
+        if region and ocid and cluster_id:
+            return f"{BASE}/containers/clusters/{cluster_id}/node-pools/{ocid}?region={region}"
+        if region and ocid:
+            return self.oke_home(region=region)
+        logger.debug("region and ocid required")
+        raise ValueError("Invalid parameters provided")
+
     def container_instance(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/container-instances/{ocid}?region={region}"
@@ -233,6 +285,21 @@ class Resource:
     def container_repository(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/container-registry/repositories/{ocid}?region={region}"
+        logger.debug("region and ocid required")
+        raise ValueError("Invalid parameters provided")
+
+    def container_image(
+        self,
+        region: str,
+        ocid: str,
+        repository_id: str = "",
+        **kwargs,
+    ) -> str:
+        # ponytail: links the parent repository page, which lists its images.
+        if region and ocid and repository_id:
+            return self.container_repository(region=region, ocid=repository_id)
+        if region and ocid:
+            return self.container_home(region=region)
         logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
@@ -280,6 +347,12 @@ class Resource:
         logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
+    def cloud_guard(self, region: str, **kwargs) -> str:
+        if region:
+            return f"{BASE}/cloud-guard/overview?region={region}"
+        logger.debug("region required")
+        raise ValueError("Invalid parameters provided")
+
     def waf_policy(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/waf/policies/{ocid}?region={region}"
@@ -308,6 +381,16 @@ class Resource:
     def log_group(self, region: str, ocid: str, **kwargs) -> str:
         if region and ocid:
             return f"{BASE}/logging/log-groups/{ocid}?region={region}"
+        logger.debug("region and ocid required")
+        raise ValueError("Invalid parameters provided")
+
+    def log(self, region: str, ocid: str, log_group_id: str = "", **kwargs) -> str:
+        if region and ocid and log_group_id:
+            return (
+                f"{BASE}/logging/log-groups/{log_group_id}/logs/{ocid}?region={region}"
+            )
+        if region and ocid:
+            return self.observability_home(region=region)
         logger.debug("region and ocid required")
         raise ValueError("Invalid parameters provided")
 
@@ -574,6 +657,8 @@ SERVICE_HOME_MAP: Dict[str, str] = {
     "boot_volume": "compute_home",
     "block_volume": "compute_home",
     "dedicated_vm_host": "compute_home",
+    "volume_backup": "compute_home",
+    "vnic": "networking_home",
     # Networking
     "vcn": "networking_home",
     "subnet": "networking_home",
@@ -596,6 +681,8 @@ SERVICE_HOME_MAP: Dict[str, str] = {
     # Database
     "db_system": "database_home",
     "autonomous_database": "database_home",
+    "db_home": "database_home",
+    "db_node": "database_home",
     "mysql_db_system": "database_home",
     "nosql_table": "database_home",
     "postgresql_db_system": "database_home",
@@ -608,8 +695,10 @@ SERVICE_HOME_MAP: Dict[str, str] = {
     "identity_domain": "identity_home",
     # Containers
     "oke_cluster": "oke_home",
+    "oke_node_pool": "oke_home",
     "container_instance": "container_home",
     "container_repository": "container_home",
+    "container_image": "container_home",
     "artifact_repository": "artifact_home",
     # Functions
     "functions_application": "functions_home",
@@ -625,6 +714,7 @@ SERVICE_HOME_MAP: Dict[str, str] = {
     "alarm": "observability_home",
     "notification_topic": "observability_home",
     "log_group": "observability_home",
+    "log": "observability_home",
     "apm_domain": "observability_home",
     "events_rule": "observability_home",
     "streaming": "streaming_home",
