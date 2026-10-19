@@ -1,6 +1,7 @@
 import logging
 import re
 from typing import Tuple
+from urllib.parse import quote
 
 
 logger = logging.getLogger(__name__)
@@ -8,10 +9,29 @@ logger = logging.getLogger(__name__)
 PORTAL = "https://portal.azure.com"
 SUBSCRIPTIONS_BLADE = f"{PORTAL}/#view/Microsoft_Azure_Billing/SubscriptionsBlade"
 ACTIVITY_LOG_BLADE = f"{PORTAL}/#view/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/~/activityLog"
+POLICY_MENU_BLADE = f"{PORTAL}/#view/Microsoft_Azure_Policy/PolicyMenuBlade/~"
+POLICY_DETAIL_BLADE = (
+    f"{PORTAL}/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId"
+)
 
 _GUID_RE = re.compile(r"^[0-9a-fA-F]{8}-(?:[0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$")
 _PROVIDERS_RE = re.compile(r"/providers/", re.IGNORECASE)
-_AUTHORIZATION_RE = re.compile(r"/providers/microsoft\.authorization/", re.IGNORECASE)
+_AUTHORIZATION_RE = re.compile(
+    r"/providers/microsoft\.authorization/([^/]+)",
+    re.IGNORECASE,
+)
+
+# Microsoft.Authorization types shown on their scope's Access control (IAM) blade.
+IAM_BLADE_TYPES = {"roledefinitions", "roleassignments", "denyassignments"}
+
+# Azure Policy objects open in the Policy service, not on their scope. Only the definition blade
+# has a documented per-item deep link (Microsoft Learn built-in policy pages). Assignments and
+# initiatives stop at their list blade; switch to a per-item blade once one is documented.
+POLICY_LINKS = {
+    "policyassignments": f"{POLICY_MENU_BLADE}/Assignments",
+    "policydefinitions": f"{POLICY_DETAIL_BLADE}/{{id}}",
+    "policysetdefinitions": f"{POLICY_MENU_BLADE}/Definitions",
+}
 
 # Nested ARM types the portal opens as resources in their own right, so a link keeps
 # drilling into them instead of stopping at their parent. Keys are lowercase type paths.
@@ -72,17 +92,26 @@ def _anchor_and_blade(segments: list) -> Tuple[str, str]:
     )
 
 
+def _authorization_link(arm_id: str, base: str, authorization: re.Match) -> str:
+    """Link a Microsoft.Authorization id. Other types (locks, exemptions, ...) open their scope's overview."""
+    resource_type = authorization.group(1).lower()
+    if resource_type in POLICY_LINKS:
+        return POLICY_LINKS[resource_type].format(id=quote(arm_id, safe=""))
+    scope = arm_id[: authorization.start()]
+    if not scope:
+        return SUBSCRIPTIONS_BLADE
+    blade = "users" if resource_type in IAM_BLADE_TYPES else "overview"
+    return f"{base}{scope}/{blade}"
+
+
 def _management_link(arm_id: str, domain: str) -> str:
     base = f"{PORTAL}/#@{domain}/resource"
     if _GUID_RE.match(arm_id):  # bare subscription id
         return f"{base}/subscriptions/{arm_id}/overview"
 
     authorization = _AUTHORIZATION_RE.search(arm_id)
-    if (
-        authorization
-    ):  # role definitions/assignments: the scope's Access control (IAM) blade
-        scope = arm_id[: authorization.start()]
-        return f"{base}{scope}/users" if scope else SUBSCRIPTIONS_BLADE
+    if authorization:
+        return _authorization_link(arm_id, base, authorization)
 
     parts = _PROVIDERS_RE.split(arm_id, maxsplit=1)
     if len(parts) == 1:  # subscription or resource group
