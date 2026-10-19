@@ -95,19 +95,12 @@ jobs:
           echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
           echo "New version: $NEW_TAG"
 
-      - name: Create and push tag
-        if: steps.check.outputs.already_tagged == 'false'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "${{ steps.version.outputs.new_tag }}" \
-            -m "Release ${{ steps.version.outputs.new_tag }}"
-          git push origin "${{ steps.version.outputs.new_tag }}"
-
+      # gh creates the tag at --target, so no separate git tag/push step.
       - name: Create GitHub release
         if: steps.check.outputs.already_tagged == 'false'
         run: |
           gh release create "${{ steps.version.outputs.new_tag }}" \
+            --target "$GITHUB_SHA" \
             --title "${{ steps.version.outputs.new_tag }}" \
             --generate-notes \
             --latest
