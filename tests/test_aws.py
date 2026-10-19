@@ -172,6 +172,33 @@ def test_aws_apigateway_client_certificate():
     assert out_link == expected_link
 
 
+def test_aws_apigateway_documented_arns_with_leading_slash():
+    # AWS documents API Gateway ARNs as paths (::/restapis/...). Before: the "/" left an empty
+    # resource type, so every one fell back to the API Gateway home page.
+    home = "https://us-east-1.console.aws.amazon.com/apigateway/home?region=us-east-1"
+    cases = {
+        "arn:aws:apigateway:us-east-1::/restapis/abc123": f"{home}#/abc123/resources/",
+        "arn:aws:apigateway:us-east-1::/restapis/abc123/stages/prod": f"{home}#/abc123/stages/prod/resources/",
+        "arn:aws:apigateway:us-east-1::/apis/abc123": f"{home}#/abc123/resources/",
+        "arn:aws:apigateway:us-east-1::/clientcertificates/abc123": f"{home}#/client-certificates",
+    }
+    for arn, expected_link in cases.items():
+        assert aws.get_console_link(arn=arn) == expected_link
+        # Same link as the slash-less form callers send today.
+        assert aws.get_console_link(arn=arn.replace("::/", "::")) == expected_link
+
+
+def test_aws_route53_domain_has_no_region_host():
+    # Before: the empty region produced the host "https://.console.aws.amazon.com".
+    arn = "arn:aws:route53:::domains/example.com"
+
+    assert aws.get_console_link(arn=arn) == "https://console.aws.amazon.com/route53/home#DomainListing:"
+    assert (
+        aws.get_console_link(arn="arn:aws-us-gov:route53:::domains/example.com")
+        == "https://console.amazonaws-us-gov.com/route53/home#DomainListing:"
+    )
+
+
 def test_aws_cloudwatch_loggroup():
     arn = "arn:aws:logs:us-east-2:123456789012:log-group/LogGroupName-123"
     expected_link = 'https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/LogGroupName-123'

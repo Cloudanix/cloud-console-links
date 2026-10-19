@@ -983,7 +983,8 @@ def get_links() -> Dict:
             {data.get("resource", "")}',
             "trafficpolicyinstance": 'https://{data.get("console", "")}/route53/trafficflow/home#/\
             modify-records/edit/{data.get("resource", "")}',
-            "domains": 'https://{data.get("region", "")}.{data.get("console", "")}/route53/home#DomainListing:',
+            # Route 53 Domains is global: its ARNs carry no region, so the host has none.
+            "domains": 'https://{data.get("console", "")}/route53/home#DomainListing:',
         },
         "route53resolver": {  # Amazon Route 53 Resolver
             "resolver-endpoint": 'https://{data.get("region", "")}.{data.get("console", "")}/route53resolver/home?region={data.get("region", "")}#/endpoints/{data.get("resource", "")}',

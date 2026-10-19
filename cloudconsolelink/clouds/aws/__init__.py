@@ -126,6 +126,10 @@ class AWSLinker:
         }
 
         resource_tokens = tokens[5:]
+        # API Gateway ARNs are paths: arn:aws:apigateway:us-east-1::/restapis/abc123. Drop the
+        # leading "/" so the first segment is the resource type, as in every other path-style ARN.
+        if resource_tokens and resource_tokens[0].startswith("/"):
+            resource_tokens[0] = resource_tokens[0][1:]
 
         console = get_console(str(data.get("partition", "")))
         if not console:
