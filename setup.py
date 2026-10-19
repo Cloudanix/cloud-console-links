@@ -25,9 +25,18 @@ def read_requirements(path: str) -> list[str]:
     return lines
 
 
+def sdist_version() -> str:
+    # An unpacked sdist carries the version it was built with in PKG-INFO. pip/uv rebuild the sdist
+    # there with no git (and git could even read an enclosing repo's tags), so this wins.
+    for line in read_text("PKG-INFO", required=False).splitlines():
+        if line.startswith("Version:"):
+            return line.removeprefix("Version:").strip()
+    return ""
+
+
 def git_version(fallback: str) -> str:
     # ponytail: build-time version from the current git tag; falls back to
-    # __init__.py when git/tags are absent (e.g. building from an sdist tarball).
+    # __init__.py when git/tags are absent.
     try:
         tag = subprocess.check_output(
             ["git", "describe", "--tags", "--abbrev=0"],
@@ -41,7 +50,7 @@ def git_version(fallback: str) -> str:
 
 package_info: dict[str, object] = {}
 exec(read_text("cloudconsolelink/__init__.py"), package_info)
-version = git_version(str(package_info["__version__"]))
+version = sdist_version() or git_version(str(package_info["__version__"]))
 long_description = read_text("README.md")
 install_requires = read_requirements("requirements.txt")
 dev_requirements = read_requirements("requirements-dev.txt")
