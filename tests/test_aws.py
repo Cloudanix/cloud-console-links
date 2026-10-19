@@ -174,12 +174,19 @@ def test_aws_apigateway_client_certificate():
 
 def test_aws_apigateway_documented_arns_with_leading_slash():
     # AWS documents API Gateway ARNs as paths (::/restapis/...). Before: the "/" left an empty
-    # resource type, so every one fell back to the API Gateway home page.
+    # resource type, so every one fell back to the API Gateway home page. The classic #/{id} console
+    # paths are gone, so REST APIs link to /apigateway/main/apis and HTTP APIs to api-detail.
     home = "https://us-east-1.console.aws.amazon.com/apigateway/home?region=us-east-1"
+    main = "https://us-east-1.console.aws.amazon.com/apigateway/main"
     cases = {
-        "arn:aws:apigateway:us-east-1::/restapis/abc123": f"{home}#/abc123/resources/",
-        "arn:aws:apigateway:us-east-1::/restapis/abc123/stages/prod": f"{home}#/abc123/stages/prod/resources/",
-        "arn:aws:apigateway:us-east-1::/apis/abc123": f"{home}#/abc123/resources/",
+        "arn:aws:apigateway:us-east-1::/restapis/abc123": f"{main}/apis/abc123/resources?api=abc123&region=us-east-1",
+        "arn:aws:apigateway:us-east-1::/restapis/abc123/stages/prod": (
+            f"{main}/apis/abc123/stages?api=abc123&region=us-east-1"
+        ),
+        "arn:aws:apigateway:us-east-1::/restapis/abc123/resources/r1": (
+            f"{main}/apis/abc123/resources?api=abc123&region=us-east-1"
+        ),
+        "arn:aws:apigateway:us-east-1::/apis/abc123": f"{main}/api-detail?api=abc123&region=us-east-1",
         "arn:aws:apigateway:us-east-1::/clientcertificates/abc123": f"{home}#/client-certificates",
     }
     for arn, expected_link in cases.items():
@@ -368,3 +375,114 @@ def test_aws_network_firewall_unknown_resource_falls_back_to_home():
     out_link = aws.get_console_link(arn=arn)
     assert out_link == "https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#Firewalls:"
 
+
+# ---------------------------------------------------------------------------
+# Link gaps found auditing the ARNs cartography sends
+# ---------------------------------------------------------------------------
+
+AWS_LINK_CASES = {
+    # Region-less ARNs drop the empty "{region}." host prefix and the bare region= parameter.
+    "arn:aws:sso:::instance/ssoins-1": "https://console.aws.amazon.com/singlesignon/home",
+    "arn:aws:sso:::permissionSet/ssoins-1/ps-2": "https://console.aws.amazon.com/singlesignon/home",
+    "arn:aws:organizations::123456789012:organization/o-abc": "https://console.aws.amazon.com/organizations/v2/home",
+    "arn:aws:lambda::123456789012:alias/fn": "https://console.aws.amazon.com/lambda/home#/functions/fn?tab=aliases",
+    "arn:aws:dynamodb::123456789012:secondary_indexes/T": (
+        "https://console.aws.amazon.com/dynamodbv2/home#table?initialTagKey=&name=T&tab=indexes"
+    ),
+    "arn:aws:dynamodb:eu-west-1:123456789012:secondary_indexes/T": (
+        "https://eu-west-1.console.aws.amazon.com/dynamodbv2/home?region=eu-west-1"
+        "#table?initialTagKey=&name=T&tab=indexes"
+    ),
+    # ECS: v2 console, cluster and id split out of the path.
+    "arn:aws:ecs:us-east-1:123456789012:cluster/c1": (
+        "https://us-east-1.console.aws.amazon.com/ecs/v2/clusters/c1?region=us-east-1"
+    ),
+    "arn:aws:ecs:us-east-1:123456789012:service/c1/svc": (
+        "https://us-east-1.console.aws.amazon.com/ecs/v2/clusters/c1/services/svc?region=us-east-1"
+    ),
+    "arn:aws:ecs:us-east-1:123456789012:task/c1/0123abcd": (
+        "https://us-east-1.console.aws.amazon.com/ecs/v2/clusters/c1/tasks/0123abcd?region=us-east-1"
+    ),
+    "arn:aws:ecs:us-east-1:123456789012:container-instance/c1/ci-1": (
+        "https://us-east-1.console.aws.amazon.com/ecs/v2/clusters/c1/infrastructure?region=us-east-1"
+    ),
+    "arn:aws:ecs:us-east-1:123456789012:task-definition/family:3": (
+        "https://us-east-1.console.aws.amazon.com/ecs/v2/task-definitions/family?region=us-east-1"
+    ),
+    "arn:aws:eks:us-east-1:123456789012:nodegroup/c1/ng1/uuid-1": (
+        "https://us-east-1.console.aws.amazon.com/eks/home?region=us-east-1#/clusters/c1/nodegroups/ng1"
+    ),
+    "arn:aws:autoscaling:us-east-1:123456789012:autoScalingGroup:uuid-1:autoScalingGroupName/my-asg": (
+        "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#AutoScalingGroupDetails:id=my-asg"
+    ),
+    "arn:aws:logs:us-east-1:123456789012:log-group:/aws/lambda/x:*": (
+        "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1"
+        "#logsV2:log-groups/log-group/$252Faws$252Flambda$252Fx"
+    ),
+    "arn:aws:wafv2:us-east-2:123456789012:regional/webacl/acl1/id-1": (
+        "https://us-east-2.console.aws.amazon.com/wafv2/homev2/web-acl/acl1/id-1/overview?region=us-east-2"
+    ),
+    "arn:aws:wafv2:us-east-1:123456789012:global/webacl/acl1/id-1": (
+        "https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acl/acl1/id-1/overview?region=global"
+    ),
+    "arn:aws:config:us-east-1:123456789012:configuration-recorder/default": (
+        "https://us-east-1.console.aws.amazon.com/config/home?region=us-east-1#/settings"
+    ),
+    "arn:aws:config:us-east-1:123456789012:delivery-channel/default": (
+        "https://us-east-1.console.aws.amazon.com/config/home?region=us-east-1#/settings"
+    ),
+    "arn:aws:sns:us-east-1:123456789012:my-topic:0f1e2d3c": (
+        "https://us-east-1.console.aws.amazon.com/sns/v3/home?region=us-east-1"
+        "#/subscription/arn:aws:sns:us-east-1:123456789012:my-topic:0f1e2d3c"
+    ),
+    "arn:aws:es:us-east-1:123456789012:reserved-instances/ri-1": (
+        "https://us-east-1.console.aws.amazon.com/esv3/home?region=us-east-1#opensearch/reserved-instances"
+    ),
+    "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/lb1/50dc6c495c0c9188": (
+        "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#LoadBalancer:loadBalancerArn="
+        "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/lb1/50dc6c495c0c9188"
+    ),
+    "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/net/lb1/50dc6c495c0c9188": (
+        "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#LoadBalancer:loadBalancerArn="
+        "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/net/lb1/50dc6c495c0c9188"
+    ),
+    "arn:aws:elasticloadbalancing:us-east-1:123456789012:listener/app/lb1/50dc6c495c0c9188/f2f7dc8efc522ab2": (
+        "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#LoadBalancer:loadBalancerArn="
+        "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/lb1/50dc6c495c0c9188"
+    ),
+    # Classic load balancers keep the list page.
+    "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/classic1": (
+        "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#LoadBalancers:sort=loadBalancerName"
+    ),
+    "arn:aws:route53:::hostedzone/Z123": "https://console.aws.amazon.com/route53/v2/hostedzones#ListRecordSets/Z123",
+    "arn:aws:route53:::hostedzone//hostedzone/Z123": (
+        "https://console.aws.amazon.com/route53/v2/hostedzones#ListRecordSets/Z123"
+    ),
+    "arn:aws:rds:us-east-1:123456789012:snapshot:rds:db1-2024-01-01": (
+        "https://us-east-1.console.aws.amazon.com/rds/home?region=us-east-1#db-snapshot:id=rds%3Adb1-2024-01-01"
+    ),
+    "arn:aws:rds:us-east-1:123456789012:subgrp:sg1": (
+        "https://us-east-1.console.aws.amazon.com/rds/home?region=us-east-1#db-subnet-group:id=sg1"
+    ),
+    "arn:aws:ec2:us-east-1:123456789012:transit-gateway-attachment/tgw-attach-1": (
+        "https://us-east-1.console.aws.amazon.com/vpcconsole/home?region=us-east-1"
+        "#TransitGatewayAttachmentDetails:transitGatewayAttachmentId=tgw-attach-1"
+    ),
+    "arn:aws:iam::123456789012:user/division/team/alice": "https://console.aws.amazon.com/iam/home?#/users/alice",
+    "arn:aws:iam::123456789012:user/alice": "https://console.aws.amazon.com/iam/home?#/users/alice",
+}
+
+
+@pytest.mark.parametrize("arn,expected_link", AWS_LINK_CASES.items())
+def test_aws_link_gap_fixes(arn, expected_link):
+    assert aws.get_console_link(arn=arn) == expected_link
+
+
+def test_aws_sns_topic_named_like_subscription_key_stays_a_topic():
+    arn = "arn:aws:sns:us-east-1:123456789012:topic"
+    assert aws.get_console_link(arn=arn).endswith("#/topic/arn:aws:sns:us-east-1:123456789012:topic")
+
+
+def test_aws_wafv2_unsupported_kind_falls_back_to_home():
+    arn = "arn:aws:wafv2:us-east-1:123456789012:regional/ipset/set1/id-1"
+    assert aws.get_console_link(arn=arn) == "https://us-east-1.console.aws.amazon.com/wafv2/home?region=us-east-1"
