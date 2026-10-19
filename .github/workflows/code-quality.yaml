@@ -6,7 +6,7 @@ on:
       - develop
 
 jobs:
-  check:
+  quality-gate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -14,18 +14,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      # setup-uv publishes no floating major tag, so pin the release commit.
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
         with:
-          python-version: "3.12"
-          cache: "pip"
+          python-version: "3.13"
+          activate-environment: true
 
-      - name: Install dev dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -e '.[dev]'
+      - name: Install dependencies
+        run: uv pip install -e '.[dev]'
 
-      - name: Code quality
+      - name: Lint, format, typecheck
         run: pre-commit run --all-files --show-diff-on-failure
 
       - name: Tests and coverage
