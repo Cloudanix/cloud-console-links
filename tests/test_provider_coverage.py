@@ -61,6 +61,15 @@ GCP_SAMPLE_ARGS = {
     "database_name": "demo-database",
     "api_key_id": "demo-api-key",
     "subscription_id": "demo-subscription",
+    "node_pool_name": "demo-pool",
+    "job_id": "2026-01-01_00_00_00-123",
+    "image_name": "demo-image",
+    "image_project": "debian-cloud",
+    "organization_id": "organizations/123",
+    "folder_id": "folders/456",
+    "dataset_id": "demo_dataset",
+    "table_id": "demo_table",
+    "repository_format": "DOCKER",
 }
 
 
