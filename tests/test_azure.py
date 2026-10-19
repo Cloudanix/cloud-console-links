@@ -83,6 +83,39 @@ def test_azure_role_assignment_on_resource_links_resource_access_control():
     assert _link(f"{vm}/providers/Microsoft.Authorization/roleAssignments/x") == f"{BASE}{vm}/users"
 
 
+MG = "/providers/Microsoft.Management/managementGroups/mg1"
+POLICY_ASSIGNMENTS = "https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyMenuBlade/~/Assignments"
+
+
+def test_azure_role_assignment_type_match_is_case_insensitive():
+    assert _link(f"{RG}/providers/microsoft.authorization/ROLEASSIGNMENTS/x") == f"{BASE}{RG}/users"
+
+
+def test_azure_deny_assignment_links_scope_access_control():
+    assert _link(f"{SUB}/providers/Microsoft.Authorization/denyAssignments/d1") == f"{BASE}{SUB}/users"
+
+
+@pytest.mark.parametrize("scope", [SUB, RG, MG])
+def test_azure_policy_assignment_links_policy_assignments(scope):
+    assert _link(f"{scope}/providers/Microsoft.Authorization/policyAssignments/a1") == POLICY_ASSIGNMENTS
+
+
+def test_azure_policy_definitions_link_policy_service():
+    builtin = "/providers/Microsoft.Authorization/policyDefinitions/0015ea4d-51ff-4ce3-8d8c-f3f8f0179a56"
+    assert _link(builtin) == (
+        "https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/"
+        "%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F0015ea4d-51ff-4ce3-8d8c-f3f8f0179a56"
+    )
+    assert _link(f"{SUB}/providers/Microsoft.Authorization/policySetDefinitions/i1") == (
+        "https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyMenuBlade/~/Definitions"
+    )
+
+
+def test_azure_other_authorization_types_link_scope_overview():
+    assert _link(f"{RG}/providers/Microsoft.Authorization/locks/NoDelete") == f"{BASE}{RG}/overview"
+    assert _link(f"{SUB}/providers/Microsoft.Authorization/policyExemptions/e1") == f"{BASE}{SUB}/overview"
+
+
 @pytest.mark.parametrize(
     "child, parent, blade",
     [
