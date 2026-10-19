@@ -4,116 +4,65 @@ This file provides guidance to Agents when working with code in this repository.
 
 ## What this is
 
-`cloudconsolelink` is a pure-Python library (no runtime deps) that generates deep-links into the AWS, Azure, GCP, and OCI web consoles for a given cloud resource. Published to PyPI; used by Cloudanix.
-
-Public entry points, one linker per provider:
+`cloudconsolelink` is a pure-Python library (no runtime deps) that turns a cloud resource identifier into a deep-link into the AWS, Azure, GCP, or OCI (Oracle) web console, plus container-image links for ECR, GAR/GCR, ACR, Docker Hub, and OCIR. Published to PyPI; used by Cloudanix.
 
 ```python
-from cloudconsolelink.clouds.aws   import AWSLinker    # .get_console_link(arn=...)
-from cloudconsolelink.clouds.azure import AzureLinker  # .get_console_link(id=..., iam_entity_type=... | primary_ad_domain_name=...)
-from cloudconsolelink.clouds.gcp   import GCPLinker    # .get_console_link(resource_name=..., **params)
-from cloudconsolelink.clouds.oci   import OCILinker    # .get_console_link(resource_name=..., **kwargs)
+from cloudconsolelink.clouds.aws      import AWSLinker           # .get_console_link(arn=...)
+from cloudconsolelink.clouds.azure    import AzureLinker         # .get_console_link(id=..., iam_entity_type=... | primary_ad_domain_name=...)
+from cloudconsolelink.clouds.gcp      import GCPLinker           # .get_console_link(resource_name=..., **params)
+from cloudconsolelink.clouds.oci      import OCILinker           # .get_console_link(resource_name=..., **kwargs)
+from cloudconsolelink.clouds.registry import image_console_link  # image_console_link("host/repo[:tag][@digest]", **hints)
 ```
 
 ## Commands
 
 ```bash
-pip install -e '.[dev]'      # local setup (dev extras = requirements-dev.txt)
+pip install -e '.[dev]'          # dev extras = requirements-dev.txt (CI uses `uv pip install -e '.[dev]'`)
 
-make test                    # pytest tests -q
-make coverage                # + coverage report (setup.cfg: fail_under = 30)
-make test-arn                # AWS ARN-template coverage contract tests only
-make test-aws-links          # a few AWS link smoke tests
-make check                   # test + coverage
+make test                        # pytest tests -q
+make coverage                    # with coverage (setup.cfg: fail_under = 30)
+make test-arn                    # AWS ARN-template contract tests only
+make test-aws-links              # a few AWS link smoke tests
+make check                       # test + coverage
 
-pytest tests/test_gcp.py -k cloud_spanner_database   # run a single test
-flake8 cloudconsolelink                              # max-line-length = 120
+pytest tests/test_gcp.py -k storage_bucket    # single test
+pre-commit run --all-files                    # lint/format/typecheck: ruff (line 120), mypy, pyupgrade, reorder-python-imports, autoflake
 ```
 
-Version lives in `cloudconsolelink/__init__.py` (`__version__`); `setup.py` reads it via `exec`.
+pre-commit excludes `tests/`. CI (`.github/workflows/code-quality.yaml`) runs pre-commit + `make coverage` on PRs to `develop`.
 
-## Architecture — three dispatch styles
+## Versioning and release
 
-Each provider maps a resource identifier to a URL template, but the identifier and lookup differ. Every returned link is passed through `.replace(" ", "")` because templates are written as multi-line strings for readability.
+- `setup.py` takes the version from `git describe --tags`; `__version__` in `cloudconsolelink/__init__.py` is only the fallback when no git/tags (e.g. building from an sdist). Don't bump `__version__` to release.
+- Push to `main` triggers `release.yml`: computes next semver tag from labels on PRs merged since the last tag (`major` / `minor` label, else patch) and creates a GitHub release.
 
-**AWS — ARN-driven** (`clouds/aws/__init__.py` + `links.py`):
-- `get_console_link(arn)` splits the ARN into `prefix:partition:service:region:account:resource…`, then looks up `get_links()[service][resourceType]` — a giant nested dict in `links.py` (~1200 lines) keyed by AWS service then resource type.
-- Templates are **f-string-like strings eval'd by `_render()`** against `{"data": data, "arn": arn}`. Write them with `{data.get("region", "")}`, `{data.get("resource", "")}`, `{arn}` placeholders. An unknown expression renders to `""` (see `_render` / `_sub`).
-- `HOME_URLS` (top of `links.py`) overrides the console home only for services whose home URL doesn't match the default `https://{region}.console.aws.amazon.com/{service}/home?region={region}` pattern.
-- Fallbacks: no resource tokens, or an unsupported `resourceType`, returns the **service home link** rather than raising. A `None` template value marks a retired service.
-- Errors are typed in `clouds/aws/errors.py` — all subclass `AWSLinkerError(ValueError)`: `ARNTooShortError`, `InvalidARNError`, `InvalidPartitionError`, `InvalidServiceError`. Valid partitions: `aws`, `aws-us-gov`, `aws-cn`.
+## Architecture: per-provider dispatch
 
-**GCP / OCI — resource_name-driven** (`clouds/gcp/links.py`, `clouds/oci/links.py`):
-- A `Resource` class holds **one method per resource type** (`storage_bucket`, `compute_instance`, …). `get_console_link(resource_name=...)` dispatches to `resource.<resource_name>(**params)`.
-- `SERVICE_HOME_MAP` in each `links.py` gives a fallback: an unknown `resource_name` falls back to the mapped `*_home` method instead of raising.
-- GCP declares every param explicitly (`build_kwargs` + a long keyword list on `get_console_link`) — adding a param means touching both. OCI is leaner: `**kwargs` + `getattr(resource, resource_name)` dispatch.
+Every provider maps an identifier to a URL template; identifier and lookup differ. Returned links have spaces stripped (`.replace(" ", "")`) because templates are written as multi-line strings.
 
-**Azure — id-driven** (`clouds/azure/__init__.py`, no `links.py`):
-- Templates are inline dicts inside `get_console_link`. IAM entities (`user`/`group`/`application`/`role`/`service_principal`/`domain`) use `iam_entity_type`; management resources use `primary_ad_domain_name` and the raw resource `id`.
+**AWS: ARN-driven** (`clouds/aws/__init__.py` + `links.py`)
+- `get_console_link(arn)` splits `prefix:partition:service:region:account:resource...`, then looks up `get_links()[service][resourceType]` in `links.py` (large nested dict). API Gateway ARNs with a leading `/` in the resource are handled as path-style.
+- Templates are rendered by `_render()` **without eval**: each `{expr}` (whitespace collapsed) is looked up in a fixed context dict (`data.get("region","")`, `data.get("resource","")`, `get_arn_string(data)`, `get_resource_path(...)`, `arn`, etc.). An expression not in that dict silently renders `""`, so new templates must use only those exact expressions, or extend the dict.
+- `HOME_URLS` (top of `links.py`) overrides service home only where it differs from `https://{region}.console.aws.amazon.com/{service}/home?region={region}`.
+- No resource tokens or unsupported `resourceType` returns the service home link instead of raising. A `None` template marks a retired service.
+- Errors in `clouds/aws/errors.py`, all subclassing `AWSLinkerError(ValueError)`. Partitions: `aws`, `aws-us-gov`, `aws-cn` (see `get_console`).
+
+**GCP / OCI: resource_name-driven** (`clouds/gcp/links.py`, `clouds/oci/links.py`)
+- `Resource` class has one method per resource type (`storage_bucket`, `compute_instance`, ...).
+- `SERVICE_HOME_MAP` in each `links.py`: unknown `resource_name` falls back to a mapped `*_home` method instead of raising.
+- GCP declares every param explicitly: `build_kwargs` + the long keyword list on `GCPLinker.get_console_link` + a `resources` dict registering each method. OCI uses `**kwargs` and `getattr(resource, resource_name)`.
+
+**Azure: id-driven** (`clouds/azure/__init__.py`, no `links.py`)
+- Templates inline in `get_console_link`. IAM entities use `iam_entity_type`; management resources use the raw resource `id` + `primary_ad_domain_name`.
+
+**Registry: hostname-driven** (`clouds/registry/__init__.py`, design in `docs/oci-images/spec.md`; "OCI" there means Open Container Initiative, not Oracle)
+- `parse_image_ref` -> `ImageRef(host, repository, tag, digest)`; `classify(host)` -> family key; `_BUILDERS[family]` builds the link.
+- Repo-level links delegate to `AWSLinker` / `GCPLinker` rather than duplicating URLs; only image/digest drill-ins and providers without a linker (Docker Hub, ECR Public, OCIR, ACR) build URLs directly. ACR needs `subscription_id` + `resource_group` hints, else falls back to a browse page. Unknown host falls back to Docker Hub search.
 
 ## Adding a resource
 
-- **AWS**: add a `service → resourceType → template` entry in `get_links()` in `links.py` (and `HOME_URLS` if its console home is non-standard).
-- **GCP**: add a method to `Resource`, register it in the `resources` dict in `clouds/gcp/__init__.py`, and add any new param to both `build_kwargs` and `get_console_link`.
-- **OCI**: add a method to `Resource` (auto-dispatched by name).
+- **AWS**: add `service -> resourceType -> template` to `get_links()` in `links.py` (plus `HOME_URLS` if home is non-standard). Run `make test-arn`.
+- **GCP**: add a `Resource` method, register it in the `resources` dict in `clouds/gcp/__init__.py`, add any new param to both `build_kwargs` and `get_console_link`, and add a sample value to `GCP_SAMPLE_ARGS` in `tests/test_provider_coverage.py`.
+- **OCI**: add a `Resource` method (auto-dispatched); add sample args to `OCI_SAMPLE_ARGS` if it needs new params.
 
-`tests/test_provider_coverage.py` is a **coverage contract**: it reflects over `Resource` methods and AWS ARN template shapes and asserts each is reachable/exercised. A new resource that isn't wired in correctly will fail these tests — run `make test-arn` after AWS changes.
-
-
-## Token Efficiency (MANDATORY)
-
-Token optimization is not optional. Use every tool below on every session.
-
-### Setup — Install All Tools
-
-Check and install once per machine:
-
-```bash
-# 1. caveman — terse communication style plugin
-claude plugin install caveman@caveman
-
-# 2. code-review-graph — structural code knowledge graph
-pip install code-review-graph
-code-review-graph --version   # verify: code-review-graph X.Y.Z
-# then build the graph for this repo:
-code-review-graph build .
-```
-
-lean-ctx (the `ctx_*` context runtime) is configured globally — see the lean-ctx section in `~/.claude/CLAUDE.md`; it auto-installs on demand. After install, restart Claude Code to activate plugins.
-
-### Communication Style — Caveman Mode
-
-Respond terse. Drop: articles (a/an/the), filler (just/really/basically/actually), pleasantries (sure/certainly/happy to), hedging. Fragments OK. Short synonyms (fix not "implement a solution for"). Technical terms exact. Code blocks unchanged.
-
-Auto-expand ONLY for: security warnings, irreversible action confirmations, user confusion.
-
-### lean-ctx — Context Window Protection
-
-Raw tool output floods context. Prefer the `ctx_*` tools over native equivalents — full config + tool list live in the lean-ctx section of `~/.claude/CLAUDE.md`. Shadow mode auto-routes native file/search/shell calls to `ctx_*`, so most of this is transparent; only the printed summary enters context.
-
-| Native | Use instead | Why |
-|--------|-------------|-----|
-| Read / cat | `ctx_read` | Cached, re-reads ~13 tokens; modes: full / map / signatures / lines:N-M |
-| Grep / rg | `ctx_search` | Compact results |
-| Bash / Shell | `ctx_shell` | 95+ compression patterns; also the reliable path when plain Bash trips the eval-wrapping sandbox guard |
-| ls / find | `ctx_tree` | Compact directory maps |
-| — | `ctx_compose` | Orient FIRST — bundles search + read + symbols in one call |
-
-Native Edit/Write stay unchanged; if Edit is denied by a Read deny rule, use `ctx_patch`.
-
-### MCP Tools: code-review-graph
-
-**ALWAYS use code-review-graph tools BEFORE Grep/Glob/Read.** Faster, cheaper, gives structural context (callers, dependents, test coverage).
-
-| Tool | Use when |
-|------|----------|
-| `detect_changes` | Code review — risk-scored analysis |
-| `get_review_context` | Source snippets — token-efficient |
-| `get_impact_radius` | Blast radius of a change |
-| `get_affected_flows` | Impacted execution paths |
-| `query_graph` | Trace callers/callees/imports/tests |
-| `semantic_search_nodes` | Find functions/classes by name/keyword |
-| `get_architecture_overview` | High-level structure |
-| `refactor_tool` | Renames, dead code |
-
-Fallback to Grep/Glob/Read only when graph insufficient. Graph auto-updates on file changes.
+`tests/test_provider_coverage.py` is a coverage contract: it reflects over every `Resource` method and AWS ARN template shape and asserts each is reachable, returns a console URL, and validates required params. A resource not wired in correctly fails there.
